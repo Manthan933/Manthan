@@ -132,15 +132,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/aavishkarmishra/manthan.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/Manthan933/Manthan.svg?style=flat-square
 [contributors-url]: https://github.com/Manthan933/Manthan/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/aavishkarmishra/manthan.svg?style=flat-square
+[forks-shield]: https://img.shields.io/github/forks/Manthan933/Manthan.svg?style=flat-square
 [forks-url]: https://github.com/Manthan933/Manthan/network/members
-[stars-shield]: https://img.shields.io/github/stars/aavishkarmishra/manthan.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/Manthan933/Manthan.svg?style=flat-square
 [stars-url]: https://github.com/Manthan933/Manthan/stargazers
-[issues-shield]: https://img.shields.io/github/issues/aavishkarmishra/manthan.svg?style=flat-square
+[issues-shield]: https://img.shields.io/github/issues/Manthan933/Manthan.svg?style=flat-square
 [issues-url]: https://github.com/Manthan933/Manthan/issues
-[license-shield]: https://img.shields.io/github/license/aavishkarmishra/manthan.svg?style=flat-square
+[license-shield]: https://img.shields.io/github/license/Manthan933/Manthan.svg?style=flat-square
 [license-url]: https://github.com/Manthan933/Manthan/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
