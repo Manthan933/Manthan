@@ -31,11 +31,10 @@
   * [Description](#description)
   * [Features](#features)
   * [Built With](#built-with)
-* [Live App](#live-app)
+<!---* [Live App](#live-app)--->
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
-* [Screenshots](#screenshots)
 * [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
@@ -68,10 +67,10 @@ We will provide an android based online testing platform which can be used to co
 * [Mongodb](https://www.mongodb.com/)
 
 
-<!-- LIVE APP-->
+<!-- LIVE APP
 ## Live App 
 [Android App for students and teachers]() and [Web app for teachers to add and access classes and tests](https://manthan-app.herokuapp.com/)
-
+-->
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -80,27 +79,33 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+These are the prerequisites required to run this application.
+* Node
 * npm
-```sh
-npm install npm@latest -g
-```
-
+* docker
+* mongo-uri
 ### Installation
 
-1. Clone the manthan
+1. Clone the Manthan repository form github  
 ```sh
-git clone https://github.com/aavishkarmishra/manthan.git
+  git clone https://github.com/Manthan933/Manthan.git
+  cd Manthan
 ```
-2. Install NPM packages
-```sh
-npm install
-```
+2. Get the mongo-uri from [MongoDB-Atlas](https://www.mongodb.com/cloud/atlas) and create .env file in server ( refer [.env.example](server/.env.example) )
 
+2.  To run the application in development server
+```sh
+  docker-compose build
+  docker-copmose up
+```
+3. To stop the docker container : 
+``` sh
+  docker-compose down
+``` 
 
 
 <!-- USAGE EXAMPLES -->
-## Screenshots
+<!-- ## Screenshots -->
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -127,6 +132,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Author
 
 ### [Aavishkar Mishra](https://github.com/aavishkarmishra)
+
+
+[<img src="https://image.flaticon.com/icons/svg/185/185964.svg" width="35" padding="10">](https://www.linkedin.com/in/aavishkarmishra/)
+[<img src="https://www.flaticon.com/svg/static/icons/svg/1312/1312142.svg" width="35" padding="10">](https://www.twitter.com/aavishkarmishra)
+[<img src="https://image.flaticon.com/icons/svg/185/185985.svg" width="35" padding="10">](https://www.instagram.com/aavishkarmishra/)
 
 
 
