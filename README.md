@@ -1,19 +1,19 @@
 <p align="center">
-  <a href="https://github.com/aavishkarmishra/manthan">
+  <a href="https://github.com/Manthan933">
     <img src="https://avatars3.githubusercontent.com/u/74331410?s=400&u=7b6f3cd00fcf7091d337c377229c359d7c3c5639&v=4" alt="Logo" width="150">
   </a>
 
   <h3 align="center">MANTHAN</h3>
   <h3 align="center">उत्तिष्ठत जाग्रत प्राप्य वरान्निबोधत।</h3>
   <p align="center">
-    <a href="https://github.com/aavishkarmishra/manthan"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Manthan933/manthan"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://manthan-app.herokuapp.com/">View Demo</a>
     ·
-    <a href="https://github.com/aavishkarmishra/manthan/issues">Report Bug</a>
+    <a href="https://github.com/Manthan933/Manthan/issues">Report Bug</a>
     ·
-    <a href="https://github.com/aavishkarmishra/manthan/issues">Request Feature</a>
+    <a href="https://github.com/Manthan933/Manthan/issues">Request Feature</a>
   </p>
 </p>
 
@@ -142,16 +142,16 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/aavishkarmishra/manthan.svg?style=flat-square
-[contributors-url]: https://github.com/aavishkarmishra/manthan/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/aavishkarmishra/manthan.svg?style=flat-square
-[forks-url]: https://github.com/aavishkarmishra/manthan/network/members
-[stars-shield]: https://img.shields.io/github/stars/aavishkarmishra/manthan.svg?style=flat-square
-[stars-url]: https://github.com/aavishkarmishra/manthan/stargazers
-[issues-shield]: https://img.shields.io/github/issues/aavishkarmishra/manthan.svg?style=flat-square
-[issues-url]: https://github.com/aavishkarmishra/manthan/issues
-[license-shield]: https://img.shields.io/github/license/aavishkarmishra/manthan.svg?style=flat-square
-[license-url]: https://github.com/aavishkarmishra/manthan/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Manthan933/Manthan.svg?style=flat-square
+[contributors-url]: https://github.com/Manthan933/Manthan/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Manthan933/Manthan.svg?style=flat-square
+[forks-url]: https://github.com/Manthan933/Manthan/network/members
+[stars-shield]: https://img.shields.io/github/stars/Manthan933/Manthan.svg?style=flat-square
+[stars-url]: https://github.com/Manthan933/Manthan/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Manthan933/Manthan.svg?style=flat-square
+[issues-url]: https://github.com/Manthan933/Manthan/issues
+[license-shield]: https://img.shields.io/github/license/Manthan933/Manthan.svg?style=flat-square
+[license-url]: https://github.com/Manthan933/Manthan/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
 [product-screenshot]: images/screenshot.png
