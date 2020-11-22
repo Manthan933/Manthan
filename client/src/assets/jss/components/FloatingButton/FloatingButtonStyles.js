@@ -1,8 +1,11 @@
 const FloatingButtonStyles = (theme) => ({
     addicon:{
-      position: 'absolute',
-      bottom: theme.spacing(3),
-      right: theme.spacing(3),
+      margin: 0,
+      top: 'auto',
+      right: 20,
+      bottom: 20,
+      left: 'auto',
+      position: 'fixed',
     },
   })
 
