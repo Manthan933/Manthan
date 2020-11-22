@@ -21,6 +21,10 @@ const NavbarStyles = (theme) => ({
       pos: {
         fontWeight: 'bolder',
       },
+      menu: {
+         top: 50,  
+      },
+
   })
 
 export default NavbarStyles
