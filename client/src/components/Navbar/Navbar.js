@@ -18,14 +18,19 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 import Styles from '../../assets/jss/components/Navbar/NavbarStyles';
-import Login from './LoginMenu';
+import Login from './Login';  
+
+import Logout from './Logout';
+
+const CLIENT_ID = '928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com';
 
 const useStyles = makeStyles(Styles);
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({left: false});
-  const [openlist, setOpen] = React.useState(false);
+  const [openlist, setOpen] = React.useState(false)
+  const [auth, setAuth] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!openlist);
@@ -44,7 +49,15 @@ export default function MenuAppBar() {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>Manthan</Typography>
-          <Login/>
+
+
+          {
+            auth?
+            <Logout clientId={CLIENT_ID} user={props.user} setAuth = {setAuth} />
+            :
+            <Login clientId={CLIENT_ID} setUser={props.setUser} setAuth = {setAuth}/>
+          }
+          
         </Toolbar>
       </AppBar>
       <Drawer className={classes.list} open={state['left']} onClose={toggleDrawer(false)} role="presentation">

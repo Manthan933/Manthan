@@ -4,10 +4,9 @@ const Users = require ('../../controllers/users');
 
 const router = express.Router();
 
-router.get('/', Users.getAll);
+router.get('/:email', Users.get);
+router.get('/:id/class', Users.getClasses);
 router.post('/', Users.create);
-router.get('/:email', Users.getOne);
 router.patch('/:id', Users.update);
-router.delete('/:id', Users.deleteOne);
 
 module.exports = router;

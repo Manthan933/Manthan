@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
 import { BrowserRouter,Switch, Route } from "react-router-dom";
 
-import Navbar from '../components/Navbar/Navbar';
-import Main from './main/Main'
+import Main from './main/Main';
+import Class from './classroom/Classroom';
+import Test from './tests/Test';
 
 import axios from 'axios';
 
-class App extends Component {
-
-  render() {
+export default function App () {
     return (
       <div className="home">
-        <Navbar/>
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact render={(props) => ( <Main {...props} />)} />
+            <Route path="/" render={(props)=>(<Main {...props}/>)}/>
+            <Route path="/:user/:class" render={(props)=>(<Class {...props}/>)}/>
+            <Route path="/:user/:class/:test" render={(props)=>(<Test {...props}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>
     );
   }
-}
-
-export default App;

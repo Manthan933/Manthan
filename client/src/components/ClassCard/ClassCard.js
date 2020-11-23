@@ -5,11 +5,18 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
+import image from '../../assets/images/5.jpg';
+
 const useStyles = makeStyles((theme)=>({
   root: {
-    maxWidth: 275,
-    minWidth:275,
+    maxWidth: 300,
+    minHeight: 220,
+    maxHeight: 220,
+    minWidth:300,
     margin: theme.spacing(2),
+    borderRadius: '5px',
+    background: 'linear-gradient(225deg, #e6e6e6, #ffffff)',
+    boxShadow:  '-5px 5px 10px #b3b3b3, 5px -5px 10px #ffffff',
   },
   title: {
     fontWeight:"bold",
@@ -21,7 +28,9 @@ const useStyles = makeStyles((theme)=>({
     color:"white",
   },
   body:{
-      backgroundColor: "grey",
+      backgroundImage: `url(`+image+`)`,
+      backgroundColor:"#00000070",
+      backgroundBlendMode:"darken",   
       padding:theme.spacing(3),
       paddingBottom:0,
       
@@ -42,15 +51,15 @@ const useStyles = makeStyles((theme)=>({
   }
 }));
 
-export default function SimpleCard() {
+export default function SimpleCard(props) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
           <div className={classes.body}>
-            <Typography className={classes.title} variant="h5" component="a" href="/" gutterBottom color="textPrimary">
-            Word of the Daya
+            <Typography className={classes.title} variant="h5" component="a" href={`/${props.Class._id}`} gutterBottom color="textPrimary">
+            {props.Class.name}
             </Typography>
           
         <Typography className={classes.pos} color="textSecondary">
