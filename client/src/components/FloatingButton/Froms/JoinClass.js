@@ -12,6 +12,11 @@ export default function FormDialog(props) {
   const handleClose = () => {
     props.setOpen(false);
   };
+  const handleClick = () => {
+    const code = document.getElementById('code').value;
+    props.joinClass(code)
+    props.setOpen(false);
+  }
 
   return (
     <div>
@@ -25,17 +30,16 @@ export default function FormDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="code"
             label="Email Address"
-            type="email"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button color="primary">
+          <Button  onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button color="primary">
+          <Button onClick={handleClick} color="primary">
             Subscribe
           </Button>
         </DialogActions>

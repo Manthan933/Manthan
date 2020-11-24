@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 
 const ClassroomSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  code: { type: String, required: true },
+  subcode: { type: String, required: true , default:""},
+  subject : { type : String, required : true, default:""},
+  image : { type : String, required : true, default:""},
+  code:{type: String, required: true, unique: true},
   instructor: { type: String, required: true },
-  tests: { type: Array, default:[] },
   users: { type: Array, default:[] },
 });
 

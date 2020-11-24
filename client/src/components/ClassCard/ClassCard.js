@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-
+ 
 import image from '../../assets/images/5.jpg';
 
 const useStyles = makeStyles((theme)=>({
@@ -22,22 +22,20 @@ const useStyles = makeStyles((theme)=>({
     fontWeight:"bold",
     color:"white",
   },
-  pos: {
-    marginTop:theme.spacing(2),
-    fontSize:"small",
+  pos: {  
+    paddingTop:theme.spacing(2),
     color:"white",
   },
   body:{
-      backgroundImage: `url(`+image+`)`,
-      backgroundColor:"#00000070",
-      backgroundBlendMode:"darken",   
-      padding:theme.spacing(3),
-      paddingBottom:0,
-      
+    backgroundImage: `url(`+image+`)`,
+    backgroundColor:"#00000070",
+    backgroundBlendMode:"darken",   
+    padding:theme.spacing(3),
+    paddingBottom:0, 
   },
   content:{
-      padding:0,
-      position:'relative',
+    padding:0,
+    position:'relative',
   },
   details:{
     padding:theme.spacing(2),
@@ -53,7 +51,6 @@ const useStyles = makeStyles((theme)=>({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
@@ -63,15 +60,18 @@ export default function SimpleCard(props) {
             </Typography>
           
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          {props.Class.instructor}
         </Typography></div>
-        <Avatar className={classes.avatar}/>
+        <Avatar className={classes.avatar} src={props.Class.image}/>
         <div className={classes.details}>
-        <Typography variant="body2" component="p">
-          Subject: sadjf;
+        <Typography variant="body1" component="p">
+          Subject: {props.Class.subject}
         </Typography>
-        <Typography variant="body2" component="p">
-          Code: salkj;d
+        <Typography variant="body1" component="p">
+          Subject Code: {props.Class.subcode}
+        </Typography>
+        <Typography variant="body1" component="p">
+          Class Code: {props.Class.code}
         </Typography>
         </div>
       </CardContent>

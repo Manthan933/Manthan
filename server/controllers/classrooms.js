@@ -1,63 +1,47 @@
 const mongoose = require('mongoose');
-
+const Otp = require('otp-generator');
 const Classroom = require('../models/classrooms.model');
-const Test = require ('../models/tests.model');
 
 const get = async (req, res) => { 
-  const id = req.params;
+  const {id} = req.params;
   try{
-    const Class = await Classroom.findById(id);
-    res.status(200).json(Classrooms);
+    const Class = await Classroom.findOne({code:id});
+    res.status(200).json(Class);
   } 
   catch(error){
     res.status(404).json({ message: error.message });
   }
 }
 
-const getTests = async (req, res) => { 
-  const id = req.params;
+const getClasses = async (req, res) => { 
+  const {id} = req.params;
   try{
-    const Class = await Classroom.findById(id);
-    let Tests = [];
-    for (let index = 0; index < Class.tests.length; index++) {
-      const test = await Test.findById(Class.tests[index])
-      Tests = [...Tests, test];
-    }
-    res.status(200).json(Tests);
-  }
-  catch (error){
-    res.status(404).json({ message: error.message });
-  }
-}
-
-const getUsers = async (req,res) =>{
-  const id = req.params;
-  try{
-    const Class = await Classroom.findById(id);
-    res.status(200).json(Classroom.users);
-  }catch (error) {
+    const Class = await Classroom.find({users: id});
+    res.status(200).json(Class);
+  } 
+  catch(error){
     res.status(404).json({ message: error.message });
   }
 }
 
 const create = async (req, res) => {
-  const { name, code, instructor, tests, users } = req.body;
-  const newClassroom = new Classroom({ name, code, instructor, tests, users })
+  const { name, subcode, subject, instructor, users, image } = req.body;
+  const code = Otp.generate(6,{specialChars:false});
+  const newClassroom = new Classroom({ name, subcode, subject, code, instructor, users, image })
   try {
     await newClassroom.save();
     res.status(201).json(newClassroom );
-  } catch (error) {
+  } catch (error) { 
     res.status(409).json({ message: error.message });
   }
 }
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { name, code, instructor, tests, users } = req.body;
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Class with id: ${id}`);
-  const updatedClass = { name, code, instructor, tests, users, _id: id };
-  await Classroom.findByIdAndUpdate(id, updatedClass, { new: true });
-  res.json(updatedClass);
+  const { userId } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
+  const updatedUser = await Classroom.findByIdAndUpdate(id, {$push:{users: userId}}, { new: true });
+  res.json(updatedUser);
 }
 
 const deleteOne = async (req, res) => {
@@ -67,4 +51,4 @@ const deleteOne = async (req, res) => {
     res.json({ message: "Class deleted successfully." });
 }
 
-module.exports = {get, getTests, getUsers, create, update, deleteOne};
+module.exports = {get, getClasses, create, update, deleteOne};

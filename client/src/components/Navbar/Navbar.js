@@ -19,7 +19,6 @@ import Typography from '@material-ui/core/Typography';
 
 import Styles from '../../assets/jss/components/Navbar/NavbarStyles';
 import Login from './Login';  
-
 import Logout from './Logout';
 
 const CLIENT_ID = '928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com';
@@ -29,12 +28,8 @@ const useStyles = makeStyles(Styles);
 export default function MenuAppBar(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({left: false});
-  const [openlist, setOpen] = React.useState(false)
   const [auth, setAuth] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(!openlist);
-  };
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -49,19 +44,16 @@ export default function MenuAppBar(props) {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>Manthan</Typography>
-
-
           {
             auth?
-            <Logout clientId={CLIENT_ID} user={props.user} setAuth = {setAuth} />
+            <Logout clientId={CLIENT_ID} user={props.user} setClasses={props.setClasses} setUser={props.setUser} setAuth = {setAuth} />
             :
             <Login clientId={CLIENT_ID} setUser={props.setUser} setAuth = {setAuth}/>
           }
-          
         </Toolbar>
       </AppBar>
       <Drawer className={classes.list} open={state['left']} onClose={toggleDrawer(false)} role="presentation">
-        <List  className={classes.list}t>
+        <List  className={classes.list}>
           <ListItem button component='a' href = '/' >
             <ListItemIcon><HomeRoundedIcon/></ListItemIcon>
             <ListItemText>Home</ListItemText>
@@ -69,22 +61,16 @@ export default function MenuAppBar(props) {
         </List>
         <Divider />
         <List component="nav" aria-labelledby="list-subheader" subheader={<ListSubheader component="div" id="list-subheader"> Enrolled </ListSubheader>}>
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
-              <ListItemText primary="Classroom" />
-          </ListItem>
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
-              <ListItemText primary="Classroom" />
-          </ListItem>
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
-              <ListItemText primary="Classroom" />
-          </ListItem>
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
-              <ListItemText primary="Classroom" />
-          </ListItem>
+          {
+            props.Classes.map((Class)=>{
+              return(
+              <ListItem key={Class._id} component="a" href={`/${Class._id}`} color="textPrimary">
+              <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
+                <ListItemText >{Class.name}</ListItemText>
+              </ListItem>
+              )
+            })
+          }
         </List>
         <Divider />
         <List>

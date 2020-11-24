@@ -1,17 +1,58 @@
 import * as api from '../api/api'
-export const getUser = (user,setUser) => {
-    api.getUser(user.email)
-    .then( res => (setUser(res.data)))
-    .catch( err => {
-      api.createUser(user)
-      .then(res => (setUser(res.data))) ;
-    })
+export const getUser = async (user,setUser) => {
+  try {
+    const res = await api.getUser(user.email);
+  if(res.data){
+    setUser(res.data);
+  }
+  else{
+    const res = await api.createUser(user);
+    setUser(res.data);
+  }
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-export const getClasses = (id, setClasses) => {
-  if(id){
-    api.getClasses(id)
-    .then(res => (setClasses(res.data)))
-    .catch(err => console.log(err.message))
+export const getClasses = async (id, setClasses) => {
+  try {
+    if(id){
+      const res = await api.getClasses(id);
+      setClasses(res.data); 
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const createClass = async (Class,user,Classes, setClasses) => {
+  try {
+    const newClass = {name : Class.name, subcode: Class.subcode, subject: Class.subcode, instructor: user.username, image: user.image, users: [user._id]};
+    const res = await api.createClass(newClass);
+    console.log(res.data, newClass);
+    setClasses([...Classes,res.data])
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const getInstructor = async (id,setInstructor)=>{
+  try {
+    const res = await api.getInstructor(id);
+    setInstructor(res.data);
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const joinClass = async ( user, Classes, setClasses,classCode) => {
+  try {
+    const Class = await api.getClass(classCode);
+    const updatedUser = await api.updateUser(user._id,{classId:Class.data._id});
+    const updatedClass = await api.updateClass(Class.data._id,{userId: user._id});
+    console.log(updatedClass.data, updatedUser.data);
+    setClasses([...Classes,updatedClass.data]);
+  } catch (error) {
+    console.log(error.message);
   }
 }

@@ -9,8 +9,6 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { GoogleLogout } from 'react-google-login';
 
-
-
 const useStyles = makeStyles((theme) => ({
   profileCard:{
     textAlign: "center",
@@ -52,6 +50,8 @@ export default function SimplePopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const logout = () => {
+    props.setUser({});
+    props.setClasses([]);
     props.setAuth(false);
   };
   const handleLogoutFailure = (response)=> {
@@ -64,25 +64,24 @@ export default function SimplePopover(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
   
   return (
-      <div>
-        <IconButton aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
-          <Avatar src={props.user.image}/>
-        </IconButton>
-        <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} transformOrigin={{ vertical: 'top', horizontal: 'center' }}>
-          <Container className ={classes.profileCard}>
-            <Avatar className={classes.avatar} src={props.user.image}/>
-            <Typography className={classes.name}>{props.user.username} </Typography>
-            <Typography className={classes.email} >{props.user.email}</Typography>
-            <GoogleLogout clientId={props.clientId } icon = {false} buttonText='Login' onLogoutSuccess={ logout } onFailure={ handleLogoutFailure } render={renderProps => (<Button className={classes.button} onClick={renderProps.onClick} >Sign out</Button>)}/>
-            <Divider/>
-            <Typography className={classes.report} component="a" href="https://github.com/Manthan933/Manthan/issues/new/choose" color="textSecondary">Report an issue !</Typography>
-          </Container>
-        </Popover>
-      </div>
+    <div>
+      <IconButton aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
+        <Avatar src={props.user.image}/>
+      </IconButton>
+      <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} transformOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <Container className ={classes.profileCard}>
+          <Avatar className={classes.avatar} src={props.user.image}/>
+          <Typography className={classes.name}>{props.user.username} </Typography>
+          <Typography className={classes.email} >{props.user.email}</Typography>
+          <GoogleLogout clientId={props.clientId } icon = {false} buttonText='Login' onLogoutSuccess={ logout } onFailure={ handleLogoutFailure } render={renderProps => (<Button className={classes.button} onClick={renderProps.onClick} >Sign out</Button>)}/>
+          <Divider/>
+          <Typography className={classes.report} component="a" href="https://github.com/Manthan933/Manthan/issues/new/choose" color="textSecondary">Report an issue !</Typography>
+        </Container>
+      </Popover>
+    </div>
   );
 }

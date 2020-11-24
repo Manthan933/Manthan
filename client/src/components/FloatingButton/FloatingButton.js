@@ -35,7 +35,7 @@ export default function FloatingButton(props) {
   };
 
   const handleCreateClass = () => {
-    setJoinClass(true);
+    setCreateClass(true);
     setAnchorEl(null);
   };
   
@@ -59,8 +59,8 @@ export default function FloatingButton(props) {
           </ListItem>
         </List>
       </Popover>
-      <JoinClass open = {joinClass} setOpen = {setJoinClass}/>
-      <CreateClass open = {createClass} setOpen = {setCreateClass} />
+      <JoinClass open = {joinClass} setOpen = {setJoinClass} joinClass = {props.JoinClass}/>
+      <CreateClass open = {createClass} setOpen = {setCreateClass} createClass = {props.CreateClass} />
     </div>
   );
 }

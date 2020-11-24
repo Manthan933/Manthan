@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-
-const User = require('../models/users.model');
-const Classroom = require('../models/classrooms.model'); 
+const User = require('../models/users.model'); 
 
 const get = async (req, res) => { 
   const { email } = req.params;
@@ -14,17 +12,23 @@ const get = async (req, res) => {
   }
 }
 
-const getClasses = async (req, res) => { 
+const getId = async (req, res) => { 
   const { id } = req.params;
   try{
-    const user = await User.findById(id);
-    let Classes = [];
-    for (let index = 0; index < user.classrooms.length; index++) {
-      const Class = await Classroom.findById(user.classrooms[index]);
-      Classes = [...Classes, Class];
-    }
-    res.status(200).json(Classes);
+    const user = await User.findById(id); 
+    res.status(200).json(user);
   } 
+  catch (error){
+    res.status(404).json({ message: error.message });
+  }
+}
+
+const getUsers = async (req, res) => { 
+  const { id } = req.params;
+    try{
+      const users = await User.find({classrooms:id});
+      res.status(users);
+    } 
   catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -44,11 +48,10 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { username, email, classrooms, image } = req.body;
+  const { classId } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No user with id: ${id}`);
-  const updatedUser = { username, email, image, classrooms, _id: id };
-  await User.findByIdAndUpdate(id, updatedUser, { new: true });
+  const updatedUser = await User.findByIdAndUpdate(id, {$push:{classrooms: classId}}, { new: true });
   res.json(updatedUser);
 }
 
-module.exports = { get, getClasses, create, update};
+module.exports = { get, getId, getUsers, create, update};
