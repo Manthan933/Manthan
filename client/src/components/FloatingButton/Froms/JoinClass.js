@@ -21,17 +21,16 @@ export default function FormDialog(props) {
   return (
     <div>
       <Dialog open={props.open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Join class</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            Ask your teacher for the class code, then enter it here.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="code"
-            label="Email Address"
+            label="Class Code"
             fullWidth
           />
         </DialogContent>
@@ -40,7 +39,7 @@ export default function FormDialog(props) {
             Cancel
           </Button>
           <Button onClick={handleClick} color="primary">
-            Subscribe
+            Join
           </Button>
         </DialogActions>
       </Dialog>

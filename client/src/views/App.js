@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter,Switch, Route } from "react-router-dom";
 
 import Main from './main/Main';
@@ -10,9 +10,9 @@ export default function App () {
     <div className = "home">
       <BrowserRouter>
         <Switch>
-          <Route path="/" render={(props)=>(<Main {...props}/>)}/>
-          <Route path="/:user/:class" render={(props)=>(<Class {...props}/>)}/>
-          <Route path="/:user/:class/:test" render={(props)=>(<Test {...props}/>)}/>
+          <Route path="/" exact render={(props)=>(<Main {...props}/>)}/>
+          <Route path="/:class" render={(props)=>(<Class {...props}/>)}/>
+          <Route path="/:class/:test" render={(props)=>(<Test {...props}/>)}/>
         </Switch>
       </BrowserRouter>
     </div>

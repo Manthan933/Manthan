@@ -24,6 +24,9 @@ const NavbarStyles = (theme) => ({
       menu: {
          top: 50,  
       },
+      classLink:{
+        color: 'inherit'
+      }
 
   })
 

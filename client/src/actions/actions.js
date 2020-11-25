@@ -27,9 +27,8 @@ export const getClasses = async (id, setClasses) => {
 
 export const createClass = async (Class,user,Classes, setClasses) => {
   try {
-    const newClass = {name : Class.name, subcode: Class.subcode, subject: Class.subcode, instructor: user.username, image: user.image, users: [user._id]};
+    const newClass = {name : Class.name, subcode: Class.subcode, subject: Class.subject, instructor: user.username, image: user.image, users: [user._id]};
     const res = await api.createClass(newClass);
-    console.log(res.data, newClass);
     setClasses([...Classes,res.data])
   } catch (error) {
     console.log(error.message);
@@ -48,9 +47,8 @@ export const getInstructor = async (id,setInstructor)=>{
 export const joinClass = async ( user, Classes, setClasses,classCode) => {
   try {
     const Class = await api.getClass(classCode);
-    const updatedUser = await api.updateUser(user._id,{classId:Class.data._id});
+    await api.updateUser(user._id,{classId:Class.data._id});
     const updatedClass = await api.updateClass(Class.data._id,{userId: user._id});
-    console.log(updatedClass.data, updatedUser.data);
     setClasses([...Classes,updatedClass.data]);
   } catch (error) {
     console.log(error.message);

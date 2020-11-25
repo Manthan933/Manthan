@@ -16,7 +16,6 @@ export default function FormDialog(props) {
     const name = document.getElementById('name').value;
     const subject = document.getElementById('subject').value;
     const subcode = document.getElementById('subcode').value;
-    console.log({name:name, subject: subject, subcode:subcode});
     props.createClass({name:name, subject: subject, subcode:subcode})
     props.setOpen(false);
   }

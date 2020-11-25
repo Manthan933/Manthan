@@ -64,9 +64,9 @@ export default function MenuAppBar(props) {
           {
             props.Classes.map((Class)=>{
               return(
-              <ListItem key={Class._id} component="a" href={`/${Class._id}`} color="textPrimary">
+              <ListItem key={Class._id} className={classes.classLink} component="a" href={`/${Class._id}`}>
               <ListItemIcon><ClassRoundedIcon/></ListItemIcon>
-                <ListItemText >{Class.name}</ListItemText>
+                <ListItemText color="textPrimary" >{Class.name}</ListItemText>
               </ListItem>
               )
             })
