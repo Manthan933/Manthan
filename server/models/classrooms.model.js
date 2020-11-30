@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ClassroomSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  subcode: { type: String, required: true , default:""},
-  subject : { type : String, required : true, default:""},
-  image : { type : String, required : true, default:""},
-  code:{type: String, required: true, unique: true},
+  subcode: { type: String, required: true, default: "" },
+  subject: { type: String, required: true, default: "" },
+  image: { type: String, required: true, default: "" },
+  code: { type: String, required: true, unique: true },
   instructor: { type: String, required: true },
-  users: { type: Array, default:[] },
+  users: { type: Array, default: [] },
 });
 
-module.exports = mongoose.model('Classroom', ClassroomSchema);
+module.exports = mongoose.model("Classroom", ClassroomSchema);

@@ -23,32 +23,33 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Description](#description)
-  * [Features](#features)
-  * [Built With](#built-with)
-<!---* [Live App](#live-app)--->
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
-
-
+- [About the Project](#about-the-project)
+  - [Description](#description)
+  - [Features](#features)
+  - [Built With](#built-with)
+  <!---* [Live App](#live-app)--->
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 ### Description
+
 We will provide an android based online testing platform which can be used to conduct tests wrapped with all necessary precautions to reduce the chances of cheating. Here the educator will can create classes and test on web portal and all the questions will be randomly distributed among the students resulting in large number of sets.
 
 ### Features
+
 - A secure platform for online testing.
 - Interactive and easy to use.
 - Grades can be accessed/ changed even after the completion of test.
@@ -62,17 +63,17 @@ We will provide an android based online testing platform which can be used to co
 
 ### Built With
 
-* [ReactJs](https://reactjs.org/)
-* [Expressjs](https://expressjs.com/)
-* [Mongodb](https://www.mongodb.com/)
-
+- [ReactJs](https://reactjs.org/)
+- [Expressjs](https://expressjs.com/)
+- [Mongodb](https://www.mongodb.com/)
 
 <!-- LIVE APP
-## Live App 
+## Live App
 [Android App for students and teachers]() and [Web app for teachers to add and access classes and tests](https://manthan-app.herokuapp.com/)
 -->
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -80,34 +81,41 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 These are the prerequisites required to run this application.
-* Node
-* npm
-* docker
-* mongo-uri
+
+- Node
+- npm
+- docker
+- mongo-uri
+
 ### Installation
 
-1. Clone the Manthan repository form github  
+1. Clone the Manthan repository form github
+
 ```sh
   git clone https://github.com/Manthan933/Manthan.git
   cd Manthan
 ```
+
 2. Get the mongo-uri from [MongoDB-Atlas](https://www.mongodb.com/cloud/atlas) and create .env file in server ( refer [.env.example](server/.env.example) )
 
-2.  To run the application in development server
+3. To run the application in development server
+
 ```sh
   docker-compose build
   docker-copmose up
 ```
-3. To stop the docker container : 
-``` sh
-  docker-compose down
-``` 
 
+3. To stop the docker container :
+
+```sh
+  docker-compose down
+```
 
 <!-- USAGE EXAMPLES -->
 <!-- ## Screenshots -->
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -118,14 +126,11 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 <!-- CONTACT -->
 
@@ -133,15 +138,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ### [Aavishkar Mishra](https://github.com/aavishkarmishra)
 
-
 [<img src="https://image.flaticon.com/icons/svg/185/185964.svg" width="35" padding="10">](https://www.linkedin.com/in/aavishkarmishra/)
 [<img src="https://www.flaticon.com/svg/static/icons/svg/1312/1312142.svg" width="35" padding="10">](https://www.twitter.com/aavishkarmishra)
 [<img src="https://image.flaticon.com/icons/svg/185/185985.svg" width="35" padding="10">](https://www.instagram.com/aavishkarmishra/)
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/Manthan933/Manthan.svg?style=flat-square
 [contributors-url]: https://github.com/Manthan933/Manthan/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Manthan933/Manthan.svg?style=flat-square
@@ -155,4 +158,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
 [product-screenshot]: images/screenshot.png
-

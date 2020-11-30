@@ -3,10 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import Navbar from '../../components/Navbar/Navbar';
 import FloatingButton from '../../components/FloatingButton/FloatingButton';
 import ClassCard from '../../components/ClassCard/ClassCard';
-import {getClasses, createClass, joinClass} from '../../actions/actions'; 
+import {createClass, joinClass} from '../../actions/actions'; 
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,27 +39,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SpacingGrid(){
+export default function SpacingGrid(props){
   const classes = useStyles();
-  const [user, setUser] = React.useState({});
-  const [Classes, setClasses] = React.useState([]);
-  React.useEffect(() => {getClasses(user._id,setClasses)}, [user])
-
   const CreateClass = (newClass) =>{
-    createClass(newClass,user, Classes, setClasses)
+    createClass(newClass,props.user, props.Classes, props.setClasses)
   }
   const JoinClass = (classCode) => {
-    joinClass(user, Classes, setClasses, classCode);
+    joinClass(props.user, props.Classes, props.setClasses, classCode);
   }
 
   return (
     <div>
-    <Navbar user={user} setUser={setUser} Classes = {Classes} setClasses={setClasses}/>
-    <Container className={classes.root}>
-      {Classes.length? 
+   <Container className={classes.root}>
+      {props.Classes.length? 
       <Grid container className={classes.classContainer} spacing={5}>
-        {Classes.map((Class,key)=>{
-          return(<ClassCard key={key} Class={Class} admin={user._id===Class.instructor? true:false}/>);
+        {props.Classes.map((Class,key)=>{
+          return(<ClassCard key={key} Class={Class} admin={props.user._id===Class.instructor? true:false}/>);
         })}
       </Grid>:
       <Grid container justify="center" spacing={5}>
