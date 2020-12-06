@@ -4,11 +4,11 @@ const Tests = require("../controllers/tests");
 
 const router = express.Router();
 
-router.get("/", Tests.getAll);
-router.post("/", Tests.create);
-router.get("/:id", Tests.getOne);
-router.patch("/:id", Tests.update);
-router.delete("/:id", Tests.deleteOne);
-router.get("/:id/start", Tests.generate);
+router.post("/", Tests.Create);
+router.get("/:id", Tests.Get);
+router.patch("/:id", Tests.Update);
+router.delete("/:id", Tests.Delete);
+router.get("/:id/start", Tests.Generate);
 
 module.exports = router;
+ 

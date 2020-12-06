@@ -10,8 +10,8 @@ import Popover from "@material-ui/core/Popover";
 import Tooltip from "@material-ui/core/Tooltip";
 
 import Styles from "../../assets/jss/components/FloatingButton/FloatingButtonStyles";
-import JoinClass from "./Froms/JoinClass";
-import CreateClass from "./Froms/CreateClass";
+import JoinClass from "../Froms/JoinClass";
+import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles(Styles);
 
@@ -49,39 +49,12 @@ export default function FloatingButton(props) {
           className={classes.addicon}
           aria-describedby={id}
           color="secondary"
-          onClick={handleClick}
+          href = {props.href}
           aria-label="add"
         >
           <AddIcon />
         </Fab>
       </Tooltip>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "center", horizontal: "left" }}
-        transformOrigin={{ vertical: "center", horizontal: "right" }}
-      >
-        <List component="nav" aria-label="main mailbox folders">
-          <ListItem button onClick={handleJoinClass}>
-            <ListItemText primary="Join Class" />
-          </ListItem>
-          <ListItem button onClick={handleCreateClass}>
-            <ListItemText primary="Create Class" />
-          </ListItem>
-        </List>
-      </Popover>
-      <JoinClass
-        open={joinClass}
-        setOpen={setJoinClass}
-        joinClass={props.JoinClass}
-      />
-      <CreateClass
-        open={createClass}
-        setOpen={setCreateClass}
-        createClass={props.CreateClass}
-      />
     </div>
   );
 }

@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 const Otp = require("otp-generator");
 const Classroom = require("../models/classrooms.model");
 
-const get = async (req, res) => {
-  const { id } = req.params;
+const Get = async (req, res) => {
+  const { code } = req.params;
   try {
-    const Class = await Classroom.findOne({ code: id });
+    const Class = await Classroom.findOne({ code: code });
     res.status(200).json(Class);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
-const getClasses = async (req, res) => {
+const GetClasses = async (req, res) => {
   const { id } = req.params;
   try {
     const Class = await Classroom.find({ users: id });
@@ -22,7 +22,7 @@ const getClasses = async (req, res) => {
   }
 };
 
-const create = async (req, res) => {
+const Create = async (req, res) => {
   const { name, subcode, subject, instructor, users, image } = req.body;
   const code = Otp.generate(6, { specialChars: false });
   const newClassroom = new Classroom({
@@ -42,7 +42,20 @@ const create = async (req, res) => {
   }
 };
 
-const update = async (req, res) => {
+const Join = async (req, res) => {
+  const { id } = req.params;
+  const { user } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No user with id: ${id}`);
+  const updatedClass = await Classroom.findByIdAndUpdate(
+    id,
+    { $push: { users: user } },
+    { new: true }
+  );
+  res.json(updatedClass);
+};
+
+const Leave = async (req, res) => {
   const { id } = req.params;
   const { userId } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
@@ -55,7 +68,7 @@ const update = async (req, res) => {
   res.json(updatedUser);
 };
 
-const deleteOne = async (req, res) => {
+const Delete = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No Class with id: ${id}`);
@@ -63,4 +76,4 @@ const deleteOne = async (req, res) => {
   res.json({ message: "Class deleted successfully." });
 };
 
-module.exports = { get, getClasses, create, update, deleteOne };
+module.exports = { Get, GetClasses, Create, Join, Leave, Delete };

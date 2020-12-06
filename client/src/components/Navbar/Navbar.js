@@ -21,7 +21,7 @@ import Styles from "../../assets/jss/components/Navbar/NavbarStyles";
 import Login from "./Login";
 import Logout from "./Logout";
 
-const CLIENT_ID = "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
+const CLIENTcode = "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
 
 const useStyles = makeStyles(Styles);
 
@@ -41,7 +41,7 @@ export default function MenuAppBar(props) {
   };
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static"  color="default">
         <Toolbar>
           <IconButton
             edge="start"
@@ -57,7 +57,7 @@ export default function MenuAppBar(props) {
           </Typography>
           {auth ? (
             <Logout
-              clientId={CLIENT_ID}
+              clientId={CLIENTcode}
               user={props.user}
               setClasses={props.setClasses}
               setUser={props.setUser}
@@ -65,7 +65,7 @@ export default function MenuAppBar(props) {
             />
           ) : (
             <Login
-              clientId={CLIENT_ID}
+              clientId={CLIENTcode}
               setUser={props.setUser}
               setAuth={setAuth}
             />
@@ -100,10 +100,10 @@ export default function MenuAppBar(props) {
           {props.Classes.map((Class) => {
             return (
               <ListItem
-                key={Class._id}
+                key={Class.code}
                 className={classes.classLink}
                 component="a"
-                href={`/${Class._id}`}
+                href={`/${Class.code}/${props.user.email === Class.insturctor}`}
               >
                 <ListItemIcon>
                   <ClassRoundedIcon />

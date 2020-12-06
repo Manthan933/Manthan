@@ -59,7 +59,7 @@ export default function SimpleCard(props) {
             className={classes.title}
             variant="h5"
             component="a"
-            href={`/${props.Class._id}`}
+            href={`/${props.Class.code}/${props.admin}`}
             gutterBottom
             color="textPrimary"
           >
