@@ -1,5 +1,4 @@
 import React from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
@@ -8,7 +7,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Popover from "@material-ui/core/Popover";
 import Tooltip from "@material-ui/core/Tooltip";
-
 import Styles from "../../assets/jss/components/FloatingButton/FloatingButtonStyles";
 import JoinClass from "../Froms/JoinClass";
 import CreateClass from "../Froms/CreateClass";

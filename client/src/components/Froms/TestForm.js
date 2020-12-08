@@ -34,6 +34,7 @@ export default function AddressForm(props) {
       <Typography variant='h6' gutterBottom>
         Test Details
       </Typography>
+      <form>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -41,6 +42,7 @@ export default function AddressForm(props) {
             id='Name'
             name='name'
             label='Name'
+            type="text"
             fullWidth
             value={name}
             onChange={(e) => handleNameChange(e)}
@@ -52,6 +54,7 @@ export default function AddressForm(props) {
             id='marks'
             name='marks'
             label='Marks'
+            type = "number"
             value={marks}
             onChange={(e) => handleMarksChange(e)}
             fullWidth
@@ -79,6 +82,7 @@ export default function AddressForm(props) {
           </MuiPickersUtilsProvider>
         </Grid>
       </Grid>
+      </form>
     </React.Fragment>
   );
 }

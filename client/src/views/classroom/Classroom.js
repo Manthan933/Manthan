@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Paper, Card } from "@material-ui/core";
+import React from "react";
+import { Container } from "@material-ui/core";
 import FloatingButton from "../../components/FloatingButtons/TestButton";
 import { getClass } from "../../actions/actions";
 
@@ -10,6 +10,9 @@ export default function Classroom(props) {
   React.useEffect(() => {
     getClass(classCode, setClass);
   }, [classCode]);
+  React.useEffect(()=>{
+
+  }, [classCode])
 
   if (admin === "true") console.log(admin);
   return (

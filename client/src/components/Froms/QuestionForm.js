@@ -2,12 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-
-import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +24,7 @@ export default function PaymentForm(props) {
   };
   const handleRemoveClick = (index) => {
     const list = [...questions];
-    list.splice(index, 1);
+    list.pop();
     setQuestions(list);
   };
   const handleAddClick = () => {
@@ -54,7 +49,7 @@ export default function PaymentForm(props) {
       <Grid container spacing={3}>
         {questions.map((ques, index) => {
           return (
-            <>
+            <React.Fragment key = {index}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -127,7 +122,7 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-            </>
+              </React.Fragment>
           );
         })}
       </Grid>

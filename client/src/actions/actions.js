@@ -76,10 +76,10 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
 
 //------------------------------- Test Methods -------------------------------
 
-export const createTest = async (newTest, Tests, setTests) => {
+export const createTest = async (newTest) => {
   try {
     const res = await api.createTest(newTest);
-    setTests([...Tests, res.data]);
+    
   } catch (error) {
     console.log(error.message);
   }

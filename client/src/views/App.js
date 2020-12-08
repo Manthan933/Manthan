@@ -1,12 +1,11 @@
 import React from "react";
-import { BrowserRouter, Switch, Route} from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Main from "./main/Main";
 import Class from "./classroom/Classroom";
-import Test from "./tests/Test";
+import CreateTest from "../components/Froms/CreateTest";
 import Navbar from "../components/Navbar/Navbar";
 import { getClasses } from "../actions/actions";
-import { Typography, Link } from "@material-ui/core";
 
 export default function App() {
   const [user, setUser] = React.useState({});
@@ -15,7 +14,7 @@ export default function App() {
     getClasses(user.email, setClasses);
   }, [user]);
   return (
-    <div className="home">
+    <div className='home'>
       <Navbar
         user={user}
         setUser={setUser}
@@ -25,7 +24,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route
-            path="/"
+            path='/'
             exact
             render={(props) => (
               <Main
@@ -36,9 +35,14 @@ export default function App() {
               />
             )}
           />
-          <Route path="/:classCode/:admin" render={(props) => <Class {...props}/>} />
-          <Route path="/:classCode/" render={(props) => <Test {...props} />} />
-          <Route path="/:class/:test/start" render={(props) => <Test {...props} />} />
+          <Route
+            path='/:classCode/:admin'
+            render={(props) => <Class {...props} />}
+          />
+          <Route
+            path='/:classCode/'
+            render={(props) => <CreateTest {...props} />}
+          />
         </Switch>
       </BrowserRouter>
     </div>

@@ -16,9 +16,9 @@ const Get = async (req, res) => {
 };
 
 const Create = async (req, res) => {
-  var { name, marks, questions, rules, scores, duration } = req.body;
+  var { name, marks, questions, rules, scores, classroom, duration } = req.body;
   questions = Sort(questions);
-  const newTest = new Test({ name, marks, questions, rules, scores, duration });
+  const newTest = new Test({ name, marks, questions, classroom, rules, scores, duration });
   try {
     await newTest.save();
     res.status(201).json(newTest);

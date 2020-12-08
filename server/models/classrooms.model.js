@@ -5,7 +5,7 @@ const ClassroomSchema = new mongoose.Schema({
   subcode: { type: String, required: true, default: "" },
   subject: { type: String, required: true, default: "" },
   image: { type: String, required: true, default: "" },
-  code: { type: String, required: true, unique: true },
+  code: { type: String, required: true },
   instructor: { type: String, required: true },
   users: { type: Array, default: [] },
 });
