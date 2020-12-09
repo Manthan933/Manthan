@@ -35,53 +35,53 @@ export default function AddressForm(props) {
         Test Details
       </Typography>
       <form>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id='Name'
-            name='name'
-            label='Name'
-            type="text"
-            fullWidth
-            value={name}
-            onChange={(e) => handleNameChange(e)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id='marks'
-            name='marks'
-            label='Marks'
-            type = "number"
-            value={marks}
-            onChange={(e) => handleMarksChange(e)}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDateTimePicker
-              label='Due Date'
-              value={dueDate}
-              onChange={setDueDate}
-              onError={console.log}
-              disablePast
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id='Name'
+              name='name'
+              label='Name'
+              type='text'
+              fullWidth
+              value={name}
+              onChange={(e) => handleNameChange(e)}
             />
-          </MuiPickersUtilsProvider>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardTimePicker
-              ampm={false}
-              label='Duration'
-              value={duration}
-              onChange={setDuration}
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              id='marks'
+              name='marks'
+              label='Marks'
+              type='number'
+              value={marks}
+              onChange={(e) => handleMarksChange(e)}
+              fullWidth
             />
-          </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDateTimePicker
+                label='Due Date'
+                value={dueDate}
+                onChange={setDueDate}
+                onError={console.log}
+                disablePast
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardTimePicker
+                ampm={false}
+                label='Duration'
+                value={duration}
+                onChange={setDuration}
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
         </Grid>
-      </Grid>
       </form>
     </React.Fragment>
   );

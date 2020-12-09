@@ -45,7 +45,7 @@ export default function PaymentForm(props) {
       <Grid container spacing={3}>
         {rules.map((rule, index) => {
           return (
-            <React.Fragment key = {index}>
+            <React.Fragment key={index}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -80,7 +80,7 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-            </ React.Fragment>
+            </React.Fragment>
           );
         })}
       </Grid>

@@ -8,8 +8,8 @@ import { Button } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
-    top:"65px",
-    left:"-8px",
+    top: "65px",
+    left: "-8px",
   },
 }));
 
@@ -49,7 +49,7 @@ export default function PaymentForm(props) {
       <Grid container spacing={3}>
         {questions.map((ques, index) => {
           return (
-            <React.Fragment key = {index}>
+            <React.Fragment key={index}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -122,7 +122,7 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-              </React.Fragment>
+            </React.Fragment>
           );
         })}
       </Grid>

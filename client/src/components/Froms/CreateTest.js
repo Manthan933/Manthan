@@ -8,7 +8,7 @@ import TestForm from "./TestForm";
 import QuestionForm from "./QuestionForm";
 import RulesForm from "./RulesForm";
 import Review from "./Review";
-import { createTest } from "../../../actions/actions";
+import { createTest } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
