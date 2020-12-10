@@ -16,14 +16,42 @@ const Get = async (req, res) => {
 };
 
 const Create = async (req, res) => {
-  var { name, marks, questions, rules, scores, classroom, duration } = req.body;
+  var {
+    name,
+    marks,
+    questions,
+    rules,
+    scores,
+    classroom,
+    duration,
+    dueDate,
+  } = req.body;
   questions = Sort(questions);
-  const newTest = new Test({ name, marks, questions, classroom, rules, scores, duration });
+  const newTest = new Test({
+    name,
+    marks,
+    questions,
+    classroom,
+    rules,
+    scores,
+    duration,
+    dueDate,
+  });
   try {
     await newTest.save();
     res.status(201).json(newTest);
   } catch (error) {
     res.status(409).json({ message: error.message });
+  }
+};
+
+const GetTests = async (req, res) => {
+  const { code } = req.params;
+  try {
+    const Tests = await Test.find({ classroom: code });
+    res.status(200).json(Tests);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -77,4 +105,4 @@ const Generate = async (req, res) => {
   }
 };
 
-module.exports = { Get, Create, Update, Delete, Generate };
+module.exports = { Get, GetTests, Create, Update, Delete, Generate };

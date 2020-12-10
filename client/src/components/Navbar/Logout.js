@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     fontWeight: "bolder",
   },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
   button: {
     margin: theme.spacing(1),
     marginTop: 0,
@@ -42,14 +46,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimplePopover(props) {
+export default function Logout(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { setUser, setClasses, setAuth, user, clientId } = props;
 
   const logout = () => {
-    props.setUser({});
-    props.setClasses([]);
-    props.setAuth(false);
+    setUser({});
+    setClasses([]);
+    setAuth(false);
   };
   const handleLogoutFailure = (response) => {
     alert("Failed to log out");
@@ -63,7 +68,7 @@ export default function SimplePopover(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+  console.log(user);
   return (
     <div>
       <IconButton
@@ -72,7 +77,7 @@ export default function SimplePopover(props) {
         color='primary'
         onClick={handleClick}
       >
-        <Avatar src={props.user.image} />
+        <Avatar className={classes.small} src={user.image} />
       </IconButton>
       <Popover
         id={id}
@@ -83,14 +88,13 @@ export default function SimplePopover(props) {
         transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Container className={classes.profileCard}>
-          <Avatar className={classes.avatar} src={props.user.image} />
-          <Typography className={classes.name}>
-            {props.user.username}{" "}
-          </Typography>
-          <Typography className={classes.email}>{props.user.email}</Typography>
-          <Divider /><br/>
+          <Avatar className={classes.avatar} src={user.image} />
+          <Typography className={classes.name}>{user.username} </Typography>
+          <Typography className={classes.email}>{user.email}</Typography>
+          <Divider />
+          <br />
           <GoogleLogout
-            clientId={props.clientId}
+            clientId={clientId}
             icon={false}
             buttonText='Login'
             onLogoutSuccess={logout}
@@ -101,8 +105,6 @@ export default function SimplePopover(props) {
               </Button>
             )}
           />
-          
-          
         </Container>
       </Popover>
     </div>

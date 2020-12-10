@@ -50,35 +50,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
+  const { Class, admin } = props;
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <div className={classes.body}>
           <Typography
             className={classes.title}
-            variant="h5"
-            component="a"
-            href={`/${props.Class.code}/${props.admin}`}
+            variant='h5'
+            component='a'
+            href={`/${Class.code}/${admin}`}
             gutterBottom
-            color="textPrimary"
+            color='textPrimary'
           >
-            {props.Class.name}
+            {Class.name}
           </Typography>
 
-          <Typography className={classes.pos} color="textSecondary">
-            {props.Class.instructor}
+          <Typography className={classes.pos} color='textSecondary'>
+            {Class.instructor.name}
           </Typography>
         </div>
-        <Avatar className={classes.avatar} src={props.Class.image} />
+        <Avatar className={classes.avatar} src={Class.image} />
         <div className={classes.details}>
-          <Typography variant="body1" component="p">
-            Subject: {props.Class.subject}
+          <Typography variant='body1' component='p'>
+            Subject: {Class.subject}
           </Typography>
-          <Typography variant="body1" component="p">
-            Subject Code: {props.Class.subcode}
+          <Typography variant='body1' component='p'>
+            Subject Code: {Class.subcode}
           </Typography>
-          <Typography variant="body1" component="p">
-            Class Code: {props.Class.code}
+          <Typography variant='body1' component='p'>
+            Class Code: {Class.code}
           </Typography>
         </div>
       </CardContent>

@@ -1,17 +1,4 @@
 import * as api from "../api/api";
-export const getUser = async (user, setUser) => {
-  try {
-    const res = await api.getUser(user.email);
-    if (res.data) {
-      setUser(res.data);
-    } else {
-      const res = await api.createUser(user);
-      setUser(res.data);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
 // ---------------------------- Class Methods ------------------------------
 export const createClass = async (Class, user, Classes, setClasses) => {
   try {
@@ -19,7 +6,7 @@ export const createClass = async (Class, user, Classes, setClasses) => {
       name: Class.name,
       subcode: Class.subcode,
       subject: Class.subject,
-      instructor: user.username,
+      instructor: {name:user.username,email:user.email},
       image: user.image,
       users: [user.email],
     };
@@ -78,8 +65,16 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
 
 export const createTest = async (newTest) => {
   try {
-    const res = await api.createTest(newTest);
-    
+    await api.createTest(newTest);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getTests = async (code, setTests) => {
+  try {
+    const res = await api.getTests(code);
+    setTests(res.data)
   } catch (error) {
     console.log(error.message);
   }

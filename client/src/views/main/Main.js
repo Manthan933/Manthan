@@ -42,19 +42,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpacingGrid(props) {
   const classes = useStyles();
+  const { Classes, setClasses, user } = props;
   const CreateClass = (newClass) => {
-    createClass(newClass, props.user, props.Classes, props.setClasses);
+    createClass(newClass, user, Classes, setClasses);
   };
   const JoinClass = (classCode) => {
-    joinClass(props.user, props.Classes, props.setClasses, classCode);
+    joinClass(user, Classes, setClasses, classCode);
   };
-  return (    
+  return (
     <div>
       <Container className={classes.root}>
-        {props.Classes.length ? (
+        {Classes.length ? (
           <Grid container className={classes.classContainer} spacing={5}>
-            {props.Classes.map((Class) => {
-              return <ClassCard key={Class.code} Class={Class} admin = {props.user.username === Class.instructor} />;
+            {Classes.map((Class) => {
+              return (
+                <ClassCard
+                  key={Class.code}
+                  Class={Class}
+                  admin={user.email === Class.instructor.email}
+                />
+              );
             })}
           </Grid>
         ) : (
@@ -71,11 +78,13 @@ export default function SpacingGrid(props) {
             </div>
           </Grid>
         )}
-        <FloatingButton
-          text='Add Classroom'
-          JoinClass={JoinClass}
-          CreateClass={CreateClass}
-        />
+        {user.email ? (
+          <FloatingButton
+            text='Add Classroom'
+            JoinClass={JoinClass}
+            CreateClass={CreateClass}
+          />
+        ) : null}
       </Container>
     </div>
   );

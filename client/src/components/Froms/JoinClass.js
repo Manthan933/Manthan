@@ -8,40 +8,42 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 
 export default function FormDialog(props) {
+  const { open, setOpen, joinClass } = props;
+
   const handleClose = () => {
-    props.setOpen(false);
+    setOpen(false);
   };
   const handleClick = () => {
     const code = document.getElementById("code").value;
-    props.joinClass(code);
-    props.setOpen(false);
+    joinClass(code);
+    setOpen(false);
   };
 
   return (
     <div>
       <Dialog
-        open={props.open}
+        open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id="form-dialog-title">Join class</DialogTitle>
+        <DialogTitle id='form-dialog-title'>Join class</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ask your teacher for the class code, then enter it here.
           </DialogContentText>
           <TextField
             autoFocus
-            margin="dense"
-            id="code"
-            label="Class Code"
+            margin='dense'
+            id='code'
+            label='Class Code'
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClick} color="primary">
+          <Button onClick={handleClick} color='primary'>
             Join
           </Button>
         </DialogActions>

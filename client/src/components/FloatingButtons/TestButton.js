@@ -11,14 +11,15 @@ const useStyles = makeStyles(Styles);
 
 export default function FloatingButton(props) {
   const classes = useStyles();
+  const { text, href } = props;
   return (
     <div>
-      <Tooltip title={props.text} aria-label="add">
+      <Tooltip title={text} aria-label='add'>
         <Fab
           className={classes.addicon}
-          color="secondary"
-          href = {props.href}
-          aria-label="add"
+          color='secondary'
+          href={href}
+          aria-label='add'
         >
           <AddIcon />
         </Fab>

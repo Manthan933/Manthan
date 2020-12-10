@@ -7,54 +7,55 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 
 export default function FormDialog(props) {
+  const { open, setOpen, createClass } = props;
   const handleClose = () => {
-    props.setOpen(false);
+    setOpen(false);
   };
 
   const handleClick = () => {
     const name = document.getElementById("name").value;
     const subject = document.getElementById("subject").value;
     const subcode = document.getElementById("subcode").value;
-    props.createClass({ name: name, subject: subject, subcode: subcode });
-    props.setOpen(false);
+    createClass({ name: name, subject: subject, subcode: subcode });
+    setOpen(false);
   };
 
   return (
-    <form autoComplete="off">
+    <form autoComplete='off'>
       <Dialog
-        open={props.open}
+        open={open}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id="form-dialog-title">Create class</DialogTitle>
+        <DialogTitle id='form-dialog-title'>Create class</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
-            id="name"
-            label="Class name"
+            id='name'
+            label='Class name'
             fullWidth
             required
           />
           <TextField
             autoFocus
-            margin="normal"
-            id="subject"
-            label="Subject"
+            margin='normal'
+            id='subject'
+            label='Subject'
             fullWidth
           />
           <TextField
             autoFocus
-            margin="normal"
-            id="subcode"
-            label="Subject Code"
+            margin='normal'
+            id='subcode'
+            label='Subject Code'
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClick} type="submit" color="primary">
+          <Button onClick={handleClick} type='submit' color='primary'>
             Create
           </Button>
         </DialogActions>

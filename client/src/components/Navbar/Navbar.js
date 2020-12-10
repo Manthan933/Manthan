@@ -17,18 +17,49 @@ import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
+import PropTypes from "prop-types";
+
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+
 import Styles from "../../assets/jss/components/Navbar/NavbarStyles";
 import Login from "./Login";
 import Logout from "./Logout";
 
-const CLIENTcode = "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
+const CLIENTcode =
+  "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
 
 const useStyles = makeStyles(Styles);
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
 
 export default function MenuAppBar(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({ left: false });
   const [auth, setAuth] = React.useState(false);
+  const { Classes, setClasses, user, setUser } = props;
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -41,45 +72,49 @@ export default function MenuAppBar(props) {
   };
   return (
     <div className={classes.root}>
-      <AppBar position="static"  color="default">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={toggleDrawer(true)}
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Manthan
-          </Typography>
-          {auth ? (
-            <Logout
-              clientId={CLIENTcode}
-              user={props.user}
-              setClasses={props.setClasses}
-              setUser={props.setUser}
-              setAuth={setAuth}
-            />
-          ) : (
-            <Login
-              clientId={CLIENTcode}
-              setUser={props.setUser}
-              setAuth={setAuth}
-            />
-          )}
-        </Toolbar>
-      </AppBar>
+      <ElevationScroll {...props}>
+        <AppBar color='inherit'>
+          <Toolbar>
+            <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              onClick={toggleDrawer(true)}
+              aria-label='menu'
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant='h6' className={classes.title}>
+              Manthan
+            </Typography>
+            {auth ? (
+              <Logout
+                clientId={CLIENTcode}
+                user={user}
+                setClasses={setClasses}
+                setUser={setUser}
+                setAuth={setAuth}
+              />
+            ) : (
+              <Login
+                clientId={CLIENTcode}
+                setUser={setUser}
+                setAuth={setAuth}
+              />
+            )}
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <Toolbar />
+      <Divider />
       <Drawer
         className={classes.list}
         open={state["left"]}
         onClose={toggleDrawer(false)}
-        role="presentation"
+        role='presentation'
       >
         <List className={classes.list}>
-          <ListItem button component="a" href="/">
+          <ListItem button component='a' href='/'>
             <ListItemIcon>
               <HomeRoundedIcon />
             </ListItemIcon>
@@ -88,27 +123,27 @@ export default function MenuAppBar(props) {
         </List>
         <Divider />
         <List
-          component="nav"
-          aria-labelledby="list-subheader"
+          component='nav'
+          aria-labelledby='list-subheader'
           subheader={
-            <ListSubheader component="div" id="list-subheader">
+            <ListSubheader component='div' id='list-subheader'>
               {" "}
               Enrolled{" "}
             </ListSubheader>
           }
         >
-          {props.Classes.map((Class) => {
+          {Classes.map((Class) => {
             return (
               <ListItem
                 key={Class.code}
                 className={classes.classLink}
-                component="a"
-                href={`/${Class.code}/${props.user.email === Class.insturctor}`}
+                component='a'
+                href={`/${Class.code}/${user.email === Class.insturctor}`}
               >
                 <ListItemIcon>
                   <ClassRoundedIcon />
                 </ListItemIcon>
-                <ListItemText color="textPrimary">{Class.name}</ListItemText>
+                <ListItemText color='textPrimary'>{Class.name}</ListItemText>
               </ListItem>
             );
           })}
@@ -123,8 +158,8 @@ export default function MenuAppBar(props) {
           </ListItem>
           <ListItem
             button
-            component="a"
-            href="https://github.com/Manthan933/Manthan"
+            component='a'
+            href='https://github.com/Manthan933/Manthan'
           >
             <ListItemIcon>
               <GitHubIcon />

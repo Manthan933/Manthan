@@ -3,6 +3,7 @@ import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
 
 export default function Login(props) {
+  const { clientId, setAuth, setUser } = props;
   const login = (response) => {
     var profile = response.getBasicProfile();
     if (response.accessToken) {
@@ -11,8 +12,8 @@ export default function Login(props) {
         email: profile.getEmail(),
         image: profile.getImageUrl(),
       };
-      props.setUser(user);
-      props.setAuth(true);
+      setUser(user);
+      setAuth(true);
     }
   };
 
@@ -21,7 +22,7 @@ export default function Login(props) {
   };
   return (
     <GoogleLogin
-      clientId={props.clientId}
+      clientId={clientId}
       icon={false}
       buttonText='Login'
       onSuccess={login}

@@ -1,11 +1,6 @@
 import axios from "axios";
 import { classroomsURL, testsURL, usersURL } from "../constants/constants";
 
-//--------------- User API -----------------------
-
-export const getUser = (email) => axios.get(`${usersURL}/${email}`);
-export const createUser = (newUser) => axios.post(usersURL, newUser);
-
 //--------------- Class API -----------------------
 
 export const getClass = (code) => axios.get(`${classroomsURL}/${code}`);
@@ -16,7 +11,7 @@ export const getInstructor = (id) => axios.get(`${usersURL}/id/${id}`);
 
 //--------------- Test API ------------------------
 
-export const getTests = (id) => axios.get(`${testsURL}/${id}/tests`);
+export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);
 export const createTest = (newTest) => axios.post(testsURL, newTest);
 
 
