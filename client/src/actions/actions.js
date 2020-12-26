@@ -39,15 +39,6 @@ export const getClasses = async (id, setClasses) => {
   }
 };
 
-export const getInstructor = async (id, setInstructor) => {
-  try {
-    const res = await api.getInstructor(id);
-    setInstructor(res.data);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const joinClass = async (user, Classes, setClasses, classCode) => {
   try {
     const Class = await api.getClass(classCode);
