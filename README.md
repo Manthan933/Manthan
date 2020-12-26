@@ -101,15 +101,16 @@ These are the prerequisites required to run this application.
 3. To run the application in development server
 
 ```sh
-  docker-compose build
-  docker-copmose up
+  cd server
+  npm install
+  nodemon
 ```
-
-3. To stop the docker container :
-
 ```sh
-  docker-compose down
+  cd client
+  npm install
+  npm start
 ```
+
 
 <!-- USAGE EXAMPLES -->
 <!-- ## Screenshots -->

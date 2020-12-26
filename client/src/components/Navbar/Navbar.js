@@ -163,7 +163,7 @@ export default function MenuAppBar(props) {
                 key={Class.code}
                 className={classes.classLink}
                 component='a'
-                href={`/${Class.code}/${user.email === Class.insturctor}`}
+                href={`/${Class.code}/${user.email === Class.insturctor.email}`}
               >
                 <ListItemIcon>
                   <ClassRoundedIcon />
