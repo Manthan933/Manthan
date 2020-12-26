@@ -20,7 +20,9 @@ import PropTypes from "prop-types";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Login from "./Login";
 import Logout from "./Logout";
-import CLIENTcode from "../../constants/constants";
+
+const CLIENTcode =
+  "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
 
 const useStyles = makeStyles((theme) => ({
   root: {
