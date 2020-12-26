@@ -16,19 +16,42 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SettingsRoundedIcon from "@material-ui/icons/SettingsRounded";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-
 import PropTypes from "prop-types";
-
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-
-import Styles from "../../assets/jss/components/Navbar/NavbarStyles";
 import Login from "./Login";
 import Logout from "./Logout";
+import CLIENTcode from "../../constants/constants";
 
-const CLIENTcode =
-  "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
-
-const useStyles = makeStyles(Styles);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    float: "right",
+  },
+  title: {
+    flexGrow: 1,
+  },
+  list: {
+    width: 300,
+  },
+  fullList: {
+    width: "auto",
+  },
+  cardtitle: {
+    fontSize: 14,
+    width: 150,
+  },
+  pos: {
+    fontWeight: "bolder",
+  },
+  menu: {
+    top: 50,
+  },
+  classLink: {
+    color: "inherit",
+  },
+}));
 
 function ElevationScroll(props) {
   const { children, window } = props;

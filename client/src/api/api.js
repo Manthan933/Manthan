@@ -13,16 +13,3 @@ export const getInstructor = (id) => axios.get(`${usersURL}/id/${id}`);
 
 export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);
 export const createTest = (newTest) => axios.post(testsURL, newTest);
-
-
-
-
-
-
-
-//export const getTest = (id) => axios.get(`${testsUrl}/${id}`);
-//export const updateTest = (id, updatedTest) => axios.patch(`${testsUrl}/${id}`, updatedTest);
-//export const deleteTest = (id) => axios.delete(`${testsUrl}/${id}`);
-//export const getUsers = (id) => axios.get(`${classroomUrl}/${id}/users`);
-//export const createClass = (newClass) => axios.post(classroomUrl, newClass);
-//export const deleteClass = (id) => axios.delete(`${classroomUrl}/${id}`);

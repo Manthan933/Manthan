@@ -7,11 +7,19 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Popover from "@material-ui/core/Popover";
 import Tooltip from "@material-ui/core/Tooltip";
-import Styles from "../../assets/jss/components/FloatingButton/FloatingButtonStyles";
 import JoinClass from "../Froms/JoinClass";
 import CreateClass from "../Froms/CreateClass";
 
-const useStyles = makeStyles(Styles);
+const useStyles = makeStyles((theme) => ({
+  addicon: {
+    margin: 0,
+    top: "auto",
+    right: 20,
+    bottom: 20,
+    left: "auto",
+    position: "fixed",
+  },
+}));
 
 export default function FloatingButton(props) {
   const classes = useStyles();
@@ -42,13 +50,13 @@ export default function FloatingButton(props) {
 
   return (
     <div>
-      <Tooltip title={props.text} aria-label="add">
+      <Tooltip title={props.text} aria-label='add'>
         <Fab
           className={classes.addicon}
           aria-describedby={id}
-          color="secondary"
+          color='secondary'
           onClick={handleClick}
-          aria-label="add"
+          aria-label='add'
         >
           <AddIcon />
         </Fab>
@@ -61,12 +69,12 @@ export default function FloatingButton(props) {
         anchorOrigin={{ vertical: "center", horizontal: "left" }}
         transformOrigin={{ vertical: "center", horizontal: "right" }}
       >
-        <List component="nav" aria-label="main mailbox folders">
+        <List component='nav' aria-label='main mailbox folders'>
           <ListItem button onClick={handleJoinClass}>
-            <ListItemText primary="Join Class" />
+            <ListItemText primary='Join Class' />
           </ListItem>
           <ListItem button onClick={handleCreateClass}>
-            <ListItemText primary="Create Class" />
+            <ListItemText primary='Create Class' />
           </ListItem>
         </List>
       </Popover>
