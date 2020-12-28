@@ -36,7 +36,6 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact Us](#contact)
 
 <!-- ABOUT THE PROJECT -->
@@ -128,15 +127,13 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-<!-- CONTACT -->
 ## Contact Us
 
 Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-kbwjbkg6-yphxjMKvyehNhaWsiD2ePQ)** for discussions and latest news.  
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
+
+## Programs We have been associated with 🤍
+<a href="https://swoc.tech/index.html" target="_blank"><img src="https://raw.githubusercontent.com/HITK-TECH-Community/Community-Website/main/assets/SWoC.png" width="180px" height="180px"></a>
 
 ## Author
 
