@@ -137,9 +137,9 @@ export default function CreateTest(porps) {
       questions: questions,
       rules: rules,
       duration: duration,
+      dueDate: dueDate,
     };
     createTest(newTest);
-    window.location.replace(`${window.location.href}true`);
   };
 
   return (

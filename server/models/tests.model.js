@@ -8,6 +8,7 @@ const TestSchema = new mongoose.Schema({
   rules: { type: Array, required: true },
   scores: { type: Array, required: true, default:[] },
   duration: { type: String, required: true },
+  dueDate: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Test", TestSchema);

@@ -68,7 +68,6 @@ export default function Logout(props) {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  console.log(user);
   return (
     <div>
       <IconButton

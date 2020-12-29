@@ -57,6 +57,7 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
 export const createTest = async (newTest) => {
   try {
     await api.createTest(newTest);
+    window.location.replace(`${window.location.href}true`);
   } catch (error) {
     console.log(error.message);
   }

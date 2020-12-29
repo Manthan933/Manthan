@@ -16,21 +16,21 @@ const Get = async (req, res) => {
 };
 
 const Create = async (req, res) => {
-  var {
+  const {
     name,
     marks,
     questions,
     rules,
     scores,
     classroom,
-    duration,
+    duration, 
     dueDate,
   } = req.body;
-  questions = Sort(questions);
+  const sortQuestions = Sort(questions);
   const newTest = new Test({
     name,
     marks,
-    questions,
+    sortQuestions,
     classroom,
     rules,
     scores,
@@ -57,7 +57,7 @@ const GetTests = async (req, res) => {
 
 const Update = async (req, res) => {
   const { id } = req.params;
-  const { name, marks, questions, rules, scores, duration } = req.body;
+  const { name, marks, questions, rules, scores, duration, dueDate } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No Test with id: ${id}`);
@@ -68,7 +68,7 @@ const Update = async (req, res) => {
     questions,
     rules,
     scores,
-    duration,
+    duration, dueDate,
     _id: id,
   };
 

@@ -1,12 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ClassIcon from "@material-ui/icons/Class";
-import { Avatar, Divider } from "@material-ui/core";
+import { Avatar} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -31,6 +29,7 @@ const useStyles = makeStyles({
 export default function SimpleCard(props) {
   const classes = useStyles();
   const { name, dueDate } = props.Test;
+  const date = new Date(dueDate);
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
@@ -40,14 +39,10 @@ export default function SimpleCard(props) {
         <div className={classes.details}>
           <Typography variant='h6'>{name}</Typography>
           <Typography variant='subtitle2' color='textSecondary'>
-            Due : 12/15/2000
+           Due : {date.toLocaleDateString()} 
           </Typography>
         </div>
       </CardContent>
-      <Divider></Divider>
-      <CardActions>
-        <Button size='small'>Learn More</Button>
-      </CardActions>
     </Card>
   );
 }
