@@ -1,4 +1,4 @@
-const URL = "https://manthanapi.herokuapp.com";
+const URL = "http://localhost:5000";
 
 export const classroomsURL = `${URL}/classrooms`;
 export const testsURL = `${URL}/tests`;
