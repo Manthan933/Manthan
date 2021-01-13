@@ -25,7 +25,7 @@
 
 <!-- TABLE OF CONTENTS -->
 
-## Table of Contents
+## Table of Contents 📕
 
 - [About the Project](#about-the-project)
   - [Description](#description)
@@ -40,13 +40,15 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
 
-### Description
+## About The Project
+<img src="https://media.giphy.com/media/QvXUg57xakpdZiOJof/giphy.gif" width="50%">
+
+### Description 👇
 
 We will provide an online testing platform which can be used to conduct tests wrapped with all necessary precautions to reduce the chances of cheating. Here the educator will can create classes and test on web portal and all the questions will be randomly distributed among the students resulting in large number of sets.
 
-### Features
+### Features 🔎
 
 - A secure platform for online testing.
 - Interactive and easy to use.
@@ -59,7 +61,7 @@ We will provide an online testing platform which can be used to conduct tests wr
 - Test will be automatically submitted after the time frame.
 - We'll try to block incoming calls/ messages/ screen capture and all the unnecessary activities during the test.
 
-### Built With
+### Built With 💻
 
 - [ReactJs](https://reactjs.org/)
 - [Expressjs](https://expressjs.com/)
@@ -72,11 +74,11 @@ We will provide an online testing platform which can be used to conduct tests wr
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## Getting Started ✅
 
 To get a local copy up and running follow these simple steps.
 
-### Prerequisites
+### Prerequisites 📖
 
 These are the prerequisites required to run this application.
 
@@ -86,6 +88,8 @@ These are the prerequisites required to run this application.
 - mongo-uri
 
 ### Installation
+
+<img src="https://media.giphy.com/media/kdiLau77NE9Z8vxGSO/giphy.gif" width="40%"><br>
 
 1. Clone the Manthan repository form github
 
@@ -115,7 +119,7 @@ These are the prerequisites required to run this application.
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+## Contributing 🖋
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -127,7 +131,7 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 
-## Contact Us
+## Contact Us 📞
 
 Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-kbwjbkg6-yphxjMKvyehNhaWsiD2ePQ)** for discussions and latest news.  
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
@@ -135,7 +139,7 @@ Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)*
 ## Programs We have been associated with 🤍
 <a href="https://swoc.tech/index.html" target="_blank"><img src="https://raw.githubusercontent.com/HITK-TECH-Community/Community-Website/main/assets/SWoC.png" width="180px" height="180px"></a>
 
-## Author
+## Author 👨‍💻
 
 ### [Aavishkar Mishra](https://github.com/aavishkarmishra)
 
