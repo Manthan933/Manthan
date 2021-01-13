@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -11,10 +11,14 @@ const useStyles = makeStyles((theme) => ({
     top: "65px",
     left: "-8px",
   },
+  msg: {
+      color:"red",
+    }
 }));
 
 export default function PaymentForm(props) {
   const classes = useStyles();
+  const [errMsg, setErrMsg] = useState("");
   const { questions, setQuestions } = props;
   const handleChange = (e, index) => {
     const { name, value } = e.target;
@@ -25,21 +29,28 @@ export default function PaymentForm(props) {
   const handleRemoveClick = (index) => {
     const list = [...questions];
     list.pop();
+    setErrMsg("");
     setQuestions(list);
   };
   const handleAddClick = () => {
-    setQuestions([
-      ...questions,
-      {
-        question: "",
-        type: 1,
-        option1: "",
-        option2: "",
-        option3: "",
-        option4: "",
-        answer: "",
-      },
-    ]);
+    const ques = questions[questions.length - 1];
+    if (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4) {
+      setErrMsg("");
+      setQuestions([
+        ...questions,
+        {
+          question: "",
+          type: 1,
+          option1: "",
+          option2: "",
+          option3: "",
+          option4: "",
+          answer: "",
+        },
+      ]);
+    } else {
+      setErrMsg("Please provide question and all options");
+    }
   };
   return (
     <React.Fragment>
@@ -63,6 +74,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                  required
                   id='option1'
                   name='option1'
                   label='Option 1'
@@ -73,6 +85,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                required
                   id='option2'
                   name='option2'
                   label='Option 2'
@@ -83,6 +96,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                required
                   id='option3'
                   name='option3'
                   label='Option3'
@@ -93,6 +107,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
+                required
                   id='option4'
                   name='option4'
                   label='Option4'
@@ -126,6 +141,7 @@ export default function PaymentForm(props) {
           );
         })}
       </Grid>
+      <p className={classes.msg}>{errMsg}</p>
       <Button
         variant='contained'
         color='primary'
