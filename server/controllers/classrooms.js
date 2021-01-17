@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
-const Otp = require("otp-generator");
 const Classroom = require("../models/classrooms.model");
+const Otp = ()=> { 
+  var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+  let OTP = '';
+  var len = string.length; 
+  for (let i = 0; i < 6; i++ ) { 
+    OTP += string[Math.floor(Math.random() * len)]; 
+  } 
+  return OTP; 
+} 
+
 
 const Get = async (req, res) => {
   const { code } = req.params;
@@ -24,7 +33,7 @@ const GetClasses = async (req, res) => {
 
 const Create = async (req, res) => {
   const { name, subcode, subject, instructor, users, image } = req.body;
-  const code = Otp.generate(6, { specialChars: false });
+  const code = Otp();
   const newClassroom = new Classroom({
     name,
     subcode,
@@ -70,9 +79,7 @@ const Leave = async (req, res) => {
 
 const Delete = async (req, res) => {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No Class with id: ${id}`);
-  await Classroom.findByIdAndRemove(id);
+  await Classroom.findOneAndRemove({code: id});
   res.json({ message: "Class deleted successfully." });
 };
 
