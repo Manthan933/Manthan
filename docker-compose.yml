@@ -6,16 +6,26 @@ services:
       context: ./server
       dockerfile: Dockerfile
     image: manthan-server
-    container_name: manthan-server
+    container_name: manthan-node-server
     command: /usr/src/app/node_modules/.bin/nodemon server.js
     volumes:
       - ./server/:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "5000:5000"
+    depends_on:
+      - mongo
     env_file: ./server/.env
     environment:
       - NODE_ENV=development
+    networks:
+      - app-network
+  mongo:
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
     networks:
       - app-network
   client:
@@ -23,8 +33,8 @@ services:
       context: ./client
       dockerfile: Dockerfile
     image: manthan-client
-    container_name: manthan-client
-    command: yarn start
+    container_name: manthan-react-client
+    command: npm start
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
