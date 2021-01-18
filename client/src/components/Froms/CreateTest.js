@@ -129,7 +129,14 @@ export default function CreateTest(porps) {
      if (!name && !marks) {
       setError("Please provide test name and marks")
        return;
-    }
+     } else if (name && !marks) {
+       setError("Please provide marks")
+       return;
+     } else if (!name && marks) {
+       setError('Please provide test name');
+				return;
+    } 
+
     setError("");
     setActiveStep(activeStep + 1);
   };
