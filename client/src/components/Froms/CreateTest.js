@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  errorMsg:{
+    color:'red',
+  },
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
@@ -106,6 +109,7 @@ export default function CreateTest(porps) {
   const [dueDate, setDueDate] = React.useState(Date());
   const [duration, setDuration] = React.useState(Date());
   const [marks, setMarks] = React.useState(0);
+  const [error, setError] = React.useState(""); 
   const [questions, setQuestions] = React.useState([
     {
       question: "",
@@ -122,6 +126,18 @@ export default function CreateTest(porps) {
   ]);
 
   const handleNext = () => {
+     if (!name && !marks) {
+      setError("Please provide test name and marks")
+       return;
+     } else if (!marks) {
+       setError("Please provide marks")
+       return;
+     } else if (!name) {
+       setError('Please provide test name');
+       return;
+    } 
+
+    setError("");
     setActiveStep(activeStep + 1);
   };
 
@@ -168,6 +184,7 @@ export default function CreateTest(porps) {
                 setQuestions,
                 setRules
               )}
+              <p className={classes.errorMsg}>{error}</p>
               <div className={classes.buttons}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} className={classes.button}>
