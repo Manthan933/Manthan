@@ -133,7 +133,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Contact Us 📞
 
-Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-kbwjbkg6-yphxjMKvyehNhaWsiD2ePQ)** for discussions and latest news.  
+Join our **slack channel [here]( https://join.slack.com/t/manthanorg/shared_invite/zt-lxf54p40-1yafKYq35Zj76ah_MRhnDQ)** for discussions and latest news.  
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
 
 ## Programs We have been associated with 🤍
