@@ -57,9 +57,12 @@ export default function Classroom(props) {
               <Typography variant='subtitle1'>
                 Instructor : {Class.instructor.name}
               </Typography>
+      {admin === "true" ? (
+      
               <Typography variant='subtitle1'>
                 Class code : {Class.code}
               </Typography>
+      ): null }
             </div>
           </CardContent>
         </Card>
