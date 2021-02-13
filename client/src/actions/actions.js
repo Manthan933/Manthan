@@ -56,7 +56,9 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
     const updatedClass = await api.updateClass(Class.data._id, {
       user: user.email,
     });
-    setClasses([...Classes, updatedClass.data]);
+    const updatedData = updatedClass.data;
+    const joinedClass = Classes.map(x => x.code === classCode ? { ...x,  updatedData} : x);
+    setClasses(joinedClass);
   } catch (error) {
     console.log(error.message);
   }
