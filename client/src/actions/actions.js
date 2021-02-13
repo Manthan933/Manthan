@@ -62,6 +62,17 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
   }
 };
 
+export const editClassDetails = async (Class, Config, Classes, setClasses) => {
+  try {
+    const Id = await api.getClass(Class.code);
+    const res = await api.editClass(Id.data._id, Config);
+    const editedClass = res ? Classes.map(x => x.code === Class.code ? { ...x, ...Config } : x) : Classes;
+    setClasses(editedClass);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 //------------------------------- Test Methods -------------------------------
 
 export const createTest = async (newTest) => {

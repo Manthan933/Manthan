@@ -8,6 +8,7 @@ import image from "../../assets/images/5.jpg";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { deleteClass } from "../../actions/actions";
+import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,14 +62,17 @@ const useStyles = makeStyles((theme) => ({
 }
 }));
 
-const handleCardEditing = () => {
-  console.log('EDITING')
-};
-
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { Class, admin, setClasses } = props;
+  const { Class, admin, setClasses, UpdateClass} = props;
+  const [editClass, setEditClass] = React.useState(false);
+
+  const handleCardEditing = () => {
+    setEditClass(true);
+  };
+
   return (
+    <>
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <div className={classes.body}>
@@ -102,5 +106,7 @@ export default function SimpleCard(props) {
         <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class.code, Class.instructor?.email, setClasses)}/>
       </CardContent>
     </Card>
+     <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>
+  </>
   );
 }

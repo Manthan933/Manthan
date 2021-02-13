@@ -51,6 +51,20 @@ const Create = async (req, res) => {
   }
 };
 
+const Edit = async (req, res) => {
+  const { id } = req.params;
+  const { name, subcode, subject } = req.body;
+  
+  if (!mongoose.Types.ObjectId.isValid(id))
+  return res.status(404).send(`No user with id: ${id}`);
+  const editedClass = await Classroom.findByIdAndUpdate(
+    id,
+    {$set: {name : name, subcode: subcode, subject: subject} },
+    { new: true }
+  );
+  res.json(editedClass);
+};
+
 const Join = async (req, res) => {
   const { id } = req.params;
   const { user } = req.body;
@@ -83,4 +97,4 @@ const Delete = async (req, res) => {
   res.json({ message: "Class deleted successfully." });
 };
 
-module.exports = { Get, GetClasses, Create, Join, Leave, Delete };
+module.exports = { Get, GetClasses, Create, Edit, Join, Leave, Delete };
