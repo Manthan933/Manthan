@@ -137,6 +137,8 @@ Join our **slack channel [here]( https://join.slack.com/t/manthanorg/shared_invi
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
 
 ## Programs We have been associated with 🤍
+
+<a href="https://gssoc.girlscript.tech/" target="_blank"><img src="https://raw.githubusercontent.com/aavishkarmishra/portfolio/master/Method%20Draw%20Image(1).png" width="180px" height="180px"></a>
 <a href="https://swoc.tech/index.html" target="_blank"><img src="https://raw.githubusercontent.com/HITK-TECH-Community/Community-Website/main/assets/SWoC.png" width="180px" height="180px"></a>
 
 ## Author 👨‍💻
