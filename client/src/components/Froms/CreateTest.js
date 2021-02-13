@@ -57,12 +57,15 @@ function getStepContent(
   name,
   marks,
   duration,
+  durationHrs,
+  durationMins,
   dueDate,
   questions,
   rules,
   setName,
   setMarks,
-  setDuration,
+  setDurationHrs,
+  setDurationMins,
   setDueDate,
   setQuestions,
   setRules
@@ -75,8 +78,10 @@ function getStepContent(
           setName={setName}
           marks={marks}
           setMarks={setMarks}
-          duration={duration}
-          setDuration={setDuration}
+          durationHrs={durationHrs}
+          durationMins={durationMins}
+          setDurationHrs={setDurationHrs}
+          setDurationMins={setDurationMins}
           dueDate={dueDate}
           setDueDate={setDueDate}
         />
@@ -107,7 +112,9 @@ export default function CreateTest(porps) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [name, setName] = React.useState("");
   const [dueDate, setDueDate] = React.useState(Date());
-  const [duration, setDuration] = React.useState(Date());
+  const [durationHrs, setDurationHrs] = React.useState(0);
+  const [durationMins, setDurationMins] = React.useState(0);
+  const [duration, setDuration] = React.useState(`${durationHrs}:${durationMins}`);
   const [marks, setMarks] = React.useState(0);
   const [error, setError] = React.useState(""); 
   const [questions, setQuestions] = React.useState([
@@ -126,8 +133,8 @@ export default function CreateTest(porps) {
   ]);
 
   const handleNext = () => {
-     if (!name && !marks) {
-      setError("Please provide test name and marks")
+     if (!name && !marks && durationMins < 10 && durationHrs < 0) {
+      setError("Please provide test name, marks and duration")
        return;
      } else if (!marks) {
        setError("Please provide marks")
@@ -135,7 +142,10 @@ export default function CreateTest(porps) {
      } else if (!name) {
        setError('Please provide test name');
        return;
-    } 
+    } else if (durationMins < 10 && durationHrs < 0) {
+      setError('Please provide test duration');
+      return;
+   } 
 
     setError("");
     setActiveStep(activeStep + 1);
@@ -146,6 +156,7 @@ export default function CreateTest(porps) {
   };
 
   const handleSubmit = () => {
+    setDuration(`${durationHrs}:${durationMins}`);
     const newTest = {
       name: name,
       classroom: classCode,
@@ -153,6 +164,8 @@ export default function CreateTest(porps) {
       questions: questions,
       rules: rules,
       duration: duration,
+      durationHrs: durationHrs,
+      durationMins: durationMins,
       dueDate: dueDate,
     };
     createTest(newTest);
@@ -174,12 +187,15 @@ export default function CreateTest(porps) {
                 name,
                 marks,
                 duration,
+                durationHrs,
+                durationMins,
                 dueDate,
                 questions,
                 rules,
                 setName,
                 setMarks,
-                setDuration,
+                setDurationHrs,
+                setDurationMins,
                 setDueDate,
                 setQuestions,
                 setRules

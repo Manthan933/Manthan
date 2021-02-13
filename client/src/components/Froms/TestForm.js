@@ -3,8 +3,7 @@ import React from "react";
 import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import {
   KeyboardDateTimePicker,
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
+  MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -14,11 +13,13 @@ export default function AddressForm(props) {
   const {
     name,
     marks,
-    duration,
+    durationHrs,
+    durationMins,
     dueDate,
     setName,
     setMarks,
-    setDuration,
+    setDurationHrs,
+    setDurationMins,
     setDueDate,
   } = props;
   const handleNameChange = (e) => {
@@ -29,6 +30,15 @@ export default function AddressForm(props) {
     const marks = e.target.value;
     setMarks(marks);
   };
+  const handleDurationHoursChange = (e) => {
+    const durationHrs = parseInt(e.target.value);
+    setDurationHrs(durationHrs);
+  };
+  const handleDurationMinutesChange = (e) => {
+    const durationMins = parseInt(e.target.value);
+    setDurationMins(durationMins);
+  };
+  
   return (
     <React.Fragment>
       <Typography variant='h6' gutterBottom>
@@ -71,15 +81,32 @@ export default function AddressForm(props) {
               />
             </MuiPickersUtilsProvider>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardTimePicker
-                ampm={false}
-                label='Duration'
-                value={duration}
-                onChange={setDuration}
-              />
-            </MuiPickersUtilsProvider>
+          <Grid item xs={6} sm={3}>
+          <TextField
+              id='DurationHours'
+              name='hours'
+              label='Hours'
+              type='number'
+              min="0" 
+              max="10"
+              value={durationHrs || 0}
+              fullWidth
+              onChange={(e) => handleDurationHoursChange(e)}
+            />
+            </Grid>
+            <Grid item xs={6} sm={3}>
+            <TextField
+              required
+              id='DurationMinutes'
+              name='minutes'
+              label='Minutes'
+              type='number'
+              min="10" 
+              max="60"
+              value={durationMins || 0}
+              fullWidth
+              onChange={(e) => handleDurationMinutesChange(e)}
+            />
           </Grid>
         </Grid>
       </form>

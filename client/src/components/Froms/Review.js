@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review(props) {
   const classes = useStyles();
-  const { name, marks, duration, dueDate, questions, rules } = props;
+  const { name, marks, durationHrs, durationMins, dueDate, questions, rules } = props;
   return (
     <React.Fragment>
       <Grid container>
@@ -47,7 +47,7 @@ export default function Review(props) {
         </Grid>
         <Grid item xs={6} md={3}>
           <Typography variant='body2' gutterBottom>
-            {`Time : ${duration.getHours()} hrs ${duration.getMinutes()} min`}
+            {`Time : ${durationHrs} hrs ${durationMins} min`}
           </Typography>
         </Grid>
       </Grid>
