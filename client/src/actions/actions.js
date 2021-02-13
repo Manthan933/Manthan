@@ -39,10 +39,20 @@ export const getClasses = async (id, setClasses) => {
   }
 };
 
+export const deleteClass = async (classCode, id, setClasses) => {
+  try {
+    if (classCode) {
+      const res = await api.deleteClass(classCode);
+      res && getClasses(id, setClasses)
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const joinClass = async (user, Classes, setClasses, classCode) => {
   try {
     const Class = await api.getClass(classCode);
-    console.log(user.email);
     const updatedClass = await api.updateClass(Class.data._id, {
       user: user.email,
     });

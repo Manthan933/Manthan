@@ -5,6 +5,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import image from "../../assets/images/5.jpg";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import { deleteClass } from "../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,11 +49,25 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(10),
     right: theme.spacing(2),
   },
+  delete: {
+      float: 'right',
+      marginRight:'15px',
+      marginTop: '-20px',
+      cursor: 'pointer',
+  },
+  edit: {
+    paddingLeft: '5px',
+    cursor: 'pointer',
+}
 }));
+
+const handleCardEditing = () => {
+  console.log('EDITING')
+};
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { Class, admin } = props;
+  const { Class, admin, setClasses } = props;
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
@@ -65,7 +82,7 @@ export default function SimpleCard(props) {
           >
             {Class.name}
           </Typography>
-
+          <EditIcon color='action' fontSize="small" className={classes.edit} onClick={handleCardEditing}/>
           <Typography className={classes.pos} color='textSecondary'>
             {Class.instructor.name}
           </Typography>
@@ -82,6 +99,7 @@ export default function SimpleCard(props) {
             Class Code: {Class.code}
           </Typography>
         </div>
+        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class.code, Class.instructor?.email, setClasses)}/>
       </CardContent>
     </Card>
   );
