@@ -17,6 +17,29 @@ export const createClass = async (Class, user, Classes, setClasses) => {
   }
 };
 
+export const leaveClass = async (id, Class, setClass, deleteAll = false) => {
+  try {
+      if (deleteAll) {
+          if(window.confirm('Are you sure to remove all students from the class?')){
+            const res = await api.leaveClass(Class._id, {user: [Class.instructor.email]});
+            if(res){
+              Class.users = [Class.instructor.email];
+              setClass(Class);
+            }
+          };
+      } else {
+        const index = Class.users.indexOf(id);
+        if (index > -1) {
+          Class.users?.splice(index, 1);
+        }
+        const res = await api.leaveClass(Class._id, {user: Class.users});
+        res && setClass(Class);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getClass = async (code, setClass) => {
   try {
     if (code) {

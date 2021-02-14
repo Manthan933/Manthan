@@ -13,6 +13,7 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PeopleIcon from '@material-ui/icons/People';
 import CloseIcon from '@material-ui/icons/Close';
+import {leaveClass} from "../../actions/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -71,6 +72,10 @@ export default function Classroom(props) {
     getTests(classCode, setTests);
   }, [classCode]);
 
+  const LeaveClass = (id, leaveAll) => {
+    id && leaveClass(id, Class, setClass, leaveAll) && getClass(classCode, setClass);
+  };
+
   if (Class)
     return (
       <Container>
@@ -90,30 +95,35 @@ export default function Classroom(props) {
       ): null }
             </div>
           </CardContent>
-          {admin && <DeleteSweepIcon className={classes.edit} fontSize="large" onClick={() => setDisplayUsers(true)}/>}
+          {admin === "true" && <DeleteSweepIcon className={classes.edit} fontSize="large" onClick={() => setDisplayUsers(true)}/>}
         </Card>
         {displayUsers && 
             <div className={classes.list}>
               <Typography variant="h6" className={classes.title}>
-                Delete Students from Class!
+                  {
+                    Class?.users.length <= 1 ? 'No Student enrolled in class or already removed!' : 'Delete Students from Class!'
+                  }
                 <CloseIcon className={classes.close} onClick={() => setDisplayUsers(false)}/>
               </Typography>
               <div className={classes.demo}>
-                  {Class?.users.map((value, index) => 
-                    <Chip className={classes.chips}
-                          key={index}
-                          icon={<AccountCircleIcon />}
-                          label={value}
-                          onDelete={() => console.log('Deleted User ' + value)}
-                          color="primary"
-                    />
+                  {Class.users.map((value, index) => 
+                    {return Class.instructor.email !== value && <Chip className={classes.chips}
+                                                                key={index}
+                                                                icon={<AccountCircleIcon />}
+                                                                label={value}
+                                                                onDelete={() => LeaveClass(value)}
+                                                                color="primary"
+                                                          />
+                    }
                   )}
-                  <Chip className={classes.chips}
-                        icon={<PeopleIcon />}
-                        label="Delete All"
-                        onDelete={() => console.log('Delete All Users')}
-                        color="secondary"
-                  />
+                  {Class.users.length > 2 && 
+                    <Chip className={classes.chips}
+                          icon={<PeopleIcon />}
+                          label="Delete All"
+                          onDelete={() => LeaveClass(Class.users, true)}
+                          color="secondary"
+                    />
+                  }
               </div>
             </div>
         }
