@@ -8,6 +8,11 @@ import image from "../../assets/images/1.jpg";
 import FloatingButton from "../../components/FloatingButtons/TestButton";
 import { getClass, getTests } from "../../actions/actions";
 import TestCard from "../../components/TestCard/TestCard";
+import Chip from '@material-ui/core/Chip';
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PeopleIcon from '@material-ui/icons/People';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles({
   root: {
@@ -33,6 +38,23 @@ const useStyles = makeStyles({
   avatar: {
     background: "#4285f4",
   },
+  list: {
+    margin: '10px'
+  },
+  chips: {
+    margin: '5px',
+  },
+  edit: {
+    margin: '5px',
+    cursor: 'pointer',
+    float: 'right',
+    color: 'white'
+  },
+  close: {
+    margin: '5px',
+    cursor: 'pointer',
+    float: 'right'
+  }
 });
 
 export default function Classroom(props) {
@@ -40,12 +62,15 @@ export default function Classroom(props) {
   const { classCode, admin } = props.match.params;
   const [Tests, setTests] = React.useState([]);
   const [Class, setClass] = React.useState();
+  const [displayUsers, setDisplayUsers] = React.useState(false);
+
   React.useEffect(() => {
     getClass(classCode, setClass);
   }, [classCode]);
   React.useEffect(() => {
     getTests(classCode, setTests);
   }, [classCode]);
+
   if (Class)
     return (
       <Container>
@@ -65,8 +90,34 @@ export default function Classroom(props) {
       ): null }
             </div>
           </CardContent>
+          {admin && <DeleteSweepIcon className={classes.edit} fontSize="large" onClick={() => setDisplayUsers(true)}/>}
         </Card>
-        {Tests.map((Test) => {
+        {displayUsers && 
+            <div className={classes.list}>
+              <Typography variant="h6" className={classes.title}>
+                Delete Students from Class!
+                <CloseIcon className={classes.close} onClick={() => setDisplayUsers(false)}/>
+              </Typography>
+              <div className={classes.demo}>
+                  {Class?.users.map((value, index) => 
+                    <Chip className={classes.chips}
+                          key={index}
+                          icon={<AccountCircleIcon />}
+                          label={value}
+                          onDelete={() => console.log('Deleted User ' + value)}
+                          color="primary"
+                    />
+                  )}
+                  <Chip className={classes.chips}
+                        icon={<PeopleIcon />}
+                        label="Delete All"
+                        onDelete={() => console.log('Delete All Users')}
+                        color="secondary"
+                  />
+              </div>
+            </div>
+        }
+        {!displayUsers && Tests.map((Test) => {
           return <TestCard key={Test._id} Test={Test} />;
         })}
 
