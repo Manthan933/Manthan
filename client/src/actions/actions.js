@@ -39,11 +39,16 @@ export const getClasses = async (id, setClasses) => {
   }
 };
 
-export const deleteClass = async (classCode, id, setClasses) => {
+export const deleteClass = async (classCode, id, setClasses, admin) => {
   try {
-    if (classCode) {
-      const res = await api.deleteClass(classCode);
-      res && getClasses(id, setClasses)
+    if (classCode && admin) {
+      if (window.confirm('Are you sure you want to remove this class')) {
+        const res = await api.deleteClass(classCode);
+        res && getClasses(id, setClasses)
+      }
+    } else {
+      window.confirm('Are you sure you want to leave this class');
+      //TODO - Handle Leave Class Flow
     }
   } catch (error) {
     console.log(error.message);

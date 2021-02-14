@@ -86,7 +86,7 @@ export default function SimpleCard(props) {
           >
             {Class.name}
           </Typography>
-          <EditIcon color='action' fontSize="small" className={classes.edit} onClick={handleCardEditing}/>
+          {admin && <EditIcon color='action' fontSize="small" className={classes.edit} onClick={handleCardEditing}/>}
           <Typography className={classes.pos} color='textSecondary'>
             {Class.instructor.name}
           </Typography>
@@ -103,7 +103,7 @@ export default function SimpleCard(props) {
             Class Code: {Class.code}
           </Typography>
         </div>
-        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class.code, Class.instructor?.email, setClasses)}/>
+        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class.code, Class.instructor?.email, setClasses, admin)}/>
       </CardContent>
     </Card>
      <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>
