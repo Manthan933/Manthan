@@ -57,8 +57,14 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
       user: user.email,
     });
     const updatedData = updatedClass.data;
-    const joinedClass = Classes.map(x => x.code === classCode ? { ...x,  updatedData} : x);
-    setClasses(joinedClass);
+    if (Class.data?.users.includes(user.email)) {
+      alert('You already joined this class - ' + classCode);
+    } else if(user.email === Class.data?.instructor?.email) {
+      const joinedClass = Classes.map(x => x.code === classCode ? { ...x,  updatedData} : x);
+      setClasses(joinedClass);
+    } else {
+      setClasses([...Classes, updatedData]);
+    }
   } catch (error) {
     console.log(error.message);
   }
