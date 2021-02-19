@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { Class, admin, setClasses, UpdateClass} = props;
+  const { Class, userId, admin, setClasses, UpdateClass} = props;
   const [editClass, setEditClass] = React.useState(false);
 
   const handleCardEditing = () => {
@@ -103,7 +103,7 @@ export default function SimpleCard(props) {
             Class Code: {Class.code}
           </Typography>
         </div>
-        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class.code, Class.instructor?.email, setClasses, admin)}/>
+        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class, Class.instructor?.email, userId, setClasses, admin)}/>
       </CardContent>
     </Card>
      <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>

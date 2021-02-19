@@ -157,7 +157,7 @@ export default function MenuAppBar(props) {
             </ListSubheader>
           }
         >
-          {Classes.map((Class) => {
+          {Classes.length && Classes.map((Class) => {
             return (
               <ListItem
                 key={Class.code}
