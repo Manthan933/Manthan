@@ -10,6 +10,8 @@ export const updateClass = (id, updatedClass) => axios.patch(`${classroomsURL}/$
 export const deleteClass = (code) => axios.delete(`${classroomsURL}/${code}`);
 export const editClass = (id, updatedClass) => axios.put(`${classroomsURL}/${id}`, updatedClass);
 
+export const leaveClass = (id, updatedClass) => axios.patch(`${classroomsURL}/${id}/leave`, updatedClass);
+
 //--------------- Test API ------------------------
 
 export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);

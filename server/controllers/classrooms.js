@@ -80,12 +80,12 @@ const Join = async (req, res) => {
 
 const Leave = async (req, res) => {
   const { id } = req.params;
-  const { userId } = req.body;
+  const { user } = req.body;
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No user with id: ${id}`);
   const updatedUser = await Classroom.findByIdAndUpdate(
     id,
-    { $push: { users: userId } },
+    { $set: { users: user } },
     { new: true }
   );
   res.json(updatedUser);
