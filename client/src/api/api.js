@@ -7,6 +7,8 @@ export const getClass = (code) => axios.get(`${classroomsURL}/${code}`);
 export const createClass = (newClass) => axios.post(classroomsURL, newClass);
 export const getClasses = (id) => axios.get(`${classroomsURL}/user/${id}`);
 export const updateClass = (id, updatedClass) => axios.patch(`${classroomsURL}/${id}`, updatedClass);
+export const deleteClass = (code) => axios.delete(`${classroomsURL}/${code}`);
+export const editClass = (id, updatedClass) => axios.put(`${classroomsURL}/${id}`, updatedClass);
 
 export const leaveClass = (id, updatedClass) => axios.patch(`${classroomsURL}/${id}/leave`, updatedClass);
 

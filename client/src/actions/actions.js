@@ -62,14 +62,43 @@ export const getClasses = async (id, setClasses) => {
   }
 };
 
+export const deleteClass = async (classCode, id, setClasses) => {
+  try {
+    if (classCode) {
+      const res = await api.deleteClass(classCode);
+      res && getClasses(id, setClasses)
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const joinClass = async (user, Classes, setClasses, classCode) => {
   try {
     const Class = await api.getClass(classCode);
-    console.log(user.email);
     const updatedClass = await api.updateClass(Class.data._id, {
       user: user.email,
     });
-    setClasses([...Classes, updatedClass.data]);
+    const updatedData = updatedClass.data;
+    if (Class.data?.users.includes(user.email)) {
+      alert('You already joined this class - ' + classCode);
+    } else if(user.email === Class.data?.instructor?.email) {
+      const joinedClass = Classes.map(x => x.code === classCode ? { ...x,  updatedData} : x);
+      setClasses(joinedClass);
+    } else {
+      setClasses([...Classes, updatedData]);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const editClassDetails = async (Class, Config, Classes, setClasses) => {
+  try {
+    const Id = await api.getClass(Class.code);
+    const res = await api.editClass(Id.data._id, Config);
+    const editedClass = res ? Classes.map(x => x.code === Class.code ? { ...x, ...Config } : x) : Classes;
+    setClasses(editedClass);
   } catch (error) {
     console.log(error.message);
   }
