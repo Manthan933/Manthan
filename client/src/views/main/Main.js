@@ -62,6 +62,7 @@ export default function SpacingGrid(props) {
                 <ClassCard
                   key={Class.code}
                   Class={Class}
+                  userId={user.email}
                   setClasses={setClasses}
                   UpdateClass={UpdateClass}
                   admin={user.email === Class.instructor.email}

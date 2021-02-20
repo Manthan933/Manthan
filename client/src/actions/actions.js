@@ -62,16 +62,17 @@ export const getClasses = async (id, setClasses) => {
   }
 };
 
-export const deleteClass = async (classCode, id, setClasses, admin) => {
+export const deleteClass = async (Class, intructorId, userId , setClasses, admin) => {
   try {
-    if (classCode && admin) {
+    if (Class.code && admin) {
       if (window.confirm('Are you sure you want to remove this class')) {
-        const res = await api.deleteClass(classCode);
-        res && getClasses(id, setClasses)
+        const res = await api.deleteClass(Class.code);
+        res && getClasses(intructorId, setClasses)
       }
     } else {
-      window.confirm('Are you sure you want to leave this class');
-      //TODO - Handle Leave Class Flow
+      if(window.confirm('Are you sure you want to leave this class')) {
+        leaveClass(userId, Class, setClasses);
+      }
     }
   } catch (error) {
     console.log(error.message);
@@ -93,6 +94,17 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
     } else {
       setClasses([...Classes, updatedData]);
     }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const editClassDetails = async (Class, Config, Classes, setClasses) => {
+  try {
+    const Id = await api.getClass(Class.code);
+    const res = await api.editClass(Id.data._id, Config);
+    const editedClass = res ? Classes.map(x => x.code === Class.code ? { ...x, ...Config } : x) : Classes;
+    setClasses(editedClass);
   } catch (error) {
     console.log(error.message);
   }
