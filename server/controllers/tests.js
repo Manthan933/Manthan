@@ -16,29 +16,17 @@ const Get = async (req, res) => {
 };
 
 const Create = async (req, res) => {
-  const {
-    name,
-    marks,
-    questions,
-    rules,
-    scores,
-    classroom,
-    duration, 
-    dueDate,
-  } = req.body;
-  const sortQuestions = Sort(questions);
+  var { name, marks, questions, rules, classroom } = req.body;
   const newTest = new Test({
     name,
     marks,
-    sortQuestions,
+    questions,
     classroom,
     rules,
-    scores,
-    duration,
-    dueDate,
   });
   try {
     await newTest.save();
+
     res.status(201).json(newTest);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -56,35 +44,29 @@ const GetTests = async (req, res) => {
 };
 
 const Update = async (req, res) => {
-  const { id } = req.params;
-  const { name, marks, questions, rules, scores, duration, dueDate } = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No Test with id: ${id}`);
-
-  const updatedTest = {
-    name,
-    marks,
-    questions,
-    rules,
-    scores,
-    duration, dueDate,
-    _id: id,
-  };
-
-  await Test.findByIdAndUpdate(id, updatedTest, { new: true });
-
-  res.json(updatedTest);
+  //const { id } = req.params;
+  //const { name, marks, questions, rules, scores, duration, dueDate } = req.body;
+  //if (!mongoose.Types.ObjectId.isValid(id))
+  //  return res.status(404).send(`No Test with id: ${id}`);
+  //const updatedTest = {
+  //  name,
+  //  marks,
+  //  questions,
+  //  rules,
+  //  scores,
+  //  duration,
+  //  dueDate,
+  //  _id: id,
+  //};
+  //await Test.findByIdAndUpdate(id, updatedTest, { new: true });
+  //res.json(updatedTest);
 };
 
 const Delete = async (req, res) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No Test with id: ${id}`);
-
   await Test.findByIdAndRemove(id);
-
   res.json({ message: "Test deleted successfully." });
 };
 
@@ -92,14 +74,8 @@ const Generate = async (req, res) => {
   const { id } = req.params;
   try {
     const test = await Test.findById(id);
-    const questions_id = GenerateTest(test.questions, test.rules);
-    var generated_test = [];
-
-    questions_id.forEach((id) => {
-      generated_test = [...generated_test, test.questions[id]];
-    });
-
-    res.status(200).json(generated_test);
+    const data = GenerateTest(test.questions, test.rules);
+    res.status(200).json(data);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

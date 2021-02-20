@@ -4,11 +4,11 @@ const Classrooms = require("../controllers/classrooms");
 
 const router = express.Router();
 
-router.get("/:code", Classrooms.Get);
 router.post("/", Classrooms.Create);
-router.get("/user/:id", Classrooms.GetClasses);
-router.patch("/:id", Classrooms.Join);
-router.patch("/:id/leave", Classrooms.Leave);
-router.delete("/:id", Classrooms.Delete);
+router.get("/:code", Classrooms.Get);
+router.get("/user/:user", Classrooms.GetClasses);
+router.patch("/join/:code", Classrooms.Join);
+router.patch("/leave/:code", Classrooms.Leave);
+router.delete("/:code", Classrooms.Delete);
 
 module.exports = router;

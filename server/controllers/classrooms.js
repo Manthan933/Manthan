@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Classroom = require("../models/classrooms.model");
 const Otp = ()=> { 
   var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
@@ -10,22 +9,21 @@ const Otp = ()=> {
   return OTP; 
 } 
 
-
 const Get = async (req, res) => {
   const { code } = req.params;
   try {
-    const Class = await Classroom.findOne({ code: code });
-    res.status(200).json(Class);
+    const data = await Classroom.findOne({ code: code });
+    res.status(200).json(data);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 const GetClasses = async (req, res) => {
-  const { id } = req.params;
+  const { user } = req.params;
   try {
-    const Class = await Classroom.find({ users: id });
-    res.status(200).json(Class);
+    const data = await Classroom.find({ users: user });
+    res.status(200).json(data);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -52,12 +50,10 @@ const Create = async (req, res) => {
 };
 
 const Join = async (req, res) => {
-  const { id } = req.params;
+  const { code } = req.params;
   const { user } = req.body;
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No user with id: ${id}`);
-  const updatedClass = await Classroom.findByIdAndUpdate(
-    id,
+  const updatedClass = await Classroom.findOneAndUpdate(
+    {code : code},
     { $push: { users: user } },
     { new: true }
   );
@@ -65,21 +61,19 @@ const Join = async (req, res) => {
 };
 
 const Leave = async (req, res) => {
-  const { id } = req.params;
-  const { userId } = req.body;
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res.status(404).send(`No user with id: ${id}`);
-  const updatedUser = await Classroom.findByIdAndUpdate(
-    id,
-    { $push: { users: userId } },
+  const { code } = req.params;
+  const { user } = req.body;
+  const updatedUser = await Classroom.findOneAndUpdate(
+    {code : code},
+    { $pull: { users: user } },
     { new: true }
   );
   res.json(updatedUser);
 };
 
 const Delete = async (req, res) => {
-  const { id } = req.params;
-  await Classroom.findOneAndRemove({code: id});
+  const { code } = req.params;
+  await Classroom.findOneAndRemove({code: code});
   res.json({ message: "Class deleted successfully." });
 };
 

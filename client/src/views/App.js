@@ -5,7 +5,9 @@ import Main from "./main/Main";
 import Class from "./classroom/Classroom";
 import CreateTest from "../components/Froms/CreateTest";
 import Navbar from "../components/Navbar/Navbar";
+import Test from './test/Test';
 import { getClasses } from "../actions/actions";
+
 
 export default function App() {
   const [user, setUser] = React.useState({});
@@ -42,6 +44,10 @@ export default function App() {
           <Route
             path='/:classCode/'
             render={(props) => <CreateTest {...props} />}
+          />
+          <Route
+            path='/:testid/start/'
+            render={(props) => <Test {...props} user={user}/>}
           />
         </Switch>
       </BrowserRouter>

@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ClassIcon from "@material-ui/icons/Class";
-import { Avatar} from "@material-ui/core";
+import { Avatar, Button} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { name, dueDate } = props.Test;
+  const { name, dueDate, _id } = props.Test;
   const date = new Date(dueDate);
   return (
     <Card className={classes.root}>
@@ -41,6 +41,7 @@ export default function SimpleCard(props) {
           <Typography variant='subtitle2' color='textSecondary'>
            Due : {date.toLocaleDateString()} 
           </Typography>
+          <a href = {`/test/${_id}/`}>Start</a>
         </div>
       </CardContent>
     </Card>
