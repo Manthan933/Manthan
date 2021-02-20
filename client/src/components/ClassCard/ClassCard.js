@@ -104,6 +104,7 @@ export default function SimpleCard(props) {
           </Typography>
         </div>
         <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class, Class.instructor?.email, userId, setClasses, admin)}/>
+
       </CardContent>
     </Card>
      <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>

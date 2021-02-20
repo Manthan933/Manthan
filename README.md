@@ -6,10 +6,10 @@
   <h3 align="center">MANTHAN</h3>
   <h3 align="center">उत्तिष्ठत जाग्रत प्राप्य वरान्निबोधत।</h3>
   <p align="center">
-    <a href="https://github.com/Manthan933/manthan"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Manthan933/Manthan/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://manthan-app.herokuapp.com/">View Demo</a>
+    <a href="http://www.manthan-app.org/">View Demo</a>
     ·
     <a href="https://github.com/Manthan933/Manthan/issues">Report Bug</a>
     ·
