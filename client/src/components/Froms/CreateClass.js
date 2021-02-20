@@ -7,16 +7,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 
 export default function FormDialog(props) {
-  const { open, setOpen, createClass } = props;
+  const { open, setOpen, createClass, updateClass, editable = false, classDetails} = props;
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleClick = () => {
+  const handleClick = (editable) => {
     const name = document.getElementById("name").value;
     const subject = document.getElementById("subject").value;
     const subcode = document.getElementById("subcode").value;
-    createClass({ name: name, subject: subject, subcode: subcode });
+    const config = { name: name, subject: subject, subcode: subcode };
+    editable ? updateClass(classDetails, config): createClass(config);
     setOpen(false);
   };
 
@@ -27,12 +28,13 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id='form-dialog-title'>Create class</DialogTitle>
+        <DialogTitle id='form-dialog-title'>{editable ? 'Edit Class': 'Create Class'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             id='name'
             label='Class name'
+            defaultValue={classDetails ? classDetails.name : ''}
             fullWidth
             required
           />
@@ -41,6 +43,7 @@ export default function FormDialog(props) {
             margin='normal'
             id='subject'
             label='Subject'
+            defaultValue={classDetails ? classDetails.subject : ''}
             fullWidth
           />
           <TextField
@@ -48,6 +51,7 @@ export default function FormDialog(props) {
             margin='normal'
             id='subcode'
             label='Subject Code'
+            defaultValue={classDetails? classDetails.subcode: ''}
             fullWidth
           />
         </DialogContent>
@@ -55,8 +59,8 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClick} type='submit' color='primary'>
-            Create
+          <Button onClick={() => handleClick(editable)} type='submit' color='primary'>
+          {editable ? 'Update': 'Create'}
           </Button>
         </DialogActions>
       </Dialog>

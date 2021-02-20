@@ -5,6 +5,10 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import image from "../../assets/images/5.jpg";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import { deleteClass } from "../../actions/actions";
+import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,12 +50,29 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(10),
     right: theme.spacing(2),
   },
+  delete: {
+      float: 'right',
+      marginRight:'15px',
+      marginTop: '-20px',
+      cursor: 'pointer',
+  },
+  edit: {
+    paddingLeft: '5px',
+    cursor: 'pointer',
+}
 }));
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { Class, admin } = props;
+  const { Class, userId, admin, setClasses, UpdateClass} = props;
+  const [editClass, setEditClass] = React.useState(false);
+
+  const handleCardEditing = () => {
+    setEditClass(true);
+  };
+
   return (
+    <>
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <div className={classes.body}>
@@ -65,7 +86,7 @@ export default function SimpleCard(props) {
           >
             {Class.name}
           </Typography>
-
+          {admin && <EditIcon color='action' fontSize="small" className={classes.edit} onClick={handleCardEditing}/>}
           <Typography className={classes.pos} color='textSecondary'>
             {Class.instructor.name}
           </Typography>
@@ -82,7 +103,11 @@ export default function SimpleCard(props) {
             Class Code: {Class.code}
           </Typography>
         </div>
+        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class, Class.instructor?.email, userId, setClasses, admin)}/>
+
       </CardContent>
     </Card>
+     <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>
+  </>
   );
 }

@@ -6,10 +6,10 @@
   <h3 align="center">MANTHAN</h3>
   <h3 align="center">उत्तिष्ठत जाग्रत प्राप्य वरान्निबोधत।</h3>
   <p align="center">
-    <a href="https://github.com/Manthan933/manthan"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Manthan933/Manthan/wiki"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://manthan-app.herokuapp.com/">View Demo</a>
+    <a href="http://www.manthan-app.org/">View Demo</a>
     ·
     <a href="https://github.com/Manthan933/Manthan/issues">Report Bug</a>
     ·
@@ -137,6 +137,8 @@ Join our **slack channel [here]( https://join.slack.com/t/manthanorg/shared_invi
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
 
 ## Programs We have been associated with 🤍
+
+<a href="https://gssoc.girlscript.tech/" target="_blank"><img src="https://raw.githubusercontent.com/aavishkarmishra/portfolio/master/Method%20Draw%20Image(1).png" width="180px" height="180px"></a>
 <a href="https://swoc.tech/index.html" target="_blank"><img src="https://raw.githubusercontent.com/HITK-TECH-Community/Community-Website/main/assets/SWoC.png" width="180px" height="180px"></a>
 
 ## Author 👨‍💻
@@ -163,3 +165,8 @@ Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)*
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
 [product-screenshot]: images/screenshot.png
+## Our Contributors ✨:
+
+<a href="https://github.com/Manthan933/Manthan/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Manthan933/Manthan" />
+</a>
