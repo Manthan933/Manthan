@@ -6,35 +6,12 @@ export const createClass = async (Class, user, Classes, setClasses) => {
       name: Class.name,
       subcode: Class.subcode,
       subject: Class.subject,
-      instructor: {name:user.username,email:user.email},
+      instructor: { name: user.username, email: user.email },
       image: user.image,
       users: [user.email],
     };
     const res = await api.createClass(newClass);
     setClasses([...Classes, res.data]);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const leaveClass = async (id, Class, setClass, deleteAll = false) => {
-  try {
-      if (deleteAll) {
-          if(window.confirm('Are you sure to remove all students from the class?')){
-            const res = await api.leaveClass(Class._id, {user: [Class.instructor.email]});
-            if(res){
-              Class.users = [Class.instructor.email];
-              setClass(Class);
-            }
-          };
-      } else {
-        const index = Class.users.indexOf(id);
-        if (index > -1) {
-          Class.users?.splice(index, 1);
-        }
-        const res = await api.leaveClass(Class._id, {user: Class.users});
-        res && setClass(Class);
-    }
   } catch (error) {
     console.log(error.message);
   }
@@ -51,28 +28,11 @@ export const getClass = async (code, setClass) => {
   }
 };
 
-export const getClasses = async (id, setClasses) => {
+export const getClasses = async (user, setClasses) => {
   try {
-    if (id) {
-      const res = await api.getClasses(id);
+    if (user) {
+      const res = await api.getClasses(user);
       setClasses(res.data);
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const deleteClass = async (Class, intructorId, userId , setClasses, admin) => {
-  try {
-    if (Class.code && admin) {
-      if (window.confirm('Are you sure you want to remove this class')) {
-        const res = await api.deleteClass(Class.code);
-        res && getClasses(intructorId, setClasses)
-      }
-    } else {
-      if(window.confirm('Are you sure you want to leave this class')) {
-        leaveClass(userId, Class, setClasses);
-      }
     }
   } catch (error) {
     console.log(error.message);
@@ -82,34 +42,86 @@ export const deleteClass = async (Class, intructorId, userId , setClasses, admin
 export const joinClass = async (user, Classes, setClasses, classCode) => {
   try {
     const Class = await api.getClass(classCode);
-    const updatedClass = await api.updateClass(Class.data._id, {
-      user: user.email,
-    });
-    const updatedData = updatedClass.data;
-    if (Class.data?.users.includes(user.email)) {
-      alert('You already joined this class - ' + classCode);
-    } else if(user.email === Class.data?.instructor?.email) {
-      const joinedClass = Classes.map(x => x.code === classCode ? { ...x,  updatedData} : x);
-      setClasses(joinedClass);
+    if (
+      Class.data.users.find((element) => {
+        return user.email === element;
+      })
+    ) {
+      alert("Already joined th class.");
     } else {
-      setClasses([...Classes, updatedData]);
+      const joinedClass = await api.joinClass(classCode, {
+        user: user.email,
+      });
+      setClasses([...Classes, joinedClass.data]);
+    }
+  } catch (error) {
+    alert("Class does not exist.");
+  }
+};
+
+export const deleteClass = async (code, user, setClasses) => {
+  try {
+    if (window.confirm("Are you sure you want to delete the classroom ? ")) {
+      await api.deleteClass(code);
+      getClasses(user, setClasses);
     }
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const editClassDetails = async (Class, Config, Classes, setClasses) => {
+export const editClassDetails = async (Class, Config, user, setClasses) => {
   try {
-    const Id = await api.getClass(Class.code);
-    const res = await api.editClass(Id.data._id, Config);
-    const editedClass = res ? Classes.map(x => x.code === Class.code ? { ...x, ...Config } : x) : Classes;
-    setClasses(editedClass);
+    await api.editClass(Class.code, Config);
+    getClasses(user, setClasses);
   } catch (error) {
     console.log(error.message);
   }
 };
 
+export const leaveClass = async (code, user, setClasses) => {
+  try {
+    if (window.confirm("Are you sure you want to leave the classroom ? ")) {
+      await api.leaveClass(code, { user: user });
+      getClasses(user, setClasses);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const removeStudents = async (
+  code,
+  user,
+  instructor,
+  deleteAll,
+  setClass
+) => {
+  try {
+    if (deleteAll) {
+      if (
+        window.confirm(
+          "Are you sure you want to remove all students from classroom ? "
+        )
+      ) {
+        await api.leaveClass(code, { user: user });
+        await api.joinClass(code, { user: instructor.email });
+        getClass(code, setClass);
+      }
+    } else {
+      if (
+        window.confirm(
+          "Are you sure you want to remove " + user + " form classroom ? "
+        )
+      ) {
+        await api.leaveClass(code, { user: user });
+        getClass(code, setClass);
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 //------------------------------- Test Methods -------------------------------
 
@@ -125,7 +137,7 @@ export const createTest = async (newTest) => {
 export const getTests = async (code, setTests) => {
   try {
     const res = await api.getTests(code);
-    setTests(res.data)
+    setTests(res.data);
   } catch (error) {
     console.log(error.message);
   }

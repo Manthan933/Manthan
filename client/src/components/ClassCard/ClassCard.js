@@ -5,9 +5,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import image from "../../assets/images/5.jpg";
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { deleteClass } from "../../actions/actions";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import { deleteClass, leaveClass } from "../../actions/actions";
 import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,20 +51,20 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2),
   },
   delete: {
-      float: 'right',
-      marginRight:'15px',
-      marginTop: '-20px',
-      cursor: 'pointer',
+    float: "right",
+    marginRight: "15px",
+    marginTop: "-20px",
+    cursor: "pointer",
   },
   edit: {
-    paddingLeft: '5px',
-    cursor: 'pointer',
-}
+    paddingLeft: "5px",
+    cursor: "pointer",
+  },
 }));
 
 export default function SimpleCard(props) {
   const classes = useStyles();
-  const { Class, userId, admin, setClasses, UpdateClass} = props;
+  const { Class, userId, admin, setClasses, UpdateClass } = props;
   const [editClass, setEditClass] = React.useState(false);
 
   const handleCardEditing = () => {
@@ -73,41 +73,65 @@ export default function SimpleCard(props) {
 
   return (
     <>
-    <Card className={classes.root}>
-      <CardContent className={classes.content}>
-        <div className={classes.body}>
-          <Typography
-            className={classes.title}
-            variant='h5'
-            component='a'
-            href={`/${Class.code}/${admin}`}
-            gutterBottom
-            color='textPrimary'
-          >
-            {Class.name}
-          </Typography>
-          {admin && <EditIcon color='action' fontSize="small" className={classes.edit} onClick={handleCardEditing}/>}
-          <Typography className={classes.pos} color='textSecondary'>
-            {Class.instructor.name}
-          </Typography>
-        </div>
-        <Avatar className={classes.avatar} src={Class.image} />
-        <div className={classes.details}>
-          <Typography variant='body1' component='p'>
-            Subject: {Class.subject}
-          </Typography>
-          <Typography variant='body1' component='p'>
-            Subject Code: {Class.subcode}
-          </Typography>
-          <Typography variant='body1' component='p'>
-            Class Code: {Class.code}
-          </Typography>
-        </div>
-        <DeleteIcon color='error' className={classes.delete} onClick={() => deleteClass(Class, Class.instructor?.email, userId, setClasses, admin)}/>
-
-      </CardContent>
-    </Card>
-     <CreateClass open={editClass} setOpen={setEditClass} classDetails={Class} updateClass={UpdateClass} editable={true}/>
-  </>
+      <Card className={classes.root}>
+        <CardContent className={classes.content}>
+          <div className={classes.body}>
+            <Typography
+              className={classes.title}
+              variant='h5'
+              component='a'
+              href={`/${Class.code}/${admin}`}
+              gutterBottom
+              color='textPrimary'
+            >
+              {Class.name}
+            </Typography>
+            {admin && (
+              <EditIcon
+                color='action'
+                fontSize='small'
+                className={classes.edit}
+                onClick={handleCardEditing}
+              />
+            )}
+            <Typography className={classes.pos} color='textSecondary'>
+              {Class.instructor.name}
+            </Typography>
+          </div>
+          <Avatar className={classes.avatar} src={Class.image} />
+          <div className={classes.details}>
+            <Typography variant='body1' component='p'>
+              Subject: {Class.subject}
+            </Typography>
+            <Typography variant='body1' component='p'>
+              Subject Code: {Class.subcode}
+            </Typography>
+            <Typography variant='body1' component='p'>
+              Class Code: {Class.code}
+            </Typography>
+          </div>
+          {admin ? (
+            <DeleteIcon
+              color='error'
+              className={classes.delete}
+              onClick={() => deleteClass(Class.code, userId, setClasses)}
+            />
+          ) : (
+            <DeleteIcon
+              color='error'
+              className={classes.delete}
+              onClick={() => leaveClass(Class.code, userId, setClasses)}
+            />
+          )}
+        </CardContent>
+      </Card>
+      <CreateClass
+        open={editClass}
+        setOpen={setEditClass}
+        classDetails={Class}
+        updateClass={UpdateClass}
+        editable={true}
+      />
+    </>
   );
 }

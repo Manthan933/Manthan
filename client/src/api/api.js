@@ -3,14 +3,13 @@ import { classroomsURL, testsURL } from "../constants/constants";
 
 //--------------- Class API -----------------------
 
-export const getClass = (code) => axios.get(`${classroomsURL}/${code}`);
 export const createClass = (newClass) => axios.post(classroomsURL, newClass);
-export const getClasses = (id) => axios.get(`${classroomsURL}/user/${id}`);
-export const updateClass = (id, updatedClass) => axios.patch(`${classroomsURL}/${id}`, updatedClass);
+export const getClass = (code) => axios.get(`${classroomsURL}/${code}`);
+export const getClasses = (user) => axios.get(`${classroomsURL}/user/${user}`);
+export const joinClass = (code, user) => axios.patch(`${classroomsURL}/${code}`, user);
 export const deleteClass = (code) => axios.delete(`${classroomsURL}/${code}`);
 export const editClass = (id, updatedClass) => axios.put(`${classroomsURL}/${id}`, updatedClass);
-
-export const leaveClass = (id, updatedClass) => axios.patch(`${classroomsURL}/${id}/leave`, updatedClass);
+export const leaveClass = (code, updatedClass) => axios.patch(`${classroomsURL}/${code}/leave`, updatedClass);
 
 //--------------- Test API ------------------------
 

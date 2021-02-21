@@ -5,9 +5,8 @@ import Main from "./main/Main";
 import Class from "./classroom/Classroom";
 import CreateTest from "../components/Froms/CreateTest";
 import Navbar from "../components/Navbar/Navbar";
-import Test from './test/Test';
-import { getClasses } from "../actions/actions";
-
+import Test from "./test/Test";
+import { getClasses, editClassDetails } from "../actions/actions";
 
 export default function App() {
   const [user, setUser] = React.useState({});
@@ -15,6 +14,9 @@ export default function App() {
   React.useEffect(() => {
     getClasses(user.email, setClasses);
   }, [user]);
+  const UpdateClass = (classDetails, updatedConfig) => {
+    editClassDetails(classDetails, updatedConfig, user.email, setClasses);
+  };
   return (
     <div className='home'>
       <Navbar
@@ -34,6 +36,7 @@ export default function App() {
                 user={user}
                 Classes={Classes}
                 setClasses={setClasses}
+                UpdateClass={UpdateClass}
               />
             )}
           />
@@ -47,7 +50,7 @@ export default function App() {
           />
           <Route
             path='/:testid/start/'
-            render={(props) => <Test {...props} user={user}/>}
+            render={(props) => <Test {...props} user={user} />}
           />
         </Switch>
       </BrowserRouter>

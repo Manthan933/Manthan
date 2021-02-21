@@ -8,12 +8,12 @@ import image from "../../assets/images/1.jpg";
 import FloatingButton from "../../components/FloatingButtons/TestButton";
 import { getClass, getTests } from "../../actions/actions";
 import TestCard from "../../components/TestCard/TestCard";
-import Chip from '@material-ui/core/Chip';
-import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PeopleIcon from '@material-ui/icons/People';
-import CloseIcon from '@material-ui/icons/Close';
-import {leaveClass} from "../../actions/actions";
+import Chip from "@material-ui/core/Chip";
+import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import PeopleIcon from "@material-ui/icons/People";
+import CloseIcon from "@material-ui/icons/Close";
+import { removeStudents } from "../../actions/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -40,22 +40,22 @@ const useStyles = makeStyles({
     background: "#4285f4",
   },
   list: {
-    margin: '10px'
+    margin: "10px",
   },
   chips: {
-    margin: '5px',
+    margin: "5px",
   },
   edit: {
-    margin: '5px',
-    cursor: 'pointer',
-    float: 'right',
-    color: 'white'
+    margin: "5px",
+    cursor: "pointer",
+    float: "right",
+    color: "white",
   },
   close: {
-    margin: '5px',
-    cursor: 'pointer',
-    float: 'right'
-  }
+    margin: "5px",
+    cursor: "pointer",
+    float: "right",
+  },
 });
 
 export default function Classroom(props) {
@@ -72,10 +72,6 @@ export default function Classroom(props) {
     getTests(classCode, setTests);
   }, [classCode]);
 
-  const LeaveClass = (id, leaveAll) => {
-    id && leaveClass(id, Class, setClass, leaveAll) && getClass(classCode, setClass);
-  };
-
   if (Class)
     return (
       <Container>
@@ -87,49 +83,79 @@ export default function Classroom(props) {
               <Typography variant='subtitle1'>
                 Instructor : {Class.instructor.name}
               </Typography>
-      {admin === "true" ? (
-      
-              <Typography variant='subtitle1'>
-                Class code : {Class.code}
-              </Typography>
-      ): null }
+              {admin === "true" ? (
+                <Typography variant='subtitle1'>
+                  Class code : {Class.code}
+                </Typography>
+              ) : null}
             </div>
           </CardContent>
-          {admin === "true" && <DeleteSweepIcon className={classes.edit} fontSize="large" onClick={() => setDisplayUsers(true)}/>}
+          {admin === "true" && (
+            <DeleteSweepIcon
+              className={classes.edit}
+              fontSize='large'
+              onClick={() => setDisplayUsers(true)}
+            />
+          )}
         </Card>
-        {displayUsers && 
-            <div className={classes.list}>
-              <Typography variant="h6" className={classes.title}>
-                  {
-                    Class?.users.length <= 1 ? 'No Student enrolled in class or already removed!' : 'Delete Students from Class!'
-                  }
-                <CloseIcon className={classes.close} onClick={() => setDisplayUsers(false)}/>
-              </Typography>
-              <div className={classes.demo}>
-                  {Class.users.map((value, index) => 
-                    {return Class.instructor.email !== value && <Chip className={classes.chips}
-                                                                key={index}
-                                                                icon={<AccountCircleIcon />}
-                                                                label={value}
-                                                                onDelete={() => LeaveClass(value)}
-                                                                color="primary"
-                                                          />
-                    }
-                  )}
-                  {Class.users.length > 2 && 
-                    <Chip className={classes.chips}
-                          icon={<PeopleIcon />}
-                          label="Delete All"
-                          onDelete={() => LeaveClass(Class.users, true)}
-                          color="secondary"
+        {displayUsers && (
+          <div className={classes.list}>
+            <Typography variant='h6' className={classes.title}>
+              {Class?.users.length <= 1
+                ? "No Student enrolled in class or already removed!"
+                : "Delete Students from Class!"}
+              <CloseIcon
+                className={classes.close}
+                onClick={() => setDisplayUsers(false)}
+              />
+            </Typography>
+            <div className={classes.demo}>
+              {Class.users.map((value, index) => {
+                return (
+                  Class.instructor.email !== value && (
+                    <Chip
+                      className={classes.chips}
+                      key={index}
+                      icon={<AccountCircleIcon />}
+                      label={value}
+                      onDelete={() =>
+                        removeStudents(
+                          classCode,
+                          value,
+                          Class.instructor,
+                          false,
+                          setClass
+                        )
+                      }
+                      color='primary'
                     />
+                  )
+                );
+              })}
+              {Class.users.length > 2 && (
+                <Chip
+                  className={classes.chips}
+                  icon={<PeopleIcon />}
+                  label='Delete All'
+                  onDelete={() =>
+                    removeStudents(
+                      classCode,
+                      Class.users,
+                      Class.instructor,
+                      true,
+                      setClass
+                    )
                   }
-              </div>
+                  color='secondary'
+                />
+              )}
             </div>
-        }
-        {!displayUsers && Tests.map((Test) => {
-          return <TestCard key={Test._id} Test={Test} />;
-        })}
+          </div>
+        )}
+        {!displayUsers &&
+          Tests.map((Test) => {
+            return <TestCard key={Test._id} Test={Test} />;
+          })}
 
         {admin === "true" ? (
           <FloatingButton href={`/${Class.code}/`} text='Create Test' />

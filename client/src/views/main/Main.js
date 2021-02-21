@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 
 import FloatingButton from "../../components/FloatingButtons/ClassButton";
 import ClassCard from "../../components/ClassCard/ClassCard";
-import { createClass, joinClass , editClassDetails} from "../../actions/actions";
+import { createClass, joinClass } from "../../actions/actions";
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,13 +42,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpacingGrid(props) {
   const classes = useStyles();
-  const { Classes, setClasses, user } = props;
+  const { Classes, setClasses, user, UpdateClass } = props;
   const CreateClass = (newClass) => {
     createClass(newClass, user, Classes, setClasses);
   };
-  const UpdateClass = (classDetails, updatedConfig) => {
-    editClassDetails(classDetails, updatedConfig, Classes, setClasses);
-  };
+
   const JoinClass = (classCode) => {
     joinClass(user, Classes, setClasses, classCode);
   };
