@@ -41,7 +41,7 @@ export default function SimpleCard(props) {
           <Typography variant='subtitle2' color='textSecondary'>
            Due : {date.toLocaleDateString()} 
           </Typography>
-          <a href = {`/test/${_id}/`}>Start</a>
+          <a href = {`/${_id}/start`}>Start</a>
         </div>
       </CardContent>
     </Card>

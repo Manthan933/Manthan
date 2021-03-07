@@ -7,7 +7,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 
 export default function FormDialog(props) {
-  const { open, setOpen, createClass, updateClass, editable = false, classDetails} = props;
+  const {
+    open,
+    setOpen,
+    createClass,
+    updateClass,
+    editable = false,
+    classDetails,
+  } = props;
   const handleClose = () => {
     setOpen(false);
   };
@@ -17,7 +24,7 @@ export default function FormDialog(props) {
     const subject = document.getElementById("subject").value;
     const subcode = document.getElementById("subcode").value;
     const config = { name: name, subject: subject, subcode: subcode };
-    editable ? updateClass(classDetails, config): createClass(config);
+    editable ? updateClass(classDetails, config) : createClass(config);
     setOpen(false);
   };
 
@@ -28,13 +35,15 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby='form-dialog-title'
       >
-        <DialogTitle id='form-dialog-title'>{editable ? 'Edit Class': 'Create Class'}</DialogTitle>
+        <DialogTitle id='form-dialog-title'>
+          {editable ? "Edit Class" : "Create Class"}
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             id='name'
             label='Class name'
-            defaultValue={classDetails ? classDetails.name : ''}
+            defaultValue={classDetails ? classDetails.name : ""}
             fullWidth
             required
           />
@@ -43,7 +52,7 @@ export default function FormDialog(props) {
             margin='normal'
             id='subject'
             label='Subject'
-            defaultValue={classDetails ? classDetails.subject : ''}
+            defaultValue={classDetails ? classDetails.subject : ""}
             fullWidth
           />
           <TextField
@@ -51,7 +60,7 @@ export default function FormDialog(props) {
             margin='normal'
             id='subcode'
             label='Subject Code'
-            defaultValue={classDetails? classDetails.subcode: ''}
+            defaultValue={classDetails ? classDetails.subcode : ""}
             fullWidth
           />
         </DialogContent>
@@ -59,8 +68,12 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={() => handleClick(editable)} type='submit' color='primary'>
-          {editable ? 'Update': 'Create'}
+          <Button
+            onClick={() => handleClick(editable)}
+            type='submit'
+            color='primary'
+          >
+            {editable ? "Update" : "Create"}
           </Button>
         </DialogActions>
       </Dialog>

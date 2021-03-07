@@ -15,3 +15,5 @@ export const leaveClass = (code, updatedClass) => axios.patch(`${classroomsURL}/
 
 export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);
 export const createTest = (newTest) => axios.post(testsURL, newTest);
+export const startTest = (testId) => axios.get(`${testsURL}/${testId}/start`);
+export const submitTest = (testId,scores) => axios.patch(`${testsURL}/${testId}`, scores);

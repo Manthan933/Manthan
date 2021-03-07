@@ -142,3 +142,25 @@ export const getTests = async (code, setTests) => {
     console.log(error.message);
   }
 };
+
+export const startTest = async (testId, setTest) => {
+  try {
+    if (testId) {
+      const res = await api.startTest(testId);
+      setTest(res.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const submitTest = async (testId, score, user) => {
+  try {
+    if (testId) {
+      const data = { score: score, user: user };
+      await api.submitTest(testId, data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

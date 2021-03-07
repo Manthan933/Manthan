@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
-  errorMsg:{
-    color:'red',
+  errorMsg: {
+    color: "red",
   },
   button: {
     marginTop: theme.spacing(3),
@@ -114,9 +114,11 @@ export default function CreateTest(porps) {
   const [dueDate, setDueDate] = React.useState(Date());
   const [durationHrs, setDurationHrs] = React.useState(0);
   const [durationMins, setDurationMins] = React.useState(0);
-  const [duration, setDuration] = React.useState(`${durationHrs}:${durationMins}`);
+  const [duration, setDuration] = React.useState(
+    `${durationHrs}:${durationMins}`
+  );
   const [marks, setMarks] = React.useState(0);
-  const [error, setError] = React.useState(""); 
+  const [error, setError] = React.useState("");
   const [questions, setQuestions] = React.useState([
     {
       question: "",
@@ -133,19 +135,19 @@ export default function CreateTest(porps) {
   ]);
 
   const handleNext = () => {
-     if (!name && !marks && durationMins < 10 && durationHrs < 0) {
-      setError("Please provide test name, marks and duration")
-       return;
-     } else if (!marks) {
-       setError("Please provide marks")
-       return;
-     } else if (!name) {
-       setError('Please provide test name');
-       return;
-    } else if (durationMins < 10 && durationHrs < 0) {
-      setError('Please provide test duration');
+    if (!name && !marks && durationMins < 10 && durationHrs < 0) {
+      setError("Please provide test name, marks and duration");
       return;
-   } 
+    } else if (!marks) {
+      setError("Please provide marks");
+      return;
+    } else if (!name) {
+      setError("Please provide test name");
+      return;
+    } else if (durationMins < 10 && durationHrs < 0) {
+      setError("Please provide test duration");
+      return;
+    }
 
     setError("");
     setActiveStep(activeStep + 1);

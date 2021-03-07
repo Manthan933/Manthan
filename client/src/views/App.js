@@ -41,16 +41,16 @@ export default function App() {
             )}
           />
           <Route
+            path='/:test_id/start'
+            render={(props) => <Test {...props} user={user} />}
+          />
+          <Route
             path='/:classCode/:admin'
             render={(props) => <Class {...props} />}
           />
           <Route
             path='/:classCode/'
             render={(props) => <CreateTest {...props} />}
-          />
-          <Route
-            path='/:testid/start/'
-            render={(props) => <Test {...props} user={user} />}
           />
         </Switch>
       </BrowserRouter>
