@@ -54,7 +54,11 @@ const Update = async (req, res) => {
       marks = marks + score[rule.type] * rule.marks;
     });
     const scores = { user: user, marks: marks };
-    await Test.findByIdAndUpdate(id, { scores: scores }, { new: true });
+    await Test.findByIdAndUpdate(
+      id,
+      { $push: { scores: scores } },
+      { new: true }
+    );
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
