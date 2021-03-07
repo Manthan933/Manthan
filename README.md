@@ -25,7 +25,7 @@
 
 <!-- TABLE OF CONTENTS -->
 
-## Table of Contents 📕
+## Table of Contents 📕 
 
 - [About the Project](#about-the-project)
   - [Description](#description)
@@ -147,7 +147,7 @@ Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)*
 
 [<img src="https://image.flaticon.com/icons/svg/185/185964.svg" width="35" padding="10">](https://www.linkedin.com/in/aavishkarmishra/)
 [<img src="https://www.flaticon.com/svg/static/icons/svg/1312/1312142.svg" width="35" padding="10">](https://www.twitter.com/aavishkarmishra)
-[<img src="https://image.flaticon.com/icons/svg/185/185985.svg" width="35" padding="10">](https://www.instagram.com/aavishkarmishra/)
+[<img src="https://image.flaticon.com/icons/svg/185/185985.svg" width="35" padding="10">](https://www.instagram.com/aavishkar_mishra/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
