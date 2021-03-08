@@ -9,6 +9,7 @@ import QuestionForm from "./QuestionForm";
 import RulesForm from "./RulesForm";
 import Review from "./Review";
 import { createTest } from "../../actions/actions";
+import uuid from "uuid/dist/v4";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -54,6 +55,7 @@ const steps = ["Test details", "Questions", "Rules", "Review"];
 
 function getStepContent(
   step,
+  id,
   name,
   marks,
   duration,
@@ -87,7 +89,7 @@ function getStepContent(
         />
       );
     case 1:
-      return <QuestionForm questions={questions} setQuestions={setQuestions} />;
+      return <QuestionForm questions={questions} setQuestions={setQuestions} id = {id}/>;
     case 2:
       return <RulesForm rules={rules} setRules={setRules} />;
     case 3:
@@ -105,18 +107,16 @@ function getStepContent(
       throw new Error("Unknown step");
   }
 }
-
+const id = uuid();
 export default function CreateTest(porps) {
   const classes = useStyles();
   const { classCode } = porps.match.params;
   const [activeStep, setActiveStep] = React.useState(0);
   const [name, setName] = React.useState("");
-  const [dueDate, setDueDate] = React.useState(Date());
+  const [dueDate, setDueDate] = React.useState(new Date());
   const [durationHrs, setDurationHrs] = React.useState(0);
   const [durationMins, setDurationMins] = React.useState(0);
-  const [duration, setDuration] = React.useState(
-    `${durationHrs}:${durationMins}`
-  );
+  const [duration, setDuration] = React.useState(Date.now());
   const [marks, setMarks] = React.useState(0);
   const [error, setError] = React.useState("");
   const [questions, setQuestions] = React.useState([
@@ -128,6 +128,7 @@ export default function CreateTest(porps) {
       option3: "",
       option4: "",
       answer: "",
+      test: id,
     },
   ]);
   const [rules, setRules] = React.useState([
@@ -158,18 +159,22 @@ export default function CreateTest(porps) {
   };
 
   const handleSubmit = () => {
-    setDuration(`${durationHrs}:${durationMins}`);
+    var d = new Date(98,1);
+    console.log("Date "+d); 
+    d.setHours(durationHrs);
+    d.setMinutes(durationMins);
+    console.log("Date "+d); 
     const newTest = {
+      id: id,
       name: name,
       classroom: classCode,
       marks: marks,
       questions: questions,
       rules: rules,
-      duration: duration,
-      durationHrs: durationHrs,
-      durationMins: durationMins,
+      duration: d,
       dueDate: dueDate,
     };
+    console.log(newTest);
     createTest(newTest);
   };
 
@@ -186,6 +191,7 @@ export default function CreateTest(porps) {
             <React.Fragment>
               {getStepContent(
                 activeStep,
+                id,
                 name,
                 marks,
                 duration,

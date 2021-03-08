@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PaymentForm(props) {
   const classes = useStyles();
   const [errMsg, setErrMsg] = useState("");
-  const { questions, setQuestions } = props;
+  const { questions, setQuestions, id } = props;
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...questions];
@@ -46,6 +46,7 @@ export default function PaymentForm(props) {
           option3: "",
           option4: "",
           answer: "",
+          test : id
         },
       ]);
     } else {

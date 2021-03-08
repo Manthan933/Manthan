@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Classrooms = require("../controllers/classrooms");
+const Classrooms = require("../../controllers/classrooms");
 
 const router = express.Router();
 

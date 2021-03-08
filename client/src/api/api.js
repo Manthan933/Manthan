@@ -1,5 +1,5 @@
 import axios from "axios";
-import { classroomsURL, testsURL } from "../constants/constants";
+import { classroomsURL, testsURL, questionsURL } from "../constants/constants";
 
 //--------------- Class API -----------------------
 
@@ -16,4 +16,4 @@ export const leaveClass = (code, updatedClass) => axios.patch(`${classroomsURL}/
 export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);
 export const createTest = (newTest) => axios.post(testsURL, newTest);
 export const startTest = (testId) => axios.get(`${testsURL}/${testId}/start`);
-export const submitTest = (testId,scores) => axios.patch(`${testsURL}/${testId}`, scores);
+export const submitTest = (testId,response) => axios.patch(`${testsURL}/${testId}`, response);

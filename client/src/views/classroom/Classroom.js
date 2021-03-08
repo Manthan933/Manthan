@@ -154,7 +154,7 @@ export default function Classroom(props) {
         )}
         {!displayUsers &&
           Tests.map((Test) => {
-            return <TestCard key={Test._id} Test={Test} />;
+            return <TestCard key={Test._id} Test={Test} admin = {admin} />;
           })}
 
         {admin === "true" ? (

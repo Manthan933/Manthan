@@ -20,14 +20,9 @@ export default function App(props) {
     startTest(test_id, setTest);
   }, [test_id]);
   const onSubmit = (values) => {
-    let score = {};
-    Test.forEach((Question) => {
-      if (isNaN(score[Question.type])) score[Question.type] = 0;
-      if (Question.answer === values[`Question${Question.question}`])
-        score[Question.type] = score[Question.type] + 1;
-    });
-    submitTest(test_id, score, props.user);
-    window.location.replace(`/`);
+    console.log(values);
+    submitTest(test_id, values, props.user);
+    //window.location.replace(`/`);
   };
   return (
     <Container>
@@ -56,7 +51,7 @@ export default function App(props) {
                                 label={Question.option1}
                                 control={
                                   <Field
-                                    name={`Question${Question.question}`}
+                                    name={`${Question._id}`}
                                     component={Radio}
                                     type='radio'
                                     value={Question.option1}
@@ -67,7 +62,7 @@ export default function App(props) {
                                 label={Question.option2}
                                 control={
                                   <Field
-                                    name={`Question${Question.question}`}
+                                    name={`${Question._id}`}
                                     component={Radio}
                                     type='radio'
                                     value={Question.option2}
@@ -78,7 +73,7 @@ export default function App(props) {
                                 label={Question.option3}
                                 control={
                                   <Field
-                                    name={`Question${Question.question}`}
+                                    name={`${Question._id}`}
                                     component={Radio}
                                     type='radio'
                                     value={Question.option3}
@@ -89,7 +84,7 @@ export default function App(props) {
                                 label={Question.option4}
                                 control={
                                   <Field
-                                    name={`Question${Question.question}`}
+                                    name={`${Question._id}`}
                                     component={Radio}
                                     type='radio'
                                     value={Question.option4}

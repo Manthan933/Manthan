@@ -127,8 +127,9 @@ export const removeStudents = async (
 
 export const createTest = async (newTest) => {
   try {
+    console.log(newTest.questions);
     await api.createTest(newTest);
-    window.location.replace(`${window.location.href}true`);
+    //window.location.replace(`${window.location.href}true`);
   } catch (error) {
     console.log(error.message);
   }
@@ -154,10 +155,11 @@ export const startTest = async (testId, setTest) => {
   }
 };
 
-export const submitTest = async (testId, score, user) => {
+export const submitTest = async (testId, response, user) => {
   try {
     if (testId) {
-      const data = { score: score, user: user };
+      const data = { user : user, response : response}
+      console.log(data);
       await api.submitTest(testId, data);
     }
   } catch (error) {

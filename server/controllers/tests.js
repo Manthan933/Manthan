@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const Test = require("../models/tests.model");
+const Question = require("../models/questions.model");
 const { GenerateTest, Sort } = require("./test_generator");
 
 const Get = async (req, res) => {
   const { id } = req.params;
-
   try {
     const test = await Test.findById(id);
     res.status(200).json(test);
@@ -15,17 +15,28 @@ const Get = async (req, res) => {
 };
 
 const Create = async (req, res) => {
-  var { name, marks, questions, rules, classroom } = req.body;
-  const newTest = new Test({
+  var {
+    id,
     name,
     marks,
+    rules,
     questions,
     classroom,
+    duration,
+    dueDate,
+  } = req.body;
+  const newTest = new Test({
+    id,
+    name,
+    marks,
+    classroom,
     rules,
+    duration,
+    dueDate,
   });
   try {
+    await Question.insertMany(questions);
     await newTest.save();
-
     res.status(201).json(newTest);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -44,19 +55,27 @@ const GetTests = async (req, res) => {
 
 const Update = async (req, res) => {
   const { id } = req.params;
-  const { score, user } = req.body;
+  const { response, user } = req.body;
   try {
-    if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).send(`No Test with id: ${id}`);
-    const test = await Test.findById(id);
+    var score = {};
     var marks = 0;
+    const test = await Test.findById(id, { rules: 1, id: 1 });
+    const answers = await Question.find(
+      { test: test.id },
+      { answer: 1, type: 1 }
+    );
+    answers.forEach((ele) => {
+      if (response[ele._id] === ele.answer) {
+        if (isNaN(score[ele.type])) score[ele.type] = 0;
+        score[ele.type] = score[ele.type] + 1;
+      }
+    });
     test.rules.forEach((rule) => {
       marks = marks + score[rule.type] * rule.marks;
     });
-    const scores = { user: user, marks: marks };
     await Test.findByIdAndUpdate(
       id,
-      { $push: { scores: scores } },
+      { $push: { scores: { user: user, marks: marks } } },
       { new: true }
     );
   } catch (error) {
@@ -66,9 +85,8 @@ const Update = async (req, res) => {
 const Delete = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!mongoose.Types.ObjectId.isValid(id))
-      return res.status(404).send(`No Test with id: ${id}`);
-    await Test.findByIdAndRemove(id);
+    await Question.deleteMany({ test: id });
+    await Test.findOneAndDelete({ id: id });
     res.json({ message: "Test deleted successfully." });
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -78,8 +96,14 @@ const Delete = async (req, res) => {
 const Generate = async (req, res) => {
   const { id } = req.params;
   try {
-    const test = await Test.findById(id);
-    const data = GenerateTest(test.questions, test.rules);
+    const test = await Test.findById(id, { rules: 1, id: 1 });
+    const questions = await Question.find(
+      { test: test.id },
+      { answer: 0 }
+    ).sort({
+      type: 1,
+    });
+    const data = GenerateTest(questions, test.rules);
     res.status(200).json(data);
   } catch (error) {
     res.status(404).json({ message: error.message });
