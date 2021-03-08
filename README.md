@@ -28,7 +28,7 @@
 ## Table of Contents 📕 
 
 - [About the Project](#about-the-project)
-  - [Description](#description)
+  - [Description](# description)
   - [Features](#features)
   - [Built With](#built-with)
   <!---* [Live App](#live-app)--->
