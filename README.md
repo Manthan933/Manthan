@@ -53,7 +53,7 @@ We will provide an online testing platform which can be used to conduct tests wr
 - A secure platform for online testing.
 - Interactive and easy to use.
 - Grades can be accessed/ changed even after the completion of test.
-- Teacher can decide if a particular question is compulsary in all the tests or not.
+- Teacher can decide if a particular question is compulsory in all the tests or not.
 - Application is in locked mode so no transition between other applications (as Whatsapp,call,etc.).
 - A basic facility like calculator will be present in the application so to do basic math operations.
 - A list of the marks will be sent to the educator just after the completion of the test.
