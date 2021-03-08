@@ -116,11 +116,11 @@ These are the prerequisites required to run this application.
 4. To run the application using Docker in server
 we first build app container using 
 ```
-  docker build -t getting started
+  docker build -t getting-started
 ```
 for running the app 
 ```
-  docker run getting started
+  docker run getting-started
 ```  
 
 
