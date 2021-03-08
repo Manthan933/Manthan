@@ -31,7 +31,7 @@ export default function PaymentForm(props) {
     setRules([
       ...rules,
       {
-        type: 1,
+        type: rules.length + 1,
         noofques: 0,
         marks: 0,
       },

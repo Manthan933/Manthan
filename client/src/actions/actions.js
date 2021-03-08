@@ -1,4 +1,5 @@
 import * as api from "../api/api";
+
 // ---------------------------- Class Methods ------------------------------
 export const createClass = async (Class, user, Classes, setClasses) => {
   try {
@@ -127,9 +128,8 @@ export const removeStudents = async (
 
 export const createTest = async (newTest) => {
   try {
-    console.log(newTest.questions);
     await api.createTest(newTest);
-    //window.location.replace(`${window.location.href}true`);
+    window.location.replace(`${window.location.href}true`);
   } catch (error) {
     console.log(error.message);
   }
@@ -157,10 +157,10 @@ export const startTest = async (testId, setTest) => {
 
 export const submitTest = async (testId, response, user) => {
   try {
-    if (testId) {
-      const data = { user : user, response : response}
-      console.log(data);
+    if (window.confirm("Are you sure you want to submit ? ")) {
+      const data = { user: user, response: response };
       await api.submitTest(testId, data);
+      window.location.replace(`/`);
     }
   } catch (error) {
     console.log(error.message);

@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import Main from "./main/Main";
-import Class from "./classroom/Classroom";
 import CreateTest from "../components/Froms/CreateTest";
 import Navbar from "../components/Navbar/Navbar";
+
+import Main from "./main/Main";
+import Class from "./classroom/Classroom";
 import Test from "./test/Test";
+
 import { getClasses, editClassDetails } from "../actions/actions";
 
 export default function App() {
@@ -30,14 +32,7 @@ export default function App() {
           <Route
             path='/'
             exact
-            render={(props) => (
-              <Main
-                {...props}
-                user={user}
-                Classes={Classes}
-                setClasses={setClasses}
-                UpdateClass={UpdateClass}
-              />
+            render={(props) => (<Main {...props} user={user} Classes={Classes} setClasses={setClasses} UpdateClass={UpdateClass} />
             )}
           />
           <Route

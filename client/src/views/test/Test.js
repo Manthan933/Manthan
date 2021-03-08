@@ -20,9 +20,8 @@ export default function App(props) {
     startTest(test_id, setTest);
   }, [test_id]);
   const onSubmit = (values) => {
-    console.log(values);
     submitTest(test_id, values, props.user);
-    //window.location.replace(`/`);
+    window.location.replace(`/`);
   };
   return (
     <Container>

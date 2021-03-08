@@ -58,7 +58,6 @@ function getStepContent(
   id,
   name,
   marks,
-  duration,
   durationHrs,
   durationMins,
   dueDate,
@@ -97,7 +96,8 @@ function getStepContent(
         <Review
           name={name}
           marks={marks}
-          duration={duration}
+          durationHrs={durationHrs}
+          durationMins={durationMins}
           dueDate={dueDate}
           questions={questions}
           rules={rules}
@@ -116,7 +116,6 @@ export default function CreateTest(porps) {
   const [dueDate, setDueDate] = React.useState(new Date());
   const [durationHrs, setDurationHrs] = React.useState(0);
   const [durationMins, setDurationMins] = React.useState(0);
-  const [duration, setDuration] = React.useState(Date.now());
   const [marks, setMarks] = React.useState(0);
   const [error, setError] = React.useState("");
   const [questions, setQuestions] = React.useState([
@@ -159,11 +158,9 @@ export default function CreateTest(porps) {
   };
 
   const handleSubmit = () => {
-    var d = new Date(98,1);
-    console.log("Date "+d); 
-    d.setHours(durationHrs);
-    d.setMinutes(durationMins);
-    console.log("Date "+d); 
+    var duration = new Date(98,1);
+    duration.setHours(durationHrs);
+    duration.setMinutes(durationMins);
     const newTest = {
       id: id,
       name: name,
@@ -171,10 +168,9 @@ export default function CreateTest(porps) {
       marks: marks,
       questions: questions,
       rules: rules,
-      duration: d,
+      duration: duration,
       dueDate: dueDate,
     };
-    console.log(newTest);
     createTest(newTest);
   };
 
@@ -194,7 +190,6 @@ export default function CreateTest(porps) {
                 id,
                 name,
                 marks,
-                duration,
                 durationHrs,
                 durationMins,
                 dueDate,

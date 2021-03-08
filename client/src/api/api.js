@@ -1,5 +1,5 @@
 import axios from "axios";
-import { classroomsURL, testsURL, questionsURL } from "../constants/constants";
+import { classroomsURL, testsURL } from "../constants/constants";
 
 //--------------- Class API -----------------------
 
