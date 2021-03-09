@@ -157,21 +157,23 @@ export default function MenuAppBar(props) {
             </ListSubheader>
           }
         >
-          {Classes.length && Classes.map((Class) => {
-            return (
-              <ListItem
-                key={Class.code}
-                className={classes.classLink}
-                component='a'
-                href={`/${Class.code}/${user.email === Class.instructor.email}`}
-              >
-                <ListItemIcon>
-                  <ClassRoundedIcon />
-                </ListItemIcon>
-                <ListItemText color='textPrimary'>{Class.name}</ListItemText>
-              </ListItem>
-            );
-          })}
+          <ListSubheader>
+            {Classes.length && Classes.map((Class) => {
+              return (
+                <ListItem
+                  key={Class.code}
+                  className={classes.classLink}
+                  component='a'
+                  href={`/${Class.code}/${user.email === Class.instructor.email}`}
+                >
+                  <ListItemIcon>
+                    <ClassRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText color='textPrimary'>{Class.name}</ListItemText>
+                </ListItem>
+              );
+            })}
+          </ListSubheader>
         </List>
         <Divider />
         <List>
