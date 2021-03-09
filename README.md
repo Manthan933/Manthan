@@ -53,13 +53,13 @@ We provide an online testing platform which can be used to conduct tests which a
 - A secure platform for online testing.
 - Interactive and easy to use.
 - Grades can be accessed/ changed even after the completion of test.
-- Teacher can decide if a particular question is compulsory in all the tests or not.
-- Application is in the locked mode so there is no transition between other applications (as Whatsapp,call,etc.).
+- The teacher can decide if a particular question is compulsory or not in all the tests.
+- The application is in the locked mode, so there is no transition between other applications (as Whatsapp,call,etc.).
 - Basic facilities like calculator are provided in the application for basic math operations.
 - A list of the marks will be sent to the educator just after the completion of the test.
 - Use Gmail or Student mail IDs to save the students' marks.
 - The test will be automatically submitted after the prescribed time frame.
-- We will try to block incoming calls/ messages/ screen capture and all the unnecessary activities during the test.
+- We will try to block incoming calls/ messages/ screen capture or any other malpractice during the test.
 
 ### Built With 💻
 
@@ -76,11 +76,11 @@ We provide an online testing platform which can be used to conduct tests which a
 
 ## Getting Started ✅
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites 📖
 
-These are the prerequisites required to run this application.
+These are the prerequisites required to run this application:
 
 - Node
 - npm
