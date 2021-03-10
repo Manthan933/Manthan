@@ -157,7 +157,7 @@ export default function MenuAppBar(props) {
             </ListSubheader>
           }
         >
-          <ListSubheader>
+          <ListSubheader style={{ paddingLeft: 0 }}>
             {Classes.length && Classes.map((Class) => {
               return (
                 <ListItem
