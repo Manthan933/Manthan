@@ -55,6 +55,7 @@ export default function Logout(props) {
     setUser({});
     setClasses([]);
     setAuth(false);
+    window.location.href="/";
   };
   const handleLogoutFailure = (response) => {
     alert("Failed to log out");
