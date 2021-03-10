@@ -135,6 +135,16 @@ export const createTest = async (newTest) => {
   }
 };
 
+
+export const removeTest=async(id)=>{
+  try{
+    await api.removeTest(id);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
 export const getTests = async (code, setTests) => {
   try {
     const res = await api.getTests(code);
