@@ -136,8 +136,8 @@ export const createTest = async (newTest) => {
 };
 
 
-export const removeTest=async(id)=>{
-  try{
+export const removeTest = async (id) => {
+  try {
     await api.removeTest(id);
   }
   catch (error) {
