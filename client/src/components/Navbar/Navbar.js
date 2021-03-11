@@ -156,8 +156,9 @@ export default function MenuAppBar(props) {
               Enrolled{" "}
             </ListSubheader>
           }
+          style={{ marginLeft: '0.2rem'}}
         >
-          <ListSubheader style={{ paddingLeft: 0 }}>
+          <div style={{ marginLeft: '5%'}}>
             {Classes.length && Classes.map((Class) => {
               return (
                 <ListItem
@@ -165,6 +166,7 @@ export default function MenuAppBar(props) {
                   className={classes.classLink}
                   component='a'
                   href={`/${Class.code}/${user.email === Class.instructor.email}`}
+                  style={{ paddingLeft: 0 }}
                 >
                   <ListItemIcon>
                     <ClassRoundedIcon />
@@ -173,7 +175,7 @@ export default function MenuAppBar(props) {
                 </ListItem>
               );
             })}
-          </ListSubheader>
+          </div>
         </List>
         <Divider />
         <List>
