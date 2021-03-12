@@ -63,7 +63,7 @@ We provide an online testing platform which can be used to conduct tests which a
 
 ### Built With 💻
 
-- [ReactJs](https://reactjs.org/)      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png">
+- [ReactJs](https://reactjs.org/)     <i class="fab fa-react"></i> 
 - [Expressjs](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com/)
 - [Node js](https://nodejs.org/)
