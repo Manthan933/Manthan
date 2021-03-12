@@ -63,10 +63,10 @@ We provide an online testing platform which can be used to conduct tests which a
 
 ### Built With 💻
 
-- [ReactJs](https://reactjs.org/)     <i class="fab fa-react"></i> 
-- [Expressjs](https://expressjs.com/)
-- [Mongodb](https://www.mongodb.com/)
-- [Node js](https://nodejs.org/)
+- [ReactJs](https://reactjs.org/)     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png" height=30 width=50>
+- [Expressjs](https://expressjs.com/)  <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" height=30 width=50>
+- [Mongodb](https://www.mongodb.com/)  <img src="https://nakedsecurity.sophos.com/wp-content/uploads/sites/2/2017/01/mongodb.png?w=775" height=30 width=50>
+- [Node js](https://nodejs.org/)       <img src="https://blog.42mate.com/wp-content/uploads/2016/08/Node-js-Logo.png" height=30 width=50>
 
 <!-- LIVE APP
 ## Live App
