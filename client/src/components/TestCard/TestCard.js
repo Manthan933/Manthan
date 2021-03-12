@@ -5,7 +5,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ClassIcon from "@material-ui/icons/Class";
 import { Avatar, Button, withTheme } from "@material-ui/core";
-
+import { Avatar, Button } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles({
   root: {
     borderRadius: "10px",
@@ -26,13 +27,21 @@ const useStyles = makeStyles({
   avatar: {
     background: "#4285f4",
   },
-  
-  
+
+  delete:{
+    float:"right",
+    margin:20,
+  }
 });
 
 export default function SimpleCard(props) {
+
+  
   const classes = useStyles();
   const { name, dueDate, _id, marks, duration } = props.Test;
+
+  const { name, dueDate, _id,id } = props.Test;
+
   const { admin } = props;
   const date = new Date(dueDate);
   const DurationHours = new Date(duration).getHours();
@@ -59,7 +68,17 @@ export default function SimpleCard(props) {
             Start
           </Button>
         </div>
+        
       </CardContent>
+    
+      {admin === "true" && (
+        <DeleteIcon
+      fontSize="large"
+      className={classes.delete}
+      onClick={()=>{props.onDelete(id)}}
+      style={{ "color":"#794242" }}/>
+          )}
+     
     </Card>
   );
 }

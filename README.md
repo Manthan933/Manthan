@@ -46,20 +46,20 @@
 
 ### Description 👇
 
-We will provide an online testing platform which can be used to conduct tests wrapped with all necessary precautions to reduce the chances of cheating. Here the educator will can create classes and test on web portal and all the questions will be randomly distributed among the students resulting in large number of sets.
+We provide an online testing platform which can be used to conduct tests which are wrapped with all the necessary precautions to reduce the chances of cheating. Here, the educator can create classes and tests on a web portal and all the entered questions will be randomly distributed among the students resulting in large number of sets.
 
 ### Features 🔎
 
 - A secure platform for online testing.
 - Interactive and easy to use.
 - Grades can be accessed/ changed even after the completion of test.
-- Teacher can decide if a particular question is compulsory in all the tests or not.
-- Application is in locked mode so no transition between other applications (as Whatsapp,call,etc.).
-- A basic facility like calculator will be present in the application so to do basic math operations.
+- The teacher can decide if a particular question is compulsory or not in all the tests.
+- The application is in the locked mode, so there is no transition between other applications (as Whatsapp,call,etc.).
+- Basic facilities like calculator are provided in the application for basic math operations.
 - A list of the marks will be sent to the educator just after the completion of the test.
-- Use Gmail or Student mail Id's to save student marks.
-- Test will be automatically submitted after the time frame.
-- We'll try to block incoming calls/ messages/ screen capture and all the unnecessary activities during the test.
+- Use Gmail or Student mail IDs to save the students' marks.
+- The test will be automatically submitted after the prescribed time frame.
+- We will try to block incoming calls/ messages/ screen capture or any other malpractice during the test.
 
 ### Built With 💻
 
@@ -76,11 +76,11 @@ We will provide an online testing platform which can be used to conduct tests wr
 
 ## Getting Started ✅
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites 📖
 
-These are the prerequisites required to run this application.
+These are the prerequisites required to run this application:
 
 - Node
 - npm

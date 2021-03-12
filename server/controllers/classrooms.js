@@ -45,6 +45,7 @@ const Create = async (req, res) => {
     await newClassroom.save();
     res.status(201).json(newClassroom);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };

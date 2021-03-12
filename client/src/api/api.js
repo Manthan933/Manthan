@@ -17,3 +17,4 @@ export const getTests = (code) => axios.get(`${testsURL}/class/${code}`);
 export const createTest = (newTest) => axios.post(testsURL, newTest);
 export const startTest = (testId) => axios.get(`${testsURL}/${testId}/start`);
 export const submitTest = (testId,response) => axios.patch(`${testsURL}/${testId}`, response);
+export const removeTest=(testId)=>axios.delete(`${testsURL}/${testId}`);
