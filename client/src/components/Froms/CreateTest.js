@@ -134,6 +134,7 @@ export default function CreateTest(porps) {
     { type: 1, marks: 0, noofques: 0 },
   ]);
 
+ 
   const handleNext = () => {
     if (!name && !marks && durationMins < 10 && durationHrs < 0) {
       setError("Please provide test name, marks and duration");

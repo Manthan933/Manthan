@@ -53,11 +53,45 @@ export default function PaymentForm(props) {
       setErrMsg("Please provide question and all options");
     }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+      const data = new FormData(e.target);
+         const value = Object.fromEntries(data.entries());
+      
+          new Response(value.quesFile).json().then(json => {
+            var newQues = [];
+              json.map((ques)=>{
+                console.log(ques)
+                let currentQues ={};
+                if(ques.type && ques.question && ques.answer && ques.option1 &&
+                  ques.option2 && ques.option3 && ques.option4 ){
+                  currentQues.type = ques.type;
+                  currentQues.question = ques.question;
+                  currentQues.answer = ques.answer;
+                  currentQues.option1 = ques.option1;
+                  currentQues.option2 = ques.option2;
+                  currentQues.option3 = ques.option3;
+                  currentQues.option4 = ques.option4;
+                  currentQues.test = id
+                  newQues.push(currentQues)
+                }
+
+              })
+              setQuestions(newQues.concat(questions));
+            }, err => {
+              // not json
+            })
+}
   return (
     <React.Fragment>
       <Typography variant='h6' gutterBottom>
         Questions
       </Typography>
+      <form onSubmit={handleSubmit} style={{marginTop:20,marginBottom:15,height:35}} >
+            <input type="file" name="quesFile" id="quesFile" accept=".json,.csv" />
+            <button type="submit">Submit</button>
+
+          </form>
       <Grid container spacing={3}>
         {questions.map((ques, index) => {
           return (
