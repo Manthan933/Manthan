@@ -13,7 +13,7 @@ import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import PeopleIcon from "@material-ui/icons/People";
 import CloseIcon from "@material-ui/icons/Close";
-import { removeStudents } from "../../actions/actions";
+import { removeStudents,removeTest } from "../../actions/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -71,7 +71,11 @@ export default function Classroom(props) {
   React.useEffect(() => {
     getTests(classCode, setTests);
   }, [classCode]);
-
+  function onDelete(id)
+  {
+    removeTest(id);
+    getTests(classCode, setTests);
+  }
   if (Class)
     return (
       <Container>
@@ -154,7 +158,7 @@ export default function Classroom(props) {
         )}
         {!displayUsers &&
           Tests.map((Test) => {
-            return <TestCard key={Test._id} Test={Test} admin = {admin} />;
+            return <TestCard key={Test._id} id={Test.id} Test={Test} admin = {admin} onDelete={onDelete}/>;
           })}
 
         {admin === "true" ? (
