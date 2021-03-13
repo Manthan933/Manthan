@@ -135,16 +135,25 @@ export default function CreateTest(porps) {
   ]);
 
   const handleNext = () => {
-    if (!name && !marks && durationMins < 10 && durationHrs < 0) {
+     if (!name && !marks && durationMins < 10 && durationHrs <= 0) {
       setError("Please provide test name, marks and duration");
       return;
-    } else if (!marks) {
+    } else if (!marks || marks <= 0) {
       setError("Please provide marks");
       return;
     } else if (!name) {
       setError("Please provide test name");
       return;
-    } else if (durationMins < 10 && durationHrs < 0) {
+    } else if (durationMins < 0 || durationHrs < 0) {
+      setError("Please provide test duration");
+      return;
+    } else if (!durationMins && !durationHrs) {
+      setError("Please provide test duration");
+      return;
+    } else if (durationMins < 10 && durationHrs <= 0) {
+      setError("Please provide test duration");
+      return;
+    } else if (durationMins >= 60) {
       setError("Please provide test duration");
       return;
     }
