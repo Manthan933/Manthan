@@ -30,7 +30,7 @@ export default function Login(props) {
       responseType='code,token'
       isSignedIn={true}
       render={(renderProps) => (
-        <Button color='inherit' onClick={renderProps.onClick}>
+        <Button data-testid='login-btn' color='inherit' onClick={renderProps.onClick}>
           Login
         </Button>
       )}

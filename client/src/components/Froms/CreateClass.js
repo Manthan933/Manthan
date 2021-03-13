@@ -40,6 +40,9 @@ export default function FormDialog(props) {
         </DialogTitle>
         <DialogContent>
           <TextField
+            inputProps={{
+              'data-testid': 'name'
+            }}
             autoFocus
             id='name'
             label='Class name'

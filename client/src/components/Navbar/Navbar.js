@@ -133,6 +133,7 @@ export default function MenuAppBar(props) {
       <Toolbar />
       <Divider />
       <Drawer
+
         className={classes.list}
         open={state["left"]}
         onClose={toggleDrawer(false)}
