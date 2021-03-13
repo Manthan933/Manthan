@@ -156,22 +156,26 @@ export default function MenuAppBar(props) {
               Enrolled{" "}
             </ListSubheader>
           }
+          style={{ marginLeft: '0.2rem'}}
         >
-          {Classes.length && Classes.map((Class) => {
-            return (
-              <ListItem
-                key={Class.code}
-                className={classes.classLink}
-                component='a'
-                href={`/${Class.code}/${user.email === Class.instructor.email}`}
-              >
-                <ListItemIcon>
-                  <ClassRoundedIcon />
-                </ListItemIcon>
-                <ListItemText color='textPrimary'>{Class.name}</ListItemText>
-              </ListItem>
-            );
-          })}
+          <div style={{ marginLeft: '5%'}}>
+            {Classes.length && Classes.map((Class) => {
+              return (
+                <ListItem
+                  key={Class.code}
+                  className={classes.classLink}
+                  component='a'
+                  href={`/${Class.code}/${user.email === Class.instructor.email}`}
+                  style={{ paddingLeft: 0 }}
+                >
+                  <ListItemIcon>
+                    <ClassRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText color='textPrimary'>{Class.name}</ListItemText>
+                </ListItem>
+              );
+            })}
+          </div>
         </List>
         <Divider />
         <List>
