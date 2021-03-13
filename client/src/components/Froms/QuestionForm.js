@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     left: "-8px",
   },
   msg: {
-      color:"red",
-    }
+    color: "red",
+  }
 }));
 
 export default function PaymentForm(props) {
@@ -46,7 +46,7 @@ export default function PaymentForm(props) {
           option3: "",
           option4: "",
           answer: "",
-          test : id
+          test: id
         },
       ]);
     } else {
@@ -86,7 +86,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option2'
                   name='option2'
                   label='Option 2'
@@ -97,7 +97,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option3'
                   name='option3'
                   label='Option3'
@@ -108,7 +108,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option4'
                   name='option4'
                   label='Option4'
