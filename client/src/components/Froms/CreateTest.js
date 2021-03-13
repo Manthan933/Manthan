@@ -9,6 +9,7 @@ import QuestionForm from "./QuestionForm";
 import RulesForm from "./RulesForm";
 import Review from "./Review";
 import { createTest } from "../../actions/actions";
+import { createTestFormError } from "./handleFormError";
 import uuid from "uuid/dist/v4";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,9 +58,13 @@ function getStepContent(
   step,
   id,
   name,
+  nameError,
   marks,
+  markError,
   durationHrs,
+  hourError,
   durationMins,
+  minuteError,
   dueDate,
   questions,
   rules,
@@ -76,6 +81,10 @@ function getStepContent(
       return (
         <TestForm
           name={name}
+          nameError={nameError}
+          markError={markError}
+          hourError={hourError}
+          minuteError={minuteError}
           setName={setName}
           marks={marks}
           setMarks={setMarks}
@@ -88,7 +97,7 @@ function getStepContent(
         />
       );
     case 1:
-      return <QuestionForm questions={questions} setQuestions={setQuestions} id = {id}/>;
+      return <QuestionForm questions={questions} setQuestions={setQuestions} id={id} />;
     case 2:
       return <RulesForm rules={rules} setRules={setRules} />;
     case 3:
@@ -118,6 +127,10 @@ export default function CreateTest(porps) {
   const [durationMins, setDurationMins] = React.useState(0);
   const [marks, setMarks] = React.useState(0);
   const [error, setError] = React.useState("");
+  const [nameError, setNameError] = React.useState("");
+  const [markError, setMarkError] = React.useState("");
+  const [hourError, setHourError] = React.useState("");
+  const [minuteError, setMinuteError] = React.useState("");
   const [questions, setQuestions] = React.useState([
     {
       question: "",
@@ -135,31 +148,14 @@ export default function CreateTest(porps) {
   ]);
 
   const handleNext = () => {
-     if (!name && !marks && durationMins < 10 && durationHrs <= 0) {
-      setError("Please provide test name, marks and duration");
-      return;
-    } else if (!marks || marks <= 0) {
-      setError("Please provide marks");
-      return;
-    } else if (!name) {
-      setError("Please provide test name");
-      return;
-    } else if (durationMins < 0 || durationHrs < 0) {
-      setError("Please provide test duration");
-      return;
-    } else if (!durationMins && !durationHrs) {
-      setError("Please provide test duration");
-      return;
-    } else if (durationMins < 10 && durationHrs <= 0) {
-      setError("Please provide test duration");
-      return;
-    } else if (durationMins >= 60) {
-      setError("Please provide test duration");
-      return;
+    let isContainError
+    if (activeStep == 0) {
+      isContainError = createTestFormError(name, marks, durationHrs, durationMins, setNameError, setMarkError, setHourError, setMinuteError)
     }
 
-    setError("");
-    setActiveStep(activeStep + 1);
+    if (!isContainError) {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -167,7 +163,7 @@ export default function CreateTest(porps) {
   };
 
   const handleSubmit = () => {
-    var duration = new Date(98,1);
+    var duration = new Date(98, 1);
     duration.setHours(durationHrs);
     duration.setMinutes(durationMins);
     const newTest = {
@@ -198,9 +194,13 @@ export default function CreateTest(porps) {
                 activeStep,
                 id,
                 name,
+                nameError,
                 marks,
+                markError,
                 durationHrs,
+                hourError,
                 durationMins,
+                minuteError,
                 dueDate,
                 questions,
                 rules,
