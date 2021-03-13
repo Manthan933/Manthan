@@ -5,8 +5,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-
+import { createClassFormError } from "./handleFormError";
 export default function FormDialog(props) {
+
   const {
     open,
     setOpen,
@@ -16,16 +17,33 @@ export default function FormDialog(props) {
     classDetails,
   } = props;
   const handleClose = () => {
+    setClassError(null);
+    setSubjectCodeError(null);
+    setSubjectError(null);
     setOpen(false);
   };
 
+  // for better purpose i split all error state
+  const [classError, setClassError] = React.useState("");
+  const [subjectError, setSubjectError] = React.useState("");
+  const [subjectCodeError, setSubjectCodeError] = React.useState("");
   const handleClick = (editable) => {
+
     const name = document.getElementById("name").value;
     const subject = document.getElementById("subject").value;
     const subcode = document.getElementById("subcode").value;
-    const config = { name: name, subject: subject, subcode: subcode };
-    editable ? updateClass(classDetails, config) : createClass(config);
-    setOpen(false);
+
+    // Check before submitting
+    // move all Error handling section to new handleFormErrorFile
+    const isContainError = createClassFormError(name, subject, subcode, setClassError, setSubjectCodeError, setSubjectError)
+
+    if (!isContainError) {
+      const config = { name: name, subject: subject, subcode: subcode };
+
+      editable ? updateClass(classDetails, config) : createClass(config);
+      setOpen(false);
+    }
+
   };
 
   return (
@@ -40,9 +58,9 @@ export default function FormDialog(props) {
         </DialogTitle>
         <DialogContent>
           <TextField
-            inputProps={{
-              'data-testid': 'name'
-            }}
+            error={!!classError}
+            helperText={classError}
+
             autoFocus
             id='name'
             label='Class name'
@@ -51,15 +69,20 @@ export default function FormDialog(props) {
             required
           />
           <TextField
+            error={!!subjectError}
             autoFocus
             margin='normal'
             id='subject'
             label='Subject'
+            helperText={subjectError}
             defaultValue={classDetails ? classDetails.subject : ""}
             fullWidth
           />
           <TextField
+            error={!!subjectCodeError}
             autoFocus
+            type="number"
+            helperText={subjectCodeError}
             margin='normal'
             id='subcode'
             label='Subject Code'
