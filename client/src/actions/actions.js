@@ -48,7 +48,7 @@ export const joinClass = async (user, Classes, setClasses, classCode) => {
         return user.email === element;
       })
     ) {
-      alert("Already joined th class.");
+      alert("Already joined the class.");
     } else {
       const joinedClass = await api.joinClass(classCode, {
         user: user.email,
@@ -134,6 +134,16 @@ export const createTest = async (newTest) => {
     console.log(error.message);
   }
 };
+
+
+export const removeTest = async (id) => {
+  try {
+    await api.removeTest(id);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
 
 export const getTests = async (code, setTests) => {
   try {
