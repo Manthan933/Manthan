@@ -12,9 +12,9 @@ import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 300,
+    
     minHeight: 220,
-    maxHeight: 220,
+    
     minWidth: 300,
     margin: theme.spacing(2),
     borderRadius: "5px",
