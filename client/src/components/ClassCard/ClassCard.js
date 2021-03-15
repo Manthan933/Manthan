@@ -12,9 +12,9 @@ import CreateClass from "../Froms/CreateClass";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    
+    maxHeight: 220,
     minHeight: 220,
-    
+    maxWidth: 300,
     minWidth: 300,
     margin: theme.spacing(2),
     borderRadius: "5px",
@@ -70,7 +70,9 @@ export default function SimpleCard(props) {
   const handleCardEditing = () => {
     setEditClass(true);
   };
-
+  const truncate = (str, n) => {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  };
   return (
     <>
       <Card className={classes.root}>
@@ -84,7 +86,7 @@ export default function SimpleCard(props) {
               gutterBottom
               color='textPrimary'
             >
-              {Class.name}
+             {truncate(Class.name, 12)}
             </Typography>
             {admin && (
               <EditIcon
@@ -101,13 +103,13 @@ export default function SimpleCard(props) {
           <Avatar className={classes.avatar} src={Class.image} />
           <div className={classes.details}>
             <Typography variant='body1' component='p'>
-              Subject: {Class.subject}
+              Subject: {truncate(Class.subject, 14)}
             </Typography>
             <Typography variant='body1' component='p'>
-              Subject Code: {Class.subcode}
+              Subject Code: {truncate(Class.subcode, 14)}
             </Typography>
             <Typography variant='body1' component='p'>
-              Class Code: {Class.code}
+              Class Code: {truncate(Class.code, 14)}
             </Typography>
           </div>
           {admin ? (
