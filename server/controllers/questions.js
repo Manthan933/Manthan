@@ -1,8 +1,9 @@
+const { check, validationResult } = require("express-validator");
 const Question = require("../models/questions.model");
 
 const Get = async (req, res) => {
   try {
-    const data = await Question.find(req.body, {answer : 1});
+    const data = await Question.find(req.body, { answer: 1 });
     res.status(200).json(data);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -11,6 +12,10 @@ const Get = async (req, res) => {
 
 const Create = async (req, res) => {
   const { questions } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const data = await Question.insertMany(questions);
     res.status(201).json(data);
@@ -21,8 +26,7 @@ const Create = async (req, res) => {
 
 const Delete = async (req, res) => {
   try {
-    const data = 
-    res.json({deletedCount : data.deletedCount});
+    const data = res.json({ deletedCount: data.deletedCount });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
