@@ -9,7 +9,7 @@ import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import { GoogleLogout } from "react-google-login";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   profileCard: {
     textAlign: "center",
     padding: 0,
@@ -52,15 +52,16 @@ export default function Logout(props) {
   const { setUser, setClasses, setAuth, user, clientId } = props;
 
   const logout = () => {
+    localStorage.setItem("user", null);
     setUser({});
     setClasses([]);
     setAuth(false);
     window.location.href="/";
   };
-  const handleLogoutFailure = (response) => {
+  const handleLogoutFailure = response => {
     alert("Failed to log out");
   };
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -71,12 +72,7 @@ export default function Logout(props) {
   const id = open ? "simple-popover" : undefined;
   return (
     <div>
-      <IconButton
-        aria-describedby={id}
-        variant='contained'
-        color='primary'
-        onClick={handleClick}
-      >
+      <IconButton aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
         <Avatar className={classes.small} src={user.image} />
       </IconButton>
       <Popover
@@ -96,10 +92,10 @@ export default function Logout(props) {
           <GoogleLogout
             clientId={clientId}
             icon={false}
-            buttonText='Login'
+            buttonText="Login"
             onLogoutSuccess={logout}
             onFailure={handleLogoutFailure}
-            render={(renderProps) => (
+            render={renderProps => (
               <Button className={classes.button} onClick={renderProps.onClick}>
                 Sign out
               </Button>
