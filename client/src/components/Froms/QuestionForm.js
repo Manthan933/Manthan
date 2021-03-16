@@ -32,9 +32,9 @@ export default function PaymentForm(props) {
     setErrMsg("");
     setQuestions(list);
   };
-  const handleAddClick = () => {
+  const handleAddQuestionClick = () => {
     const ques = questions[questions.length - 1];
-    if (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4) {
+    if ((questions.length === 0) || (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4)) {
       setErrMsg("");
       setQuestions([
         ...questions,
@@ -147,7 +147,7 @@ export default function PaymentForm(props) {
         variant='contained'
         color='primary'
         className={classes.button}
-        onClick={handleAddClick}
+        onClick={handleAddQuestionClick}
       >
         Add
       </Button>
