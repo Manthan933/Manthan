@@ -23,7 +23,7 @@ import Logout from "./Logout";
 import LoginFacebook from "./LoginFacebook";
 
 const CLIENTcode = "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
-const APPID = "ENTER---YOUR----APPID------HERE"; // Go to developers.facebook.com create an account and enter the app ID here.
+const APPID = "190043079194136"; // Go to developers.facebook.com create an account and enter the app ID here.
 
 const useStyles = makeStyles(theme => ({
   root: {
