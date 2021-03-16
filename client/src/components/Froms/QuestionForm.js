@@ -34,7 +34,10 @@ export default function PaymentForm(props) {
   };
   const handleAddQuestionClick = () => {
     const ques = questions[questions.length - 1];
-    if ((questions.length === 0) || (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4)) {
+    if ((questions.length === 0) || 
+        (ques.question && ques.option1 &&
+          ques.option2 && ques.option3 && 
+          ques.option4 && ques.answer)) {
       setErrMsg("");
       setQuestions([
         ...questions,
