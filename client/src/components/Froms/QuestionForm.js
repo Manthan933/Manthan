@@ -26,11 +26,12 @@ export default function PaymentForm(props) {
     list[index][name] = value;
     setQuestions(list);
   };
-  const handleRemoveClick = (index) => {
+  const handleRemoveQuestionClick = (questionIndex) => {
     const list = [...questions];
-    list.pop();
     setErrMsg("");
-    setQuestions(list);
+    setQuestions(list.filter(
+      (value, index) => index !== questionIndex
+    ));
   };
   const handleAddQuestionClick = () => {
     const ques = questions[questions.length - 1];
@@ -141,6 +142,13 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => handleRemoveQuestionClick(index)}
+            >
+              Delete
+            </Button>
             </React.Fragment>
           );
         })}
@@ -153,14 +161,6 @@ export default function PaymentForm(props) {
         onClick={handleAddQuestionClick}
       >
         Add
-      </Button>
-      <Button
-        variant='contained'
-        color='secondary'
-        className={classes.button}
-        onClick={handleRemoveClick}
-      >
-        Delete
       </Button>
     </React.Fragment>
   );
