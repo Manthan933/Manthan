@@ -21,7 +21,12 @@ export default function AddressForm(props) {
     setDurationHrs,
     setDurationMins,
     setDueDate,
+    nameError,
+    markError,
+    hourError,
+    minuteError,
   } = props;
+
   const handleNameChange = (e) => {
     const name = e.target.value;
     setName(name);
@@ -38,7 +43,7 @@ export default function AddressForm(props) {
     const durationMins = parseInt(e.target.value);
     setDurationMins(durationMins);
   };
-  
+
   return (
     <React.Fragment>
       <Typography variant='h6' gutterBottom>
@@ -48,6 +53,8 @@ export default function AddressForm(props) {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
+              error={!!nameError}
+              helperText={nameError}
               required
               id='Name'
               name='name'
@@ -60,6 +67,8 @@ export default function AddressForm(props) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              error={!!markError}
+              helperText={markError}
               required
               id='marks'
               name='marks'
@@ -82,26 +91,30 @@ export default function AddressForm(props) {
             </MuiPickersUtilsProvider>
           </Grid>
           <Grid item xs={6} sm={3}>
-          <TextField
+            <TextField
+              error={!!hourError}
+              helperText={hourError}
               id='DurationHours'
               name='hours'
               label='Hours'
               type='number'
-              min="0" 
+              min="0"
               max="10"
               value={durationHrs || 0}
               fullWidth
               onChange={(e) => handleDurationHoursChange(e)}
             />
-            </Grid>
-            <Grid item xs={6} sm={3}>
+          </Grid>
+          <Grid item xs={6} sm={3}>
             <TextField
               required
+              error={!!minuteError}
+              helperText={minuteError}
               id='DurationMinutes'
               name='minutes'
               label='Minutes'
               type='number'
-              min="10" 
+              min="10"
               max="60"
               value={durationMins || 0}
               fullWidth
