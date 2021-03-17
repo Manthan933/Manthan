@@ -1,13 +1,10 @@
 const { check, validationResult } = require("express-validator");
 const Classroom = require("../models/classrooms.model");
+const randomize = require("randomatic")
+
 const Otp = () => {
-  var string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let OTP = "";
-  var len = string.length;
-  for (let i = 0; i < 6; i++) {
-    OTP += string[Math.floor(Math.random() * len)];
-  }
-  return OTP;
+  const otp = randomize("aA0", 6);
+  return otp;
 };
 
 const Get = async (req, res) => {
