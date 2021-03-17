@@ -4,17 +4,7 @@ const Tests = require("../../controllers/tests");
 
 const router = express.Router();
 
-router.post(
-  "/",
-  [
-    check("name", "Please Enter Name").not().isEmpty(),
-    ,
-    check("marks", "Please Enter Marks").not().isEmpty(),
-    ,
-    check("minutes", "Please Enter minutes").not().isEmpty(),
-  ],
-  Tests.Create
-);
+router.post("/", Tests.Create);
 router.get("/:id", Tests.Get);
 router.get("/class/:code", Tests.GetTests);
 router.patch("/:id", Tests.Update);

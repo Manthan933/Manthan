@@ -138,15 +138,6 @@ export default function MenuAppBar(props) {
       </ElevationScroll>
       <Toolbar />
       <Divider />
- 
-      <Drawer
-
-        className={classes.list}
-        open={state["left"]}
-        onClose={toggleDrawer(false)}
-        role='presentation'
-      >
-
       <Drawer className={classes.list} open={state["left"]} onClose={toggleDrawer(false)} role="presentation">
      
         <List className={classes.list}>

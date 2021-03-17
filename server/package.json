@@ -16,7 +16,8 @@
     "express-validator": "^6.10.0",
     "mongoose": "^5.11.19",
     "otp-generator": "^2.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "randomatic": "^3.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
