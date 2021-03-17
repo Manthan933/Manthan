@@ -13,7 +13,8 @@ import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import PeopleIcon from "@material-ui/icons/People";
 import CloseIcon from "@material-ui/icons/Close";
-import { removeStudents,removeTest } from "../../actions/actions";
+import Button from '@material-ui/core/Button';
+import { removeStudents, removeTest } from "../../actions/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -29,7 +30,39 @@ const useStyles = makeStyles({
 
   content: {
     display: "inline-flex",
-    width: "-moz-available",
+    width: "90%",
+
+  },
+  generate: {
+    display: "flex",
+
+  },
+  copylink: {
+    outline: "none",
+    fontSize: "15px",
+    fontWeight: "bold",
+    backgroundColor: "white",
+    border: "none",
+    borderRadius: "5px",
+    padding: "3px 10px",
+    color: "black",
+    fontFamily: "Open Sans",
+
+    letterSpacing: "1px",
+    textDecoration: "none",
+    margin: "auto 0",
+    cursor: "pointer",
+
+  },
+  link: {
+
+    fontFamily: "Open Sans",
+
+    letterSpacing: "1px",
+    textDecoration: "none",
+    margin: "auto 20px",
+    cursor: "pointer",
+
   },
   details: {
     flexGrow: " 1",
@@ -39,6 +72,7 @@ const useStyles = makeStyles({
   avatar: {
     background: "#4285f4",
   },
+
   list: {
     margin: "10px",
   },
@@ -58,7 +92,12 @@ const useStyles = makeStyles({
   },
 });
 
+const onLinkClick = (code) => {
+  navigator.clipboard.writeText(`${window.location.origin}/join/${code}`)
+  alert("link copied");
+}
 export default function Classroom(props) {
+
   const classes = useStyles();
   const { classCode, admin } = props.match.params;
   const [Tests, setTests] = React.useState([]);
@@ -71,8 +110,7 @@ export default function Classroom(props) {
   React.useEffect(() => {
     getTests(classCode, setTests);
   }, [classCode]);
-  function onDelete(id)
-  {
+  function onDelete(id) {
     removeTest(id);
     getTests(classCode, setTests);
   }
@@ -84,14 +122,28 @@ export default function Classroom(props) {
             <div className={classes.details}>
               <Typography variant='h3'>{Class.name}</Typography>
               <Typography variant='subtitle1'>{Class.subject}</Typography>
+
               <Typography variant='subtitle1'>
                 Instructor : {Class.instructor.name}
               </Typography>
+
               {admin === "true" ? (
                 <Typography variant='subtitle1'>
                   Class code : {Class.code}
                 </Typography>
               ) : null}
+              <br />
+              <div style={{ display: "flex" }}>
+                {/* <p className={classes.copylink} onClick={() => onLinkClick(Class.code)}>Copy Class Link</p> */}
+                <button className={classes.copylink} onClick={() => onLinkClick(Class.code)} variant="contained">copy link</button>
+                <p className={classes.link} >{window.location.origin}/join/{Class.code}</p>
+              </div>
+
+
+
+
+
+
             </div>
           </CardContent>
           {admin === "true" && (
@@ -158,7 +210,7 @@ export default function Classroom(props) {
         )}
         {!displayUsers &&
           Tests.map((Test) => {
-            return <TestCard key={Test._id} id={Test.id} Test={Test} admin = {admin} onDelete={onDelete}/>;
+            return <TestCard key={Test._id} id={Test.id} Test={Test} admin={admin} onDelete={onDelete} />;
           })}
 
         {admin === "true" ? (

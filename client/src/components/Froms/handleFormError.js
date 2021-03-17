@@ -35,14 +35,12 @@ export const createTestFormError = (
   if (!mark) setMarkError("please provide marks");
   else if (mark <= 0) setMarkError(`${mark} is not Valid marks`);
   else setMarkError("");
+  if (hour < 0) setHourError(`${hour} is invalid`);
 
-  if (!hour) setHourError("hours is mandatory!");
-  else if (hour > 4) setHourError("hour mush be less than 4");
-  else setHourError("");
-
-  if (minute > 60) setMinuteError(`${minute} is not valid minutes`);
+  if (minute > 60 || minute < 0) setMinuteError(`${minute} is not valid minutes`);
+  else if (!minute && !hour) setMinuteError(`minute is require`);
   else setMinuteError("");
-  if (!name || !mark || !hour || !minute || mark < 0 || minute > 60) return true;
+  if (!name || !mark || (!minute && !hour) || mark < 0 || minute > 60 || minute < 0 || hour < 0) return true;
   else return false;
 };
 
