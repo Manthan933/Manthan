@@ -116,6 +116,17 @@ These are the prerequisites required to run this application:
 
 <!-- USAGE EXAMPLES -->
 <!-- ## Screenshots -->
+<!-- Docker -->
+## Run Using Docker
+```sh
+  docker-compose build
+  docker-compose up
+```
+To Stop the containers
+```sh
+  docker-compose down
+```
+
 
 <!-- CONTRIBUTING -->
 
