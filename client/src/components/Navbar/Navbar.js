@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import ClassRoundedIcon from "@material-ui/icons/ClassRounded";
@@ -20,11 +20,12 @@ import PropTypes from "prop-types";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Login from "./Login";
 import Logout from "./Logout";
+import LoginFacebook from "./LoginFacebook";
 
-const CLIENTcode =
-  "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
+const CLIENTcode = "928461249024-ugbiksni2621u5kv6vnq6ikrptdbjaah.apps.googleusercontent.com";
+const APPID = "ENTER---YOUR----APPID------HERE"; // Go to developers.facebook.com create an account and enter the app ID here.
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
@@ -86,30 +87,36 @@ export default function MenuAppBar(props) {
   const [auth, setAuth] = React.useState(false);
   const { Classes, setClasses, user, setUser } = props;
 
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+  useEffect(() => {
+    const isUser = JSON.parse(localStorage.getItem("user"));
+    if (isUser !== null) {
+      setUser(isUser.user);
+      setAuth(true);
+    }
+  }, []);
+
+  const toggleDrawer = open => event => {
+    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     setState({ ...state, left: open });
   };
+
   return (
     <div className={classes.root}>
       <ElevationScroll {...props}>
-        <AppBar color='inherit'>
+        <AppBar color="inherit">
           <Toolbar>
             <IconButton
-              edge='start'
+              edge="start"
               className={classes.menuButton}
-              color='inherit'
+              color="inherit"
               onClick={toggleDrawer(true)}
-              aria-label='menu'
+              aria-label="menu"
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant='h6' className={classes.title}>
+            <Typography variant="h6" className={classes.title}>
               Manthan
             </Typography>
             {auth ? (
@@ -121,25 +128,29 @@ export default function MenuAppBar(props) {
                 setAuth={setAuth}
               />
             ) : (
-              <Login
-                clientId={CLIENTcode}
-                setUser={setUser}
-                setAuth={setAuth}
-              />
+              <>
+                <Login clientId={CLIENTcode} setUser={setUser} setAuth={setAuth} />
+                <LoginFacebook appId={APPID} setUser={setUser} setAuth={setAuth} />
+              </>
             )}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
       <Toolbar />
       <Divider />
+ 
       <Drawer
+
         className={classes.list}
         open={state["left"]}
         onClose={toggleDrawer(false)}
         role='presentation'
       >
+
+      <Drawer className={classes.list} open={state["left"]} onClose={toggleDrawer(false)} role="presentation">
+     
         <List className={classes.list}>
-          <ListItem button component='a' href='/'>
+          <ListItem button component="a" href="/">
             <ListItemIcon>
               <HomeRoundedIcon />
             </ListItemIcon>
@@ -148,34 +159,32 @@ export default function MenuAppBar(props) {
         </List>
         <Divider />
         <List
-          component='nav'
-          aria-labelledby='list-subheader'
+          component="nav"
+          aria-labelledby="list-subheader"
           subheader={
-            <ListSubheader component='div' id='list-subheader'>
+            <ListSubheader component="div" id="list-subheader">
               {" "}
               Enrolled{" "}
             </ListSubheader>
           }
-          style={{ marginLeft: '0.2rem'}}
+          style={{ marginLeft: "0.2rem" }}
         >
-          <div style={{ marginLeft: '5%'}}>
-            {Classes.length && Classes.map((Class) => {
+          {Classes.length &&
+            Classes.map(Class => {
               return (
                 <ListItem
                   key={Class.code}
                   className={classes.classLink}
-                  component='a'
+                  component="a"
                   href={`/${Class.code}/${user.email === Class.instructor.email}`}
-                  style={{ paddingLeft: 0 }}
                 >
                   <ListItemIcon>
                     <ClassRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText color='textPrimary'>{Class.name}</ListItemText>
+                  <ListItemText color="textPrimary">{Class.name}</ListItemText>
                 </ListItem>
               );
             })}
-          </div>
         </List>
         <Divider />
         <List>
@@ -185,11 +194,7 @@ export default function MenuAppBar(props) {
             </ListItemIcon>
             <ListItemText>Setting</ListItemText>
           </ListItem>
-          <ListItem
-            button
-            component='a'
-            href='https://github.com/Manthan933/Manthan'
-          >
+          <ListItem button component="a" href="https://github.com/Manthan933/Manthan">
             <ListItemIcon>
               <GitHubIcon />
             </ListItemIcon>

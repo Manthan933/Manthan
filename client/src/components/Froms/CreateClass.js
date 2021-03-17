@@ -60,6 +60,7 @@ export default function FormDialog(props) {
           <TextField
             error={!!classError}
             helperText={classError}
+
             autoFocus
             id='name'
             label='Class name'

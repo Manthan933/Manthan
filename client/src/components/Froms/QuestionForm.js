@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     left: "-8px",
   },
   msg: {
-      color:"red",
-    }
+    color: "red",
+  }
 }));
 
 export default function PaymentForm(props) {
@@ -26,15 +26,19 @@ export default function PaymentForm(props) {
     list[index][name] = value;
     setQuestions(list);
   };
-  const handleRemoveClick = (index) => {
+  const handleRemoveQuestionClick = (questionIndex) => {
     const list = [...questions];
-    list.pop();
     setErrMsg("");
-    setQuestions(list);
+    setQuestions(list.filter(
+      (value, index) => index !== questionIndex
+    ));
   };
-  const handleAddClick = () => {
+  const handleAddQuestionClick = () => {
     const ques = questions[questions.length - 1];
-    if (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4) {
+    if ((questions.length === 0) || 
+        (ques.question && ques.option1 &&
+          ques.option2 && ques.option3 && 
+          ques.option4 && ques.answer)) {
       setErrMsg("");
       setQuestions([
         ...questions,
@@ -46,7 +50,7 @@ export default function PaymentForm(props) {
           option3: "",
           option4: "",
           answer: "",
-          test : id
+          test: id
         },
       ]);
     } else {
@@ -86,7 +90,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option2'
                   name='option2'
                   label='Option 2'
@@ -97,7 +101,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option3'
                   name='option3'
                   label='Option3'
@@ -108,7 +112,7 @@ export default function PaymentForm(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                required
+                  required
                   id='option4'
                   name='option4'
                   label='Option4'
@@ -138,6 +142,13 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => handleRemoveQuestionClick(index)}
+            >
+              Delete
+            </Button>
             </React.Fragment>
           );
         })}
@@ -147,17 +158,9 @@ export default function PaymentForm(props) {
         variant='contained'
         color='primary'
         className={classes.button}
-        onClick={handleAddClick}
+        onClick={handleAddQuestionClick}
       >
         Add
-      </Button>
-      <Button
-        variant='contained'
-        color='secondary'
-        className={classes.button}
-        onClick={handleRemoveClick}
-      >
-        Delete
       </Button>
     </React.Fragment>
   );
