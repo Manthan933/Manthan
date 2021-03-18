@@ -63,6 +63,9 @@ export default function FormDialog(props) {
             autoFocus
             id='name'
             label='Class name'
+            inputProps={{
+              maxlength: 12
+            }}
             defaultValue={classDetails ? classDetails.name : ""}
             fullWidth
             required
@@ -82,6 +85,9 @@ export default function FormDialog(props) {
             autoFocus
             type="number"
             helperText={subjectCodeError}
+            inputProps={{
+              maxlength: 12
+            }}
             margin='normal'
             id='subcode'
             label='Subject Code'
