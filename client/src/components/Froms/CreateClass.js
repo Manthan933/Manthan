@@ -85,8 +85,10 @@ export default function FormDialog(props) {
             autoFocus
             type="number"
             helperText={subjectCodeError}
-            inputProps={{
-              maxlength: 12
+            onInput={(e) => {
+              e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 12);
             }}
             margin='normal'
             id='subcode'
