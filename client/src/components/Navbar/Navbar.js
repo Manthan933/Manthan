@@ -101,7 +101,9 @@ export default function MenuAppBar(props) {
     }
     setState({ ...state, left: open });
   };
-
+const truncate = (str, n) => {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  };
   return (
     <div className={classes.root}>
       <ElevationScroll {...props}>
@@ -172,7 +174,7 @@ export default function MenuAppBar(props) {
                   <ListItemIcon>
                     <ClassRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText color="textPrimary">{Class.name}</ListItemText>
+                  <ListItemText color="textPrimary"> {truncate(Class.name, 12)}</ListItemText>
                 </ListItem>
               );
             })}
