@@ -1,5 +1,15 @@
 const User = require('../models/users.model');
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+
+/**Age of the token in seconds*/
+const mymaxAge = 1 * 24 * 60 * 60;
+const createToken = (email, username, usertype) => {
+    /**ًWhen this is released to production, 'Manthan Secret' should be not uploaded to public' */
+    return jwt.sign({ email, username, usertype }, 'Manthan Secret', { expiresIn: mymaxAge });
+}
+
+
 
 // Register a new User
 module.exports.userSignup = async function(req, res)  {
@@ -51,7 +61,11 @@ module.exports.userSignup = async function(req, res)  {
             
             const newUser=await User.create( { name:name, email:email,password: hashedPwd,userType: userType,username:username });
             newUser.save()
-
+             //create a jwt and send it with cookies to be used later
+            const token = createToken(email , username , userType);
+            res.locals.user = username;
+            res.locals.role = userType;
+            res.cookie('jwt', token, { httpOnly: true, maxAge: mymaxAge * 1000 });/*maxAge is in milliseconds , mymaxAge is in seconds*/
             return res.status(201).json({
 				message:
 					"Your teacher account is succesfully registered",
@@ -60,7 +74,12 @@ module.exports.userSignup = async function(req, res)  {
 
         if(userType == "user"){
 		const newUser=await User.create( { name:name, email:email,password: hashedPwd,userType: userType,username:username });
-        newUser.save()
+        newUser.save()   
+        //create a jwt and send it with cookies to be used later
+        const token = createToken(email , username , userType);
+        res.locals.user = username;
+        res.locals.role = userType;
+        res.cookie('jwt', token, { httpOnly: true, maxAge: mymaxAge * 1000 });/*maxAge is in milliseconds , mymaxAge is in seconds*/
         return res.status(201).json({
             message:
                 "Your student account is succesfully registered",
@@ -97,6 +116,11 @@ module.exports.login = async function(req, res){
 				return res.status(401).json({ message: "Invalid Email or Password" });
             }
             else{
+            const token = createToken(user.email , user.username , user.userType);
+            res.locals.user = user.username;
+            res.locals.role = user.userType;
+            res.cookie('jwt', token, { httpOnly: true, maxAge: mymaxAge * 1000 });/*maxAge is in milliseconds , mymaxAge is in seconds*/
+
                 return res.status(201).json({message:"Successfully logged in"})
             }
 
@@ -108,4 +132,12 @@ module.exports.login = async function(req, res){
     }
 }
 
+
+module.exports.logout = async function(req,res)
+{
+    //We can't really delete the jwt from the server side but we can override it with the same name and a very short age to be automatically expired
+    //Also set the content to an empty string
+    res.cookie('jwt', '' , { maxAge: 1});
+    res.redirect('/');
+}
 
