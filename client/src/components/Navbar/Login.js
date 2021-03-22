@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login(props) {
   const { clientId, setAuth, setUser } = props;
@@ -24,14 +25,18 @@ export default function Login(props) {
     <GoogleLogin
       clientId={clientId}
       icon={false}
-      buttonText='Login'
+      buttonText="Login"
       onSuccess={login}
       onFailure={handleLoginFailure}
-      responseType='code,token'
+      responseType="code,token"
       isSignedIn={true}
       render={(renderProps) => (
-        <Button data-testid='login-btn' color='inherit' onClick={renderProps.onClick}>
-          Login
+        <Button
+          data-testid="login-btn"
+          color="inherit"
+          onClick={renderProps.onClick}
+        >
+          <FcGoogle/> <><h3>Login</h3></>
         </Button>
       )}
     />
