@@ -13,6 +13,7 @@ const Get = async (req, res) => {
     const data = await Classroom.findOne({ code: code });
     res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -23,6 +24,7 @@ const GetClasses = async (req, res) => {
     const data = await Classroom.find({ users: user });
     res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -63,6 +65,7 @@ const Join = async (req, res) => {
     );
     res.json(updatedClass);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -84,6 +87,7 @@ const Edit = async (req, res) => {
     );
     res.json(editedClass);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -99,6 +103,7 @@ const Leave = async (req, res) => {
     );
     res.json(updatedUser);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -109,6 +114,7 @@ const Delete = async (req, res) => {
     await Classroom.findOneAndRemove({ code: code });
     res.json({ message: "Class deleted successfully." });
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
