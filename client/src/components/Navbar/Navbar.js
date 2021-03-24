@@ -168,6 +168,7 @@ export default function MenuAppBar(props) {
                 <ListItem
                   key={Class.code}
                   className={classes.classLink}
+                  onClick={() => localStorage.setItem('activeClass', Class.code)}
                   component="a"
                   style={{
                     backgroundColor: localStorage.getItem('activeClass') == Class.code ? "grey" : "white",
