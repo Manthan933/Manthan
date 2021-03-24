@@ -6,7 +6,7 @@ const routes = require("./routes/routes");
 
 const app = express();
 
-dotenv.config({ path: './.env' });
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
