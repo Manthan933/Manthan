@@ -101,7 +101,7 @@ export default function MenuAppBar(props) {
     }
     setState({ ...state, left: open });
   };
-const truncate = (str, n) => {
+  const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
   return (
@@ -141,7 +141,7 @@ const truncate = (str, n) => {
       <Toolbar />
       <Divider />
       <Drawer className={classes.list} open={state["left"]} onClose={toggleDrawer(false)} role="presentation">
-     
+
         <List className={classes.list}>
           <ListItem button component="a" href="/">
             <ListItemIcon>
@@ -169,6 +169,10 @@ const truncate = (str, n) => {
                   key={Class.code}
                   className={classes.classLink}
                   component="a"
+                  style={{
+                    backgroundColor: localStorage.getItem('activeClass') == Class.code ? "grey" : "white",
+                    color: localStorage.getItem('activeClass') == Class.code ? "white" : "black"
+                  }}
                   href={`/${Class.code}/${user.email === Class.instructor.email}`}
                 >
                   <ListItemIcon>
