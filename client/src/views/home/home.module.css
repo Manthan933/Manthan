@@ -101,7 +101,15 @@ footer p {
   opacity: 0.8;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) and (min-width: 961px) {
+  .grid {
+    padding: 0 50px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .grid {
+    padding: 0 50px;
+  }
   .sideDiv {
     height: 90vh;
     width: 100%;
@@ -109,8 +117,13 @@ footer p {
   .getStarted {
     color: #fff;
   }
+  .desc {
+    padding-top: 100px;
+    width: 100%;
+  }
   .descHeading {
     margin-top: 80px;
+    font-size: 40px;
   }
   footer {
     position: static;
