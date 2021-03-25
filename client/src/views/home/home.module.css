@@ -1,0 +1,150 @@
+:root {
+  --primary-color: #2fdf84;
+  --secondary-color: #6c6c6c;
+  --font: "Red Hat Text", sans-serif;
+}
+
+.container {
+  font-family: var(--font);
+  overflow: hidden;
+}
+
+.sideDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 40%;
+  background-color: var(--primary-color);
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  padding-left: 80px;
+}
+
+.brandLogo {
+  height: 60px;
+  width: 60px;
+}
+
+.brandName {
+  font-size: 25px;
+  color: #fff;
+  font-weight: bolder;
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+}
+
+.brand,
+.getStarted {
+  text-decoration: none;
+}
+
+.getStarted {
+  color: var(--primary-color);
+  padding-right: 80px;
+}
+
+.getStarted:hover {
+  color: var(--secondary-color);
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 60px 100px 0 100px;
+}
+
+.bookPenImg {
+  height: 300px;
+  width: 280px;
+}
+
+.descHeading {
+  font-size: 50px;
+  font-weight: lighter;
+  margin-bottom: 0px;
+}
+
+.descInfo {
+  color: var(--secondary-color);
+}
+
+footer {
+  position: absolute;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+footer p {
+  text-align: center;
+  color: #96ada9;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 1000px) and (min-width: 961px) {
+  .grid {
+    padding: 0 50px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .grid {
+    padding: 0 50px;
+  }
+  .sideDiv {
+    height: 90vh;
+    width: 100%;
+  }
+  .getStarted {
+    color: #fff;
+  }
+  .desc {
+    padding-top: 100px;
+    width: 100%;
+  }
+  .descHeading {
+    margin-top: 80px;
+    font-size: 40px;
+  }
+  footer {
+    position: static;
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .brand {
+    padding-left: 20px;
+  }
+  .getStarted {
+    padding-right: 20px;
+  }
+  .bookPenImg {
+    margin-left: 20px;
+  }
+  .grid {
+    padding: 60px 20px 0 20px;
+  }
+  .descHeading {
+    font-size: 30px;
+  }
+}
