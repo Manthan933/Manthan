@@ -4,6 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
+import axios from 'axios'
+import { BASE_URL } from "../../constants/constants";
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -53,31 +56,45 @@ export default function PaymentForm(props) {
       setErrMsg("Please provide question and all options");
     }
   };
+
+ function addNewQuestions(json){
+  var newQues = [];
+  json.map((ques)=>{
+    console.log(ques)
+    let currentQues ={};
+    if(ques.type && ques.question && ques.answer && ques.option1 &&
+      ques.option2 && ques.option3 && ques.option4 ){
+      currentQues.type = ques.type;
+      currentQues.question = ques.question;
+      currentQues.answer = ques.answer;
+      currentQues.option1 = ques.option1;
+      currentQues.option2 = ques.option2;
+      currentQues.option3 = ques.option3;
+      currentQues.option4 = ques.option4;
+      currentQues.test = id
+      newQues.push(currentQues)
+    }
+
+  })
+  setQuestions(newQues.concat(questions));
+ }
+
   const handleSubmit = (e) => {
     e.preventDefault();
       const data = new FormData(e.target);
          const value = Object.fromEntries(data.entries());
+      axios.post(`${BASE_URL}/addQuestionFromCsv`,data)
+        .then((res)=>{
+          // console.log(res.data)
+          addNewQuestions(res.data)
+        })
+        .catch(e=>{
+          console.log(e);
+        })
+         console.log(value.quesFile)
       
           new Response(value.quesFile).json().then(json => {
-            var newQues = [];
-              json.map((ques)=>{
-                console.log(ques)
-                let currentQues ={};
-                if(ques.type && ques.question && ques.answer && ques.option1 &&
-                  ques.option2 && ques.option3 && ques.option4 ){
-                  currentQues.type = ques.type;
-                  currentQues.question = ques.question;
-                  currentQues.answer = ques.answer;
-                  currentQues.option1 = ques.option1;
-                  currentQues.option2 = ques.option2;
-                  currentQues.option3 = ques.option3;
-                  currentQues.option4 = ques.option4;
-                  currentQues.test = id
-                  newQues.push(currentQues)
-                }
-
-              })
-              setQuestions(newQues.concat(questions));
+              addNewQuestions(json);
             }, err => {
               // not json
             })
@@ -88,7 +105,7 @@ export default function PaymentForm(props) {
         Questions
       </Typography>
       <form onSubmit={handleSubmit} style={{marginTop:20,marginBottom:15,height:35}} >
-            <input type="file" name="quesFile" id="quesFile" accept=".json,.csv" />
+            <input type="file" name="quesFile" required id="quesFile" accept=".json,.csv" />
             <button type="submit">Submit</button>
 
           </form>
