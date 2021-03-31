@@ -25,7 +25,7 @@
 
 <!-- TABLE OF CONTENTS -->
 
-## Table of Contents 📕 
+## Table of Contents 📕
 
 - [About the Project](#about-the-project)
   - [Description](#description)
@@ -40,8 +40,8 @@
 
 <!-- ABOUT THE PROJECT -->
 
-
 ## About The Project
+
 <img src="https://media.giphy.com/media/QvXUg57xakpdZiOJof/giphy.gif" width="50%">
 
 ### Description 👇
@@ -61,22 +61,24 @@ We provide an online testing platform that can be used to conduct tests that are
 - The test will be automatically submitted after the prescribed time frame.
 - We will try to block incoming calls/ messages/ screen capture or any other malpractice during the test.
 
-
 ### Built With 💻
 
 - [ReactJs](https://reactjs.org/)
 - [Expressjs](https://expressjs.com/)
 - [Mongodb](https://www.mongodb.com/)
-
+- [React-Redux]()
 <!-- LIVE APP
+
 ## Live App
+
 [Android App for students and teachers]() and [Web app for teachers to add and access classes and tests](https://manthan-app.herokuapp.com/)
 -->
 
 <!-- GETTING STARTED -->
 
 ### Tech Stack: 💻
-<img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/>  <img alt="React" src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>  <img alt="Express.js" src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/> <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/>
+
+<img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="React" src="https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Express.js" src="https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge"/> <img alt="MongoDB" src ="https://img.shields.io/badge/MongoDB-%234ea94b.svg?&style=for-the-badge&logo=mongodb&logoColor=white"/>
 
 ## Getting Started ✅
 
@@ -95,7 +97,7 @@ These are the prerequisites required to run this application:
 
 <img src="https://media.giphy.com/media/kdiLau77NE9Z8vxGSO/giphy.gif" width="40%"><br>
 
-1. Clone the Manthan repository from github
+1. Clone the Manthan repository form github
 
 ```sh
   git clone https://github.com/Manthan933/Manthan.git
@@ -111,26 +113,29 @@ These are the prerequisites required to run this application:
   npm install
   nodemon
 ```
+
 ```sh
   cd client
   npm install
   npm start
 ```
 
-
 <!-- USAGE EXAMPLES -->
 <!-- ## Screenshots -->
 <!-- Docker -->
+
 ## Run Using Docker
+
 ```sh
   docker-compose build
   docker-compose up
 ```
+
 To Stop the containers
+
 ```sh
   docker-compose down
 ```
-
 
 <!-- CONTRIBUTING -->
 
@@ -148,7 +153,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Contact Us 📞
 
-Join our **slack channel [here]( https://join.slack.com/t/manthanorg/shared_invite/zt-lxf54p40-1yafKYq35Zj76ah_MRhnDQ)** for discussions and latest news.  
+Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-lxf54p40-1yafKYq35Zj76ah_MRhnDQ)** for discussions and latest news.  
 Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
 
 ## Programs We have been associated with 🤍
@@ -180,6 +185,7 @@ Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)*
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
 [product-screenshot]: images/screenshot.png
+
 ## Our Contributors ✨:
 
 <a href="https://github.com/Manthan933/Manthan/graphs/contributors">
