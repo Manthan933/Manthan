@@ -26,15 +26,19 @@ export default function PaymentForm(props) {
     list[index][name] = value;
     setQuestions(list);
   };
-  const handleRemoveClick = (index) => {
+  const handleRemoveQuestionClick = (questionIndex) => {
     const list = [...questions];
-    list.pop();
     setErrMsg("");
-    setQuestions(list);
+    setQuestions(list.filter(
+      (value, index) => index !== questionIndex
+    ));
   };
-  const handleAddClick = () => {
+  const handleAddQuestionClick = () => {
     const ques = questions[questions.length - 1];
-    if (ques.question && ques.option1 && ques.option2 && ques.option3 && ques.option4) {
+    if ((questions.length === 0) || 
+        (ques.question && ques.option1 &&
+          ques.option2 && ques.option3 && 
+          ques.option4 && ques.answer)) {
       setErrMsg("");
       setQuestions([
         ...questions,
@@ -138,6 +142,13 @@ export default function PaymentForm(props) {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
+            <Button
+              variant='contained'
+              color='secondary'
+              onClick={() => handleRemoveQuestionClick(index)}
+            >
+              Delete
+            </Button>
             </React.Fragment>
           );
         })}
@@ -147,17 +158,9 @@ export default function PaymentForm(props) {
         variant='contained'
         color='primary'
         className={classes.button}
-        onClick={handleAddClick}
+        onClick={handleAddQuestionClick}
       >
         Add
-      </Button>
-      <Button
-        variant='contained'
-        color='secondary'
-        className={classes.button}
-        onClick={handleRemoveClick}
-      >
-        Delete
       </Button>
     </React.Fragment>
   );

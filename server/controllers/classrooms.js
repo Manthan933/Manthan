@@ -1,12 +1,10 @@
+const { check, validationResult } = require("express-validator");
 const Classroom = require("../models/classrooms.model");
+const randomize = require("randomatic")
+
 const Otp = () => {
-  var string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let OTP = "";
-  var len = string.length;
-  for (let i = 0; i < 6; i++) {
-    OTP += string[Math.floor(Math.random() * len)];
-  }
-  return OTP;
+  const otp = randomize("aA0", 6);
+  return otp;
 };
 
 const Get = async (req, res) => {
@@ -30,6 +28,11 @@ const GetClasses = async (req, res) => {
 };
 
 const Create = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { name, subcode, subject, instructor, users, image } = req.body;
   const code = Otp();
   const newClassroom = new Classroom({
@@ -45,7 +48,6 @@ const Create = async (req, res) => {
     await newClassroom.save();
     res.status(201).json(newClassroom);
   } catch (error) {
-    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -68,6 +70,12 @@ const Join = async (req, res) => {
 const Edit = async (req, res) => {
   const { code } = req.params;
   const { name, subcode, subject } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
     const editedClass = await Classroom.findOneAndUpdate(
       { code: code },

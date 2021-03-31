@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Test = require("../models/tests.model");
 const Question = require("../models/questions.model");
 const { GenerateTest, Sort } = require("./test_generator");
+const { check, validationResult } = require("express-validator");
 
 const Get = async (req, res) => {
   const { id } = req.params;
@@ -25,6 +26,12 @@ const Create = async (req, res) => {
     duration,
     dueDate,
   } = req.body;
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const newTest = new Test({
     id,
     name,
@@ -34,6 +41,7 @@ const Create = async (req, res) => {
     duration,
     dueDate,
   });
+
   try {
     await Question.insertMany(questions);
     await newTest.save();
@@ -47,6 +55,7 @@ const GetTests = async (req, res) => {
   const { code } = req.params;
   try {
     const Tests = await Test.find({ classroom: code });
+    console.log(Tests);
     res.status(200).json(Tests);
   } catch (error) {
     res.status(404).json({ message: error.message });

@@ -60,6 +60,9 @@ export default function FormDialog(props) {
           <TextField
             error={!!classError}
             helperText={classError}
+            inputProps={{
+              maxlength: 12
+            }}
             autoFocus
             id='name'
             label='Class name'
@@ -81,6 +84,11 @@ export default function FormDialog(props) {
             error={!!subjectCodeError}
             autoFocus
             type="number"
+            onInput={(e) => {
+              e.target.value = Math.max(0, parseInt(e.target.value))
+              .toString()
+              .slice(0, 12);
+            }}
             helperText={subjectCodeError}
             margin='normal'
             id='subcode'
