@@ -47,6 +47,7 @@ const Create = async (req, res) => {
     await newTest.save();
     res.status(201).json(newTest);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -58,6 +59,7 @@ const GetTests = async (req, res) => {
     console.log(Tests);
     res.status(200).json(Tests);
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -88,6 +90,7 @@ const Update = async (req, res) => {
       { new: true }
     );
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -98,6 +101,7 @@ const Delete = async (req, res) => {
     await Test.findOneAndDelete({ id: id });
     res.json({ message: "Test deleted successfully." });
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -115,6 +119,7 @@ const Generate = async (req, res) => {
     const data = GenerateTest(questions, test.rules);
     res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };

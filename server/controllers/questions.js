@@ -6,6 +6,7 @@ const Get = async (req, res) => {
     const data = await Question.find(req.body, { answer: 1 });
     res.status(200).json(data);
   } catch (error) {
+    console.log(error)
     res.status(404).json({ message: error.message });
   }
 };
@@ -20,6 +21,7 @@ const Create = async (req, res) => {
     const data = await Question.insertMany(questions);
     res.status(201).json(data);
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
@@ -28,6 +30,7 @@ const Delete = async (req, res) => {
   try {
     const data = res.json({ deletedCount: data.deletedCount });
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message });
   }
 };
