@@ -1,11 +1,12 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 const Questions = require("../../controllers/questions");
+const {isUser , isTeacher} = require("../../middleware/authmiddleware")
 
 const router = express.Router();
 
 router.post(
-  "/",
+  "/", isTeacher ,
   [
     check("question", "Please Enter Question").not().isEmpty(),
     check("option1", "Please Enter option1").not().isEmpty(),
@@ -15,6 +16,6 @@ router.post(
   ],
   Questions.Create
 );
-router.get("/", Questions.Get);
-router.delete("/", Questions.Delete);
+router.get("/", isUser ,Questions.Get);
+router.delete("/", isTeacher ,Questions.Delete);
 module.exports = router;
