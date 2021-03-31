@@ -37,4 +37,8 @@ mongoose
   )
   .catch((error) => console.log(`${error} did not connect`));
 
+mongoose.connection.on('error', error => {
+  console.log(`Error occured after intial connection established: ${error}`);
+});
+
 mongoose.set("useFindAndModify", false);
