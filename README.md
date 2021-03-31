@@ -95,7 +95,7 @@ These are the prerequisites required to run this application:
 
 <img src="https://media.giphy.com/media/kdiLau77NE9Z8vxGSO/giphy.gif" width="40%"><br>
 
-1. Clone the Manthan repository form github
+1. Clone the Manthan repository from github
 
 ```sh
   git clone https://github.com/Manthan933/Manthan.git
