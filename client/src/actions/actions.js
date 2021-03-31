@@ -29,11 +29,13 @@ export const getClass = async (code, setClass) => {
   }
 };
 
-export const getClasses = async (user, setClasses) => {
+export const getClasses = async (user, setClasses, value) => {
   try {
     if (user) {
       const res = await api.getClasses(user);
-      setClasses(res.data);
+      let result = res.data.filter((cl) => cl.subject.startsWith(value));
+      console.log(result)
+      setClasses(result);
     }
   } catch (error) {
     console.log(error.message);
@@ -77,7 +79,7 @@ export const deleteClass = async (code, user, setClasses) => {
   try {
     if (window.confirm("Are you sure you want to delete the classroom ? ")) {
       await api.deleteClass(code);
-      getClasses(user, setClasses);
+      getClasses(user, setClasses, '');
     }
   } catch (error) {
     console.log(error.message);
@@ -87,7 +89,7 @@ export const deleteClass = async (code, user, setClasses) => {
 export const editClassDetails = async (Class, Config, user, setClasses) => {
   try {
     await api.editClass(Class.code, Config);
-    getClasses(user, setClasses);
+    getClasses(user, setClasses, null);
   } catch (error) {
     console.log(error.message);
   }
@@ -97,7 +99,7 @@ export const leaveClass = async (code, user, setClasses) => {
   try {
     if (window.confirm("Are you sure you want to leave the classroom ? ")) {
       await api.leaveClass(code, { user: user });
-      getClasses(user, setClasses);
+      getClasses(user, setClasses, '');
     }
   } catch (error) {
     console.log(error.message);

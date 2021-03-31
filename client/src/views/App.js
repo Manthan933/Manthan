@@ -14,7 +14,7 @@ export default function App() {
   const [user, setUser] = React.useState({});
   const [Classes, setClasses] = React.useState([]);
   React.useEffect(() => {
-    getClasses(user.email, setClasses);
+    getClasses(user.email, setClasses, '');
   }, [user]);
   const UpdateClass = (classDetails, updatedConfig) => {
     editClassDetails(classDetails, updatedConfig, user.email, setClasses);
