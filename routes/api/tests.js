@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+var multer = require('multer');
+var upload = multer();
 
 const Classroom = require('../../models/Classroom');
 const User = require('../../models/User');
@@ -182,5 +184,58 @@ router.delete('/id/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+router.post(
+  '/addQuestionFromCsv',
+  auth,
+  upload.array('quesFile'),
+  async (req, res) => {
+    if (!req.files[0]) res.send({ message: 'No File Received' });
+    else if (
+      req.files[0].originalname.split('.')[
+        req.files[0].originalname.split('.').length - 1
+      ] !== 'csv'
+    )
+      res.send({ message: 'Invalid' });
+    else {
+      let fileBuffer = req.files[0].buffer;
+      console.log(req.files[0]);
+      var fs = require('fs');
+      var parse = require('csv-parse');
+      var csvData = [];
+      fs.writeFileSync(`public/${'temp'}.csv`, fileBuffer);
+
+      fs.watch(`public`, (eventType, filename) => {
+        console.log('\nThe file', filename, 'was modified!');
+      });
+
+      fs.createReadStream(`public/${'temp'}.csv`)
+        .pipe(parse({ delimiter: ',' }))
+        .on('data', (csvrow) => {
+          csvData.push(csvrow);
+        })
+        .on('end', () => {
+          var obj = [];
+          for (var i = 1; i < csvData.length; i++) {
+            var temp = {};
+            var curr = csvData[i];
+            var head = csvData[0];
+            // console.log(head);
+            // console.log(curr);
+            for (var j = 0; j < head.length; j++) {
+              temp[head[j]] = curr[j];
+            }
+            obj.push(temp);
+          }
+          console.log(obj);
+          res.send(obj);
+          fs.unlinkSync(`public/${'temp'}.csv`);
+        })
+        .on('error', (err) => {
+          res.status(500).send({ error: err });
+        });
+    }
+  }
+);
 
 module.exports = router;
