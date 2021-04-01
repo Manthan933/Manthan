@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const QuestionSchema = new mongoose.Schema({
-  question: { type: String, required: true },
+  question: { type: String, required: true, unique : true },
   option1: { type: String, required: true },
   option2: { type: String, required: true },
   option3: { type: String, required: true },
