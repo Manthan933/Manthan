@@ -109,8 +109,9 @@ These are the prerequisites required to run this application:
 3. To run the application in development server
 
 ```sh
-  npm install
   cd client
+  npm install
+  cd .. 
   npm install
   npm run dev
 ```
