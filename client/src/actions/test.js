@@ -111,3 +111,22 @@ export const deleteTest = (id) => async (dispatch) => {
     });
   }
 };
+
+// Add Questions from CSV
+export const addCSVQues = (data, addNewQuestions) => async (dispatch) => {
+  try {
+    const res = await api.post('/tests/addQuestionFromCsv', data);
+    addNewQuestions(res.data);
+    dispatch(setAlert('Questions Added', 'danger'));
+  } catch (err) {
+    const errors = err.response.data;
+    console.log(err.response);
+    if (errors) {
+      dispatch(setAlert(errors.msg, 'danger'));
+    }
+    dispatch({
+      type: TEST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Typography,
@@ -8,12 +9,14 @@ import {
   CssBaseline,
   TextField
 } from '@material-ui/core';
+import { addCSVQues } from '../../actions/test';
 
 const QuestionForm = ({
   questions,
   setQuestion,
   id,
   handleNext,
+  addCSVQues,
   handleBack
 }) => {
   const ques = {
@@ -39,9 +42,51 @@ const QuestionForm = ({
     list[index][name] = value;
     setQuestion(list);
   };
-  const onSubmit = () => {
+  const onNext = () => {
     setQuestion(questions);
     handleNext();
+  };
+  const addNewQuestions = (json) => {
+    var newQues = [];
+    json.map((ques) => {
+      console.log(ques);
+      let currentQues = {};
+      if (
+        ques.type &&
+        ques.question &&
+        ques.answer &&
+        ques.option1 &&
+        ques.option2 &&
+        ques.option3 &&
+        ques.option4
+      ) {
+        currentQues.type = ques.type;
+        currentQues.question = ques.question;
+        currentQues.answer = ques.answer;
+        currentQues.option1 = ques.option1;
+        currentQues.option2 = ques.option2;
+        currentQues.option3 = ques.option3;
+        currentQues.option4 = ques.option4;
+        currentQues.test = id;
+        newQues.push(currentQues);
+      }
+    });
+    setQuestion(newQues.concat(questions));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const value = Object.fromEntries(data.entries());
+    addCSVQues(data, addNewQuestions);
+    console.log(value.quesFile);
+    new Response(value.quesFile).json().then(
+      (json) => {
+        addNewQuestions(json);
+      },
+      (err) => {
+        // not json
+      }
+    );
   };
 
   return (
@@ -54,6 +99,19 @@ const QuestionForm = ({
         Questions Form
       </Typography>
       <Paper style={{ padding: 16 }}>
+        <form
+          onNext={handleSubmit}
+          style={{ marginTop: 20, marginBottom: 15, height: 35 }}
+        >
+          <input
+            type="file"
+            name="quesFile"
+            required
+            id="quesFile"
+            accept=".json,.csv"
+          />
+          <button type="submit">Submit</button>
+        </form>
         <Grid container alignItems="flex-start" spacing={2}>
           {questions
             ? questions.map((curr, index) => {
@@ -166,7 +224,7 @@ const QuestionForm = ({
             </Button>
           </Grid>
           <Grid item style={{ marginTop: 16 }}>
-            <Button variant="contained" color="primary" onClick={onSubmit}>
+            <Button variant="contained" color="primary" onClick={onNext}>
               Next
             </Button>
           </Grid>
@@ -181,7 +239,10 @@ QuestionForm.propTypes = {
   setQuestion: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   handleNext: PropTypes.func.isRequired,
-  handleBack: PropTypes.func.isRequired
+  handleBack: PropTypes.func.isRequired,
+  addCSVQues: PropTypes.func.isRequired
 };
 
-export default QuestionForm;
+export default connect(null, {
+  addCSVQues
+})(QuestionForm);
