@@ -109,15 +109,10 @@ These are the prerequisites required to run this application:
 3. To run the application in development server
 
 ```sh
-  cd server
   npm install
-  nodemon
-```
-
-```sh
   cd client
   npm install
-  npm start
+  npm run dev
 ```
 
 <!-- USAGE EXAMPLES -->
