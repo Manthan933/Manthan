@@ -161,7 +161,7 @@ router.delete('/:code', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Class does not exist.' });
     }
     if (classroom.admin._id == req.user.id) {
-      await Classroom.findByIdAndDelete(classroom._id);
+      await classroom.remove();
       res.json({ msg: 'Class deleted successfully.' });
     } else {
       await Classroom.findOneAndUpdate(
