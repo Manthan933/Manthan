@@ -4,7 +4,8 @@
   "description": "Online testing platform",
   "main": "server.js",
   "engines": {
-    "node": "10.19.0"
+    "node": "10.19.0",
+    "npm ": "7.6.3"
   },
   "scripts": {
     "start": "node server",
