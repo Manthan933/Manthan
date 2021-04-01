@@ -104,9 +104,7 @@ These are the prerequisites required to run this application:
   cd Manthan
 ```
 
-2. Get the mongo-uri from [MongoDB-Atlas](https://www.mongodb.com/cloud/atlas) and create .env file in server ( refer [.env.example](server/.env.example) )
-
-3. To run the application in development server
+2. To run the application in development server
 
 ```sh
   cd client
