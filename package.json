@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Online testing platform",
   "main": "server.js",
+  "engines": {
+    "node": "10.19.0"
+  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
