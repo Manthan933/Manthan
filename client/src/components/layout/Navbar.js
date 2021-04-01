@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = ({
   auth: { isAuthenticated },
   logout,
-  classroom: { classrooms },
+  classroom: { classrooms, classroom },
   getClasses
 }) => {
   const classes = useStyles();
@@ -150,21 +150,27 @@ const Navbar = ({
           style={{ marginLeft: '0.2rem' }}
         >
           {classrooms !== []
-            ? classrooms.map((classroom) => {
+            ? classrooms.map((Class) => {
                 return (
                   <ListItem
-                    key={classroom.code}
+                    key={Class.code}
                     className={classes.classLink}
                     button
                     component="a"
-                    href={`/class/${classroom.code}/`}
+                    style={{
+                      backgroundColor:
+                        classroom && Class.code === classroom.code
+                          ? 'rgba(0, 0, 0, 0.25)'
+                          : 'white'
+                    }}
+                    href={`/class/${Class.code}/`}
                   >
                     <ListItemIcon>
                       <ClassRoundedIcon />
                     </ListItemIcon>
                     <ListItemText color="textPrimary">
                       {' '}
-                      {truncate(classroom.name, 12)}
+                      {truncate(Class.name, 12)}
                     </ListItemText>
                   </ListItem>
                 );
