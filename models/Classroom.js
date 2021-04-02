@@ -19,6 +19,10 @@ const ClassroomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  image: {
+    type: Buffer,
+    required: true
+  },
   code: {
     type: String,
     required: true,

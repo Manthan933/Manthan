@@ -4,10 +4,10 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 // bring in radnomatic to get class code
 const randomatic = require('randomatic');
-
+const multer = require('multer')
 const Classroom = require('../../models/Classroom');
 const User = require('../../models/User');
-
+const upload = multer()
 // @route    GET api/classroom/
 // @desc     Get current users classroom
 // @access   Private
@@ -29,6 +29,7 @@ router.get('/', auth, async (req, res) => {
 // @access   Private
 router.post(
   '/',
+  upload.single('image'),
   auth,
   check('name', 'Name is required').notEmpty(),
   check('subject', 'Subject is required').notEmpty(),
@@ -39,7 +40,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // destructure the request
+
     const { name, subject, subcode } = req.body;
 
     try {
@@ -47,19 +48,19 @@ router.post(
       const admin = await User.findById(req.user.id).select('-password');
       const users = [admin._id];
       const code = randomatic('aA0', 6);
-
+      const image = req.file.buffer;
       const newClassroom = new Classroom({
         admin,
         name,
         subject,
         subcode,
+        image,
         code,
         users
       });
       newClassroom.save();
       res.json(newClassroom);
     } catch (err) {
-      console.error(err.message);
       return res.status(500).send('Server Error');
     }
   }

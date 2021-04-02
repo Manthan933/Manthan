@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import image from '../../img/class-background.jpg';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { LeaveClass } from '../../actions/classroom';
 
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white'
   },
   body: {
-    backgroundImage: `url(` + image + `)`,
+    backgroundSize: "cover",
     backgroundColor: '#00000070',
     backgroundBlendMode: 'darken',
     padding: theme.spacing(3),
@@ -67,11 +66,17 @@ const ClassCard = ({ LeaveClass, Class }) => {
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
+
   return (
     <>
       <Card className={classes.root}>
+
         <CardContent className={classes.content}>
-          <div className={classes.body}>
+          <div style={{
+            backgroundImage: `url(` + 'data:image/jpeg;base64,' + btoa(
+              Class.image.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
+            ) + `)`
+          }} className={classes.body}>
             <Typography
               className={classes.title}
               variant="h5"
