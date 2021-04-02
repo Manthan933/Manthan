@@ -17,9 +17,8 @@ export const createClassFormError = (
   if (!subcode) setSubjectCodeError('This field is required!');
   else setSubjectCodeError('');
 
-  if (!image)
-    setImageError("please upload class image")
-  else if (image) {
+
+  if (image) {
     var type = image.name.split(".").pop();
     var support = ["jpg", "png", "jpeg"];
     if (!support.includes(type))
@@ -27,6 +26,6 @@ export const createClassFormError = (
   }
 
 
-  if (!name || !subject || !subcode || !image || !support.includes(type)) return true;
+  if (!name || !subject || !subcode || (image && !support.includes(type))) return true;
   else return false;
 };

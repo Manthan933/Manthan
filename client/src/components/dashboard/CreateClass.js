@@ -54,6 +54,8 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
 
       CreateClass(data);
       setOpen(false);
+      setImage(null);
+      setImageError(null);
     }
   };
 

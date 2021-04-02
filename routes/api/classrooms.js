@@ -48,7 +48,7 @@ router.post(
       const admin = await User.findById(req.user.id).select('-password');
       const users = [admin._id];
       const code = randomatic('aA0', 6);
-      const image = req.file.buffer;
+      const image = req.file ? req.file.buffer : null;
       const newClassroom = new Classroom({
         admin,
         name,

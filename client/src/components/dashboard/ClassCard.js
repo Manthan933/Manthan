@@ -8,7 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { LeaveClass } from '../../actions/classroom';
-
+import image from "../../img/class-background.jpg";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: 220,
@@ -73,7 +73,7 @@ const ClassCard = ({ LeaveClass, Class }) => {
 
         <CardContent className={classes.content}>
           <div style={{
-            backgroundImage: `url(` + 'data:image/jpeg;base64,' + btoa(
+            backgroundImage: !Class.image ? `url(` + image + `)` : `url(` + 'data:image/jpeg;base64,' + btoa(
               Class.image.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
             ) + `)`
           }} className={classes.body}>

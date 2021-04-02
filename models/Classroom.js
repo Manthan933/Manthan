@@ -21,7 +21,6 @@ const ClassroomSchema = new mongoose.Schema({
   },
   image: {
     type: Buffer,
-    required: true
   },
   code: {
     type: String,
