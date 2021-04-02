@@ -16,16 +16,21 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
     setSubjectCodeError(null);
     setSubjectError(null);
     setOpen(false);
+    setImage(null);
+    setImageError(null);
   };
 
   // for better purpose i split all error state
   const [classError, setClassError] = React.useState('');
   const [subjectError, setSubjectError] = React.useState('');
   const [subjectCodeError, setSubjectCodeError] = React.useState('');
+  const [imageError, setImageError] = React.useState('');
+  const [image, setImage] = React.useState(null);
   const handleClick = (editable) => {
     const name = document.getElementById('name').value;
     const subject = document.getElementById('subject').value;
     const subcode = document.getElementById('subcode').value;
+
 
     // Check before submitting
     // move all Error handling section to new handleFormErrorFile
@@ -33,15 +38,24 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
       name,
       subject,
       subcode,
+      image,
       setClassError,
       setSubjectCodeError,
-      setSubjectError
+      setSubjectError,
+      setImageError,
     );
 
     if (!isContainError) {
-      const config = { name: name, subject: subject, subcode: subcode };
-      CreateClass(config);
+      const data = new FormData();
+      data.append("name", name);
+      data.append("subject", subject);
+      data.append("subcode", subcode);
+      data.append("image", image);
+
+      CreateClass(data);
       setOpen(false);
+      setImage(null);
+      setImageError(null);
     }
   };
 
@@ -89,6 +103,24 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
             fullWidth
             required
           />
+          <br />
+          <br />
+          <label style={{ backgroundColor: "indigo", padding: "10px 20px", color: "white", cursor: "pointer" }} for="image" >Upload class image</label>
+          <input
+            style={{ display: "none" }}
+            onChange={(e) => setImage(e.target.files[0])}
+            type="text"
+            type="file"
+
+            id="image" />
+          {image ? (
+            <p>{image.name}</p>
+          ) : null}
+          {
+            imageError ? (
+              <p style={{ color: "red" }}>{imageError}</p>
+            ) : null
+          }
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
