@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Test = require('./Test');
 
 const ClassroomSchema = new mongoose.Schema({
   admin: {
@@ -29,6 +30,14 @@ const ClassroomSchema = new mongoose.Schema({
     required: true,
     default: []
   }
+});
+
+// Delete all corresponding tests to a classroom after the latter is deleted
+ClassroomSchema.post('remove', async (currentClass, next) => {
+  await Test.findOneAndDelete({
+    classroom: currentClass.code
+  });
+  next();
 });
 
 module.exports = mongoose.model('classroom', ClassroomSchema);
