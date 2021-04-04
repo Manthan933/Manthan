@@ -64,6 +64,57 @@ router.post('/', auth, async (req, res) => {
   // destructure the request
   const { id, test, rules, questions, classroom } = req.body;
 
+  /* Validate incoming Post request on backend as well
+    1. Check if rules have marks > 0
+    2. Calculate total marks based on rules and questions
+    3. Set test id of each question based on the id passed in the id field of request and not individual question
+    4. Validate if the test has a unique name 
+  */
+
+  // save validation errors in an array
+  var validationErrors = [];
+  // save index of valid rules in a var
+  var validRules = {};
+  // calculate total marks based on questions and types
+  test.marks = 0;
+
+  rules.forEach((rule, index) => {
+    var marks = Number(rule.marks);
+    var type = rule.type;
+    rule.noofques = 0;
+
+    if (marks < 0)
+      validationErrors.push(`Rule ${type} is not valid`);
+    else
+      validRules[type] = index;
+  });
+
+  questions.forEach((question, index) => {
+    var type = question.type;
+
+    if (validRules[type] === null)
+      validationErrors.push(`Question ${index} is not of a valid type`);
+    else {
+      rules[validRules[type]].noofques += 1;
+      test.marks += rules[validRules[type]].marks;
+      question.test = id;
+    }
+  });
+
+  // check if due date is in the past
+  var dueDate = new Date(test.dueDate);
+  var currDate = new Date();
+
+  if (dueDate.getDate() < currDate.getDate && dueDate.getMonth() < currDate.getMonth() && dueDate.getFullYear() < currDate.getFullYear())
+    validationErrors.push('Due Date cannot be in the past');
+
+  // check if test name is unique
+  if (await Test.findOne({ "test.name": test.name, classroom: classroom }))
+    validationErrors.push(`${test.name} is already created`);
+
+  if (validationErrors.length)
+    return res.status(400).json({ err: validationErrors });
+
   try {
     const newTest = new Test({
       id,
@@ -193,7 +244,7 @@ router.post(
     if (!req.files[0]) res.send({ message: 'No File Received' });
     else if (
       req.files[0].originalname.split('.')[
-        req.files[0].originalname.split('.').length - 1
+      req.files[0].originalname.split('.').length - 1
       ] !== 'csv'
     )
       res.send({ message: 'Invalid' });
