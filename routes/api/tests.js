@@ -33,6 +33,16 @@ function GenerateTest(Questions, Rules) {
   return res;
 }
 
+function DuplicateQuestion(ques) {
+  var read_vals = Object.create(null);
+  for (var i = 0; i < ques.length; i++) {
+      var value = ques[i];
+      if (value in read_vals) {
+        return res.json({ msg: 'This question already exists' });
+      }
+    }
+  }
+
 // @route    GET api/test/:code
 // @desc     Get current classroom test
 // @access   Private
@@ -71,6 +81,9 @@ router.post('/', auth, async (req, res) => {
       classroom,
       rules
     });
+
+    DuplicateQuestion(Question);
+
     await Question.insertMany(questions);
     await newTest.save();
     return res.status(200).json({ msg: 'Test created sucessfully.' });
