@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
 import ClassRoundedIcon from '@material-ui/icons/ClassRounded';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,18 +25,17 @@ import { getClasses } from '../../actions/classroom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    float: 'right',
-    color: "white"
+    float: 'right'
   },
   title: {
     flexGrow: 1,
     textDecoration: 'none',
     fontFamily: 'Acme, sans-serif',
     fontWeight: 'bolder',
-    color: "white"
+    color: '#000000'
   },
   list: {
     width: 300
@@ -69,13 +69,13 @@ const Navbar = ({
   useEffect(() => {
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
-
+  const links = ["/", "/login", "/register"];
   const authLinks = (
     <Button
       onClick={logout}
       href="/#!"
-      style={{ color: window.location.pathname === '/dashboard' ? "white" : "black", fontWeight: "bold" }}
-      startIcon={<i style={{ color: window.location.pathname === '/dashboard' ? "white" : "black", }} className="fas fa-sign-out-alt" />}
+      style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+      startIcon={<i className="fas fa-sign-out-alt" />}
     >
       Logout
     </Button>
@@ -98,31 +98,47 @@ const Navbar = ({
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
+  const getNavbar = (
+
+    <Toolbar>
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+
+        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        onClick={toggleDrawer(true)}
+        aria-label="menu"
+      >
+        <MenuIcon />
+      </IconButton>
+      <Typography
+        component="a"
+        href="/"
+        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        variant="h6"
+        className={classes.title}
+      >
+        Manthan
+      </Typography>
+      {isAuthenticated ? authLinks : guestLinks}
+    </Toolbar>
+
+  )
   return (
     <>
-
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="white"
-          onClick={toggleDrawer(true)}
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          component="a"
-          href="/"
-          variant="h6"
-          className={classes.title}
-        >
-          Manthan
-          </Typography>
-        {isAuthenticated ? authLinks : guestLinks}
-      </Toolbar>
-
+      {
+        links.includes(window.location.pathname) ? (
+          <AppBar color="inherit">
+            {getNavbar}
+          </AppBar>
+        ) : (
+          <>
+            {getNavbar}
+          </>
+        )
+      }
       <Toolbar />
+      <Divider />
       <Drawer
         className={classes.list}
         open={state['left']}

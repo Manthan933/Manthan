@@ -6,8 +6,7 @@ import { Typography, Grid, Container } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import FloatingButton from './ClassButton';
 import ClassCard from './ClassCard';
-import Tooltip from '@material-ui/core/Tooltip';
-import ThemeDialog from "../themes/Theme";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,23 +27,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: '0px',
   },
-  editTheme: {
-    color: "white",
-    fontSize: "20px",
-    position: "absolute",
-    right: "7%",
-    bottom: "4%",
-    position: 'fixed',
-    cursor: "pointer",
-    padding: "10px",
-    transition: "0.1s all",
-    "&:hover": {
-      background: "white",
-      padding: "10px",
-      color: "black",
-      borderRadius: "50%",
-    }
-  },
+
 
   classContainer: {
     justifyContent: 'center',
@@ -63,13 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ classroom: { classrooms } }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  }
-  const handleClose = () => {
-    setOpen(false);
-  }
   return (
     <Container className={classes.root}>
       {classrooms.length ? (
@@ -92,10 +68,7 @@ const Dashboard = ({ classroom: { classrooms } }) => {
           </div>
         </Grid>
       )}
-      <Tooltip title="Change Theme">
-        <CreateIcon onClick={handleClickOpen} className={classes.editTheme} />
-      </Tooltip>
-      <ThemeDialog open={open} handleClose={handleClose} />
+
       <FloatingButton text="Add Classroom" />
 
     </Container>
