@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
 import ClassRoundedIcon from '@material-ui/icons/ClassRounded';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,17 +24,18 @@ import { getClasses } from '../../actions/classroom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    float: 'right'
+    float: 'right',
+    color: "white"
   },
   title: {
     flexGrow: 1,
     textDecoration: 'none',
     fontFamily: 'Acme, sans-serif',
     fontWeight: 'bolder',
-    color: '#000000'
+    color: "white"
   },
   list: {
     width: 300
@@ -74,7 +74,8 @@ const Navbar = ({
     <Button
       onClick={logout}
       href="/#!"
-      startIcon={<i className="fas fa-sign-out-alt" />}
+      style={{ color: window.location.pathname === '/dashboard' ? "white" : "black", fontWeight: "bold" }}
+      startIcon={<i style={{ color: window.location.pathname === '/dashboard' ? "white" : "black", }} className="fas fa-sign-out-alt" />}
     >
       Logout
     </Button>
@@ -99,30 +100,29 @@ const Navbar = ({
   };
   return (
     <>
-      <AppBar color="inherit">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={toggleDrawer(true)}
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="a"
-            href="/"
-            variant="h6"
-            className={classes.title}
-          >
-            Manthan
+
+      <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="white"
+          onClick={toggleDrawer(true)}
+          aria-label="menu"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          component="a"
+          href="/"
+          variant="h6"
+          className={classes.title}
+        >
+          Manthan
           </Typography>
-          {isAuthenticated ? authLinks : guestLinks}
-        </Toolbar>
-      </AppBar>
+        {isAuthenticated ? authLinks : guestLinks}
+      </Toolbar>
+
       <Toolbar />
-      <Divider />
       <Drawer
         className={classes.list}
         open={state['left']}
@@ -151,30 +151,30 @@ const Navbar = ({
         >
           {classrooms !== []
             ? classrooms.map((Class) => {
-                return (
-                  <ListItem
-                    key={Class.code}
-                    className={classes.classLink}
-                    button
-                    component="a"
-                    style={{
-                      backgroundColor:
-                        classroom && Class.code === classroom.code
-                          ? 'rgba(0, 0, 0, 0.25)'
-                          : 'white'
-                    }}
-                    href={`/class/${Class.code}/`}
-                  >
-                    <ListItemIcon>
-                      <ClassRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText color="textPrimary">
-                      {' '}
-                      {truncate(Class.name, 12)}
-                    </ListItemText>
-                  </ListItem>
-                );
-              })
+              return (
+                <ListItem
+                  key={Class.code}
+                  className={classes.classLink}
+                  button
+                  component="a"
+                  style={{
+                    backgroundColor:
+                      classroom && Class.code === classroom.code
+                        ? 'rgba(0, 0, 0, 0.25)'
+                        : 'white'
+                  }}
+                  href={`/class/${Class.code}/`}
+                >
+                  <ListItemIcon>
+                    <ClassRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText color="textPrimary">
+                    {' '}
+                    {truncate(Class.name, 12)}
+                  </ListItemText>
+                </ListItem>
+              );
+            })
             : null}
         </List>
         <Divider />

@@ -11,14 +11,11 @@ import { LeaveClass } from '../../actions/classroom';
 import image from "../../img/class-background.jpg";
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: 220,
-    minHeight: 220,
-    maxWidth: 300,
-    minWidth: 300,
+    minWidth: "310px",
+
     margin: theme.spacing(2),
     borderRadius: '5px',
-    background: 'linear-gradient(225deg, #e6e6e6, #ffffff)',
-    boxShadow: '-5px 5px 10px #b3b3b3, 5px -5px 10px #ffffff'
+
   },
   title: {
     fontWeight: 'bold',
