@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Container } from '@material-ui/core';
-
+import CreateIcon from '@material-ui/icons/Create';
 import FloatingButton from './ClassButton';
 import ClassCard from './ClassCard';
 
@@ -18,17 +18,23 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     height: '450px',
     width: '370px',
+
     textAlign: 'center',
     backgroundRepeat: 'no-repeat',
-    marginTop: '10%'
+    marginTop: '0%'
   },
   text: {
     position: 'absolute',
-    bottom: '0px'
+    bottom: '0px',
   },
+
+
   classContainer: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: "0 auto",
+
   },
+
   '@media screen and (min-width: 32em)': {
     classContainer: {
       justifyContent: 'left',
@@ -40,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ classroom: { classrooms } }) => {
   const classes = useStyles();
-
   return (
     <Container className={classes.root}>
       {classrooms.length ? (
@@ -51,19 +56,21 @@ const Dashboard = ({ classroom: { classrooms } }) => {
         </Grid>
       ) : (
         <Grid container justify="center" spacing={5}>
-          <div className={classes.noClass}>
+          <div style={{ color: "white" }} className={classes.noClass}>
             <footer className={classes.text}>
-              <Typography variant="h6" color="textSecondary">
+              <Typography variant="h4" color="white">
                 No classes here!
               </Typography>
-              <Typography variant="subtitle1" color="textPrimary">
+              <Typography variant="subtitle1" color="white">
                 Create a new class or join class.
               </Typography>
             </footer>
           </div>
         </Grid>
       )}
+
       <FloatingButton text="Add Classroom" />
+
     </Container>
   );
 };

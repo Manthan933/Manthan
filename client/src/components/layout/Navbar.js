@@ -69,11 +69,12 @@ const Navbar = ({
   useEffect(() => {
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
-
+  const links = ["/", "/login", "/register"];
   const authLinks = (
     <Button
       onClick={logout}
       href="/#!"
+      style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
       startIcon={<i className="fas fa-sign-out-alt" />}
     >
       Logout
@@ -97,30 +98,45 @@ const Navbar = ({
   const truncate = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
+  const getNavbar = (
+
+    <Toolbar>
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+
+        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        onClick={toggleDrawer(true)}
+        aria-label="menu"
+      >
+        <MenuIcon />
+      </IconButton>
+      <Typography
+        component="a"
+        href="/"
+        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        variant="h6"
+        className={classes.title}
+      >
+        Manthan
+      </Typography>
+      {isAuthenticated ? authLinks : guestLinks}
+    </Toolbar>
+
+  )
   return (
     <>
-      <AppBar color="inherit">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={toggleDrawer(true)}
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="a"
-            href="/"
-            variant="h6"
-            className={classes.title}
-          >
-            Manthan
-          </Typography>
-          {isAuthenticated ? authLinks : guestLinks}
-        </Toolbar>
-      </AppBar>
+      {
+        links.includes(window.location.pathname) ? (
+          <AppBar color="inherit">
+            {getNavbar}
+          </AppBar>
+        ) : (
+          <>
+            {getNavbar}
+          </>
+        )
+      }
       <Toolbar />
       <Divider />
       <Drawer
@@ -151,30 +167,30 @@ const Navbar = ({
         >
           {classrooms !== []
             ? classrooms.map((Class) => {
-                return (
-                  <ListItem
-                    key={Class.code}
-                    className={classes.classLink}
-                    button
-                    component="a"
-                    style={{
-                      backgroundColor:
-                        classroom && Class.code === classroom.code
-                          ? 'rgba(0, 0, 0, 0.25)'
-                          : 'white'
-                    }}
-                    href={`/class/${Class.code}/`}
-                  >
-                    <ListItemIcon>
-                      <ClassRoundedIcon />
-                    </ListItemIcon>
-                    <ListItemText color="textPrimary">
-                      {' '}
-                      {truncate(Class.name, 12)}
-                    </ListItemText>
-                  </ListItem>
-                );
-              })
+              return (
+                <ListItem
+                  key={Class.code}
+                  className={classes.classLink}
+                  button
+                  component="a"
+                  style={{
+                    backgroundColor:
+                      classroom && Class.code === classroom.code
+                        ? 'rgba(0, 0, 0, 0.25)'
+                        : 'white'
+                  }}
+                  href={`/class/${Class.code}/`}
+                >
+                  <ListItemIcon>
+                    <ClassRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText color="textPrimary">
+                    {' '}
+                    {truncate(Class.name, 12)}
+                  </ListItemText>
+                </ListItem>
+              );
+            })
             : null}
         </List>
         <Divider />

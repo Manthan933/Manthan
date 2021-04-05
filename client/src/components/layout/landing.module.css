@@ -7,6 +7,7 @@
 .container {
   font-family: var(--font);
   overflow: hidden;
+  background-color: white;
 }
 
 .sideDiv {

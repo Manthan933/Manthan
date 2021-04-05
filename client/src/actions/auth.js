@@ -5,14 +5,15 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGOUT
+  LOGOUT,
+  SET_THEME
 } from './types';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
   try {
     const res = await api.get('/auth');
-
+    dispatch({ type: SET_THEME, payload: res.data.theme })
     dispatch({
       type: USER_LOADED,
       payload: res.data
