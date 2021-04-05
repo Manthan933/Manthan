@@ -82,9 +82,10 @@ router.post('/', auth, async (req, res) => {
       rules
     });
 
-    DuplicateQuestion(Question);
+    DuplicateQuestion(questions);
 
     await Question.insertMany(questions);
+    
     await newTest.save();
     return res.status(200).json({ msg: 'Test created sucessfully.' });
   } catch (err) {
