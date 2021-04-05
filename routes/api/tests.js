@@ -185,28 +185,46 @@ router.post('/id/:id', auth, async (req, res) => {
     var marks = 0;
     const test = await Test.findById(req.params.id, {
       rules: 1,
-      id: 1
+      id: 1,
+      scores: 1,
+      classroom: 1,
     });
+
+    if (!test)
+      return res.status(400).json({ msg: 'Test does not exists.' });
+
+    if (!(await Classroom.findOne({ code: test.classroom, users: req.user.id }))) {
+      return res.status(400).json({ msg: 'You\'re not enrolled in this class.' });
+    }
+
+    if (test.scores.find((ele) => req.user.id == ele.user._id)) {
+      return res.status(400).json({ msg: 'Test has been already attempted.' });
+    }
+
     const answers = await Question.find(
       { test: test.id },
       { answer: 1, type: 1 }
     ).sort({
       type: 1
     });
+
     answers.forEach((ele) => {
       if (req.body[ele._id] === ele.answer) {
         if (isNaN(score[ele.type])) score[ele.type] = 0;
         score[ele.type] = score[ele.type] + 1;
       }
     });
+
     test.rules.forEach((rule) => {
       marks = marks + score[rule.type] * rule.marks;
     });
+
     const user = await User.findById(req.user.id, {
       name: 1,
       email: 1,
       _id: 1
     });
+
     await Test.findByIdAndUpdate(req.params.id, {
       $push: { scores: { user: user, marks: marks } }
     });
