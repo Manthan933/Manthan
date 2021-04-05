@@ -25,7 +25,7 @@ import { getClasses } from '../../actions/classroom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     float: 'right'
@@ -69,12 +69,15 @@ const Navbar = ({
   useEffect(() => {
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
-  const links = ["/", "/login", "/register"];
+  const links = ["/dashboard"];
+
+  const getColorStatus = () => links.includes(window.location.pathname) || window.location.pathname.startsWith("/class/") ? "white" : "black";
+
   const authLinks = (
     <Button
       onClick={logout}
       href="/#!"
-      style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+      style={{ color: getColorStatus() }}
       startIcon={<i className="fas fa-sign-out-alt" />}
     >
       Logout
@@ -105,7 +108,7 @@ const Navbar = ({
         edge="start"
         className={classes.menuButton}
 
-        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        style={{ color: getColorStatus() }}
         onClick={toggleDrawer(true)}
         aria-label="menu"
       >
@@ -114,7 +117,7 @@ const Navbar = ({
       <Typography
         component="a"
         href="/"
-        style={{ color: links.includes(window.location.pathname) ? "black" : "white" }}
+        style={{ color: getColorStatus() }}
         variant="h6"
         className={classes.title}
       >
@@ -127,14 +130,15 @@ const Navbar = ({
   return (
     <>
       {
-        links.includes(window.location.pathname) ? (
-          <AppBar color="inherit">
-            {getNavbar}
-          </AppBar>
-        ) : (
+        links.includes(window.location.pathname) || window.location.pathname.startsWith("/class/") ? (
+
           <>
             {getNavbar}
           </>
+        ) : (
+          <AppBar color="inherit">
+            {getNavbar}
+          </AppBar>
         )
       }
       <Toolbar />
