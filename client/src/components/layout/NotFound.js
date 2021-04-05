@@ -3,7 +3,7 @@ import './notfound.css';
 const NotFound = () => {
   return (
     <Fragment>
-      <main>
+      <main style={{ position: "absolute", top: "10%", width: "100%", height: "100vh" }}>
         <svg
           viewBox="0 0 541.17206 328.45184"
           height="328.45184"
