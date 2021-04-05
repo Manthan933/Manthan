@@ -64,6 +64,13 @@ router.post('/', auth, async (req, res) => {
   // destructure the request
   const { id, test, rules, questions, classroom } = req.body;
 
+  var isAdmin = await Classroom.findOne({ code: classroom }).then((value) => {
+    return value.admin._id.toString() === req.user.id;
+  });
+
+  if (!isAdmin)
+    return res.status(400).json({ err: 'You don\'t have Admin access to this classroom' });
+
   /* Validate incoming Post request on backend as well
     1. Check if rules have marks > 0
     2. Calculate total marks based on rules and questions
