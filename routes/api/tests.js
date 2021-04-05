@@ -153,14 +153,14 @@ router.get('/id/:id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Test does not exist.' });
     }
     if (test.scores.find((ele) => req.user.id == ele.user._id)) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({ msg: 'Test has been already attempted.' });
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
       users: req.user.id
     });
     if (!classroom) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({ msg: 'You have not been enrolled for this test.' });
     }
     const questions = await Question.find(
       { test: test.id },
