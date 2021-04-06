@@ -65,10 +65,10 @@ const TestForm = ({ setTest, handleNext, test }) => {
   };
   return (
     <div style={{ margin: 'auto', marginTop: '1%', maxWidth: 600 }}>
-      <Typography style={{ color: "white" }} variant="h4" align="center" component="h1" gutterBottom>
+      <Typography variant="h4" align="center" component="h1" gutterBottom>
         Create Test
       </Typography>
-      <Typography style={{ color: "white" }} variant="h5" align="center" component="h2" gutterBottom>
+      <Typography variant="h5" align="center" component="h2" gutterBottom>
         Test Form
       </Typography>
 

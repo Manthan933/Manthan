@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans');
 main {
-  height: 90vh;
-  width: 95vw;
+  height: 92.3vh;
+  width: 100vw;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -34,6 +34,11 @@ main #g6219 {
 }
 svg {
   width: 80%;
+}
+@media screen and (min-width: 750px) {
+  main {
+    height: 92.8vh;
+  }
 }
 @-webkit-keyframes an1 {
   0% {

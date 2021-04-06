@@ -16,14 +16,22 @@ import {
 } from '@material-ui/core';
 import NotFound from '../layout/NotFound';
 import { startTest, submitTest } from '../../actions/test';
+import Spinner from '../layout/Spinner';
 
-const Test = ({ startTest, submitTest, match, test: { test }, history }) => {
+const Test = ({
+  startTest,
+  submitTest,
+  match,
+  test: { test, loading },
+  history
+}) => {
   React.useEffect(() => {
     startTest(match.params.id);
   }, [startTest, match.params.id]);
   const onSubmit = (values) => {
     submitTest(match.params.id, history, values);
   };
+  if (loading) return <Spinner />;
   if (!test) return <NotFound />;
   return (
     <Container>

@@ -11,11 +11,12 @@ import { getClass } from '../../actions/classroom';
 import { createTest } from '../../actions/test';
 import { setAlert } from '../../actions/alert';
 import { Container } from '@material-ui/core';
+import Spinner from '../layout/Spinner';
 
 const id = uuid();
 const CreateTest = ({
   getClass,
-  classroom: { classroom },
+  classroom: { classroom, loading },
   auth: { user },
   createTest,
   history,
@@ -99,6 +100,7 @@ const CreateTest = ({
         throw new Error('Unknown step');
     }
   };
+  if (loading) return <Spinner />;
   if (classroom && user && user._id === classroom.admin._id) {
     return <Container>{getStepContent()}</Container>;
   }

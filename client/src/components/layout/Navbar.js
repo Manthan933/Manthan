@@ -25,7 +25,7 @@ import { getClasses } from '../../actions/classroom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     float: 'right'
@@ -69,9 +69,11 @@ const Navbar = ({
   useEffect(() => {
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
-  const links = ["/dashboard"];
+  const getTheme =
+    window.location.pathname === '/dashboard' ||
+    window.location.pathname.startsWith('/class/');
 
-  const getColorStatus = () => links.includes(window.location.pathname) || window.location.pathname.startsWith("/class/") ? "white" : "black";
+  const getColorStatus = () => (getTheme ? 'white' : 'black');
 
   const authLinks = (
     <Button
@@ -102,12 +104,10 @@ const Navbar = ({
     return str?.length > n ? str.substr(0, n - 1) + '...' : str;
   };
   const getNavbar = (
-
     <Toolbar>
       <IconButton
         edge="start"
         className={classes.menuButton}
-
         style={{ color: getColorStatus() }}
         onClick={toggleDrawer(true)}
         aria-label="menu"
@@ -125,22 +125,16 @@ const Navbar = ({
       </Typography>
       {isAuthenticated ? authLinks : guestLinks}
     </Toolbar>
-
-  )
+  );
   return (
     <>
-      {
-        links.includes(window.location.pathname) || window.location.pathname.startsWith("/class/") ? (
-
-          <>
-            {getNavbar}
-          </>
-        ) : (
-          <AppBar color="inherit">
-            {getNavbar}
-          </AppBar>
-        )
-      }
+      {getTheme ? (
+        <>
+          <AppBar color="transparent">{getNavbar}</AppBar>
+        </>
+      ) : (
+        <AppBar color="inherit">{getNavbar}</AppBar>
+      )}
       <Toolbar />
       <Divider />
       <Drawer
@@ -171,30 +165,30 @@ const Navbar = ({
         >
           {classrooms !== []
             ? classrooms.map((Class) => {
-              return (
-                <ListItem
-                  key={Class.code}
-                  className={classes.classLink}
-                  button
-                  component="a"
-                  style={{
-                    backgroundColor:
-                      classroom && Class.code === classroom.code
-                        ? 'rgba(0, 0, 0, 0.25)'
-                        : 'white'
-                  }}
-                  href={`/class/${Class.code}/`}
-                >
-                  <ListItemIcon>
-                    <ClassRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText color="textPrimary">
-                    {' '}
-                    {truncate(Class.name, 12)}
-                  </ListItemText>
-                </ListItem>
-              );
-            })
+                return (
+                  <ListItem
+                    key={Class.code}
+                    className={classes.classLink}
+                    button
+                    component="a"
+                    style={{
+                      backgroundColor:
+                        classroom && Class.code === classroom.code
+                          ? 'rgba(0, 0, 0, 0.25)'
+                          : 'white'
+                    }}
+                    href={`/class/${Class.code}/`}
+                  >
+                    <ListItemIcon>
+                      <ClassRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText color="textPrimary">
+                      {' '}
+                      {truncate(Class.name, 12)}
+                    </ListItemText>
+                  </ListItem>
+                );
+              })
             : null}
         </List>
         <Divider />

@@ -27,6 +27,7 @@ import {
 import { getTests } from '../../actions/test';
 import { setAlert } from '../../actions/alert';
 import { Button, Grid } from '@material-ui/core';
+import Spinner from '../layout/Spinner';
 
 const useStyles = makeStyles({
   root: {
@@ -91,7 +92,7 @@ const Classroom = ({
   setAlert,
   getTests,
   LeaveClass,
-  classroom: { classroom, users },
+  classroom: { classroom, users, loading },
   auth: { user },
   test: { tests },
   history,
@@ -130,7 +131,7 @@ const Classroom = ({
     setEditForm(true);
     setAnchorEl(null);
   };
-
+  if (loading) return <Spinner />;
   if (!classroom) {
     return <NotFound />;
   }

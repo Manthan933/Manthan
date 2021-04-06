@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Container } from '@material-ui/core';
-import CreateIcon from '@material-ui/icons/Create';
 import FloatingButton from './ClassButton';
 import ClassCard from './ClassCard';
 
@@ -25,14 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     position: 'absolute',
-    bottom: '0px',
+    bottom: '0px'
   },
-
 
   classContainer: {
     justifyContent: 'center',
-    margin: "0 auto",
-
+    margin: '0 auto'
   },
 
   '@media screen and (min-width: 32em)': {
@@ -56,7 +53,7 @@ const Dashboard = ({ classroom: { classrooms } }) => {
         </Grid>
       ) : (
         <Grid container justify="center" spacing={5}>
-          <div style={{ color: "white" }} className={classes.noClass}>
+          <div style={{ color: 'white' }} className={classes.noClass}>
             <footer className={classes.text}>
               <Typography variant="h4" color="white">
                 No classes here!
@@ -70,7 +67,6 @@ const Dashboard = ({ classroom: { classrooms } }) => {
       )}
 
       <FloatingButton text="Add Classroom" />
-
     </Container>
   );
 };

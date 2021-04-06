@@ -31,7 +31,6 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
     const subject = document.getElementById('subject').value;
     const subcode = document.getElementById('subcode').value;
 
-
     // Check before submitting
     // move all Error handling section to new handleFormErrorFile
     const isContainError = createClassFormError(
@@ -42,15 +41,15 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
       setClassError,
       setSubjectCodeError,
       setSubjectError,
-      setImageError,
+      setImageError
     );
 
     if (!isContainError) {
       const data = new FormData();
-      data.append("name", name);
-      data.append("subject", subject);
-      data.append("subcode", subcode);
-      data.append("image", image);
+      data.append('name', name);
+      data.append('subject', subject);
+      data.append('subcode', subcode);
+      data.append('image', image);
 
       CreateClass(data);
       setOpen(false);
@@ -105,22 +104,25 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
           />
           <br />
           <br />
-          <label style={{ backgroundColor: "indigo", padding: "10px 20px", color: "white", cursor: "pointer" }} for="image" >Upload class image</label>
+          <label
+            style={{
+              backgroundColor: 'indigo',
+              padding: '10px 20px',
+              color: 'white',
+              cursor: 'pointer'
+            }}
+            for="image"
+          >
+            Upload class image
+          </label>
           <input
-            style={{ display: "none" }}
+            style={{ display: 'none' }}
             onChange={(e) => setImage(e.target.files[0])}
-            type="text"
             type="file"
-
-            id="image" />
-          {image ? (
-            <p>{image.name}</p>
-          ) : null}
-          {
-            imageError ? (
-              <p style={{ color: "red" }}>{imageError}</p>
-            ) : null
-          }
+            id="image"
+          />
+          {image ? <p>{image.name}</p> : null}
+          {imageError ? <p style={{ color: 'red' }}>{imageError}</p> : null}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

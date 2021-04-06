@@ -8,14 +8,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { LeaveClass } from '../../actions/classroom';
-import image from "../../img/class-background.jpg";
+import image from '../../img/class-background.jpg';
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: "310px",
+    minWidth: '310px',
 
     margin: theme.spacing(2),
-    borderRadius: '5px',
-
+    borderRadius: '5px'
   },
   title: {
     fontWeight: 'bold',
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white'
   },
   body: {
-    backgroundSize: "cover",
+    backgroundSize: 'cover',
     backgroundColor: '#00000070',
     backgroundBlendMode: 'darken',
     padding: theme.spacing(3),
@@ -67,13 +66,22 @@ const ClassCard = ({ LeaveClass, Class }) => {
   return (
     <>
       <Card className={classes.root}>
-
         <CardContent className={classes.content}>
-          <div style={{
-            backgroundImage: !Class.image ? `url(` + image + `)` : `url(` + 'data:image/jpeg;base64,' + btoa(
-              Class.image.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
-            ) + `)`
-          }} className={classes.body}>
+          <div
+            style={{
+              backgroundImage: !Class.image
+                ? `url(` + image + `)`
+                : 'url(data:image/jpeg;base64,' +
+                  btoa(
+                    Class.image.data.reduce(
+                      (data, byte) => data + String.fromCharCode(byte),
+                      ''
+                    )
+                  ) +
+                  ')'
+            }}
+            className={classes.body}
+          >
             <Typography
               className={classes.title}
               variant="h5"

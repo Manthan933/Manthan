@@ -1,13 +1,12 @@
 :root {
   --primary-color: #2fdf84;
   --secondary-color: #6c6c6c;
-  --font: "Red Hat Text", sans-serif;
+  --font: 'Red Hat Text', sans-serif;
 }
 
 .container {
   font-family: var(--font);
   overflow: hidden;
-  background-color: white;
 }
 
 .sideDiv {

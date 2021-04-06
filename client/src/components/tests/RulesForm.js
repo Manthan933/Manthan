@@ -33,64 +33,64 @@ const RuleForm = ({ Rules, setRule, handleSubmit, handleBack }) => {
   return (
     <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
       <CssBaseline />
-      <Typography style={{ color: "white" }} variant="h4" align="center" component="h1" gutterBottom>
+      <Typography variant="h4" align="center" component="h1" gutterBottom>
         Create Test
       </Typography>
-      <Typography style={{ color: "white" }} variant="h5" align="center" component="h2" gutterBottom>
+      <Typography variant="h5" align="center" component="h2" gutterBottom>
         Rules Form
       </Typography>
       <Paper style={{ padding: 16 }}>
         <Grid container alignItems="flex-start" spacing={2}>
           {Rules
             ? Rules.map((curr, index) => {
-              return (
-                <React.Fragment key={index}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="type"
-                      name="type"
-                      label="Type"
-                      type="number"
-                      value={curr.type}
-                      fullWidth
-                      onChange={(e) => handleChange(e, index)}
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="noofques"
-                      name="noofques"
-                      label="Number of Ques"
-                      type="number"
-                      value={curr.noofques}
-                      fullWidth
-                      onChange={(e) => handleChange(e, index)}
-                    />
-                  </Grid>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="marks"
-                      name="marks"
-                      label="Marks per Ques"
-                      type="number"
-                      value={curr.marks}
-                      fullWidth
-                      onChange={(e) => handleChange(e, index)}
-                    />
-                  </Grid>
-                  <Grid item xs={3} style={{ marginTop: 16 }}>
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => RemoveRule(index)}
-                    >
-                      Delete
+                return (
+                  <React.Fragment key={index}>
+                    <Grid item xs={3}>
+                      <TextField
+                        id="type"
+                        name="type"
+                        label="Type"
+                        type="number"
+                        value={curr.type}
+                        fullWidth
+                        onChange={(e) => handleChange(e, index)}
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <TextField
+                        id="noofques"
+                        name="noofques"
+                        label="Number of Ques"
+                        type="number"
+                        value={curr.noofques}
+                        fullWidth
+                        onChange={(e) => handleChange(e, index)}
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <TextField
+                        id="marks"
+                        name="marks"
+                        label="Marks per Ques"
+                        type="number"
+                        value={curr.marks}
+                        fullWidth
+                        onChange={(e) => handleChange(e, index)}
+                      />
+                    </Grid>
+                    <Grid item xs={3} style={{ marginTop: 16 }}>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => RemoveRule(index)}
+                      >
+                        Delete
                       </Button>
-                  </Grid>
-                </React.Fragment>
-              );
-            })
+                    </Grid>
+                  </React.Fragment>
+                );
+              })
             : null}
           <Grid item xs={12} style={{ marginTop: 16 }}>
             <Button
