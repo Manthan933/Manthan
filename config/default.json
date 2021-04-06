@@ -1,4 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://manthan:ZeWehR7TyW0mJKDB@cluster0.9mzve.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "mysecrettoken"
+  "mongoURI": "mongodb+srv://aavishkarmishra:z5GxuZb0SEXbmsde@cluster0.6ojxo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "asdfghjkllpoiuytrewqasdfghjkl,mnbvcxz"
 }
