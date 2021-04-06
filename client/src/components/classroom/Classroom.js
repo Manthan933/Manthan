@@ -92,9 +92,9 @@ const Classroom = ({
   setAlert,
   getTests,
   LeaveClass,
-  classroom: { classroom, users, loading },
-  auth: { user },
-  test: { tests },
+  classroom: { classroom, users,  loading:classLoading },
+  auth: { user , loading:authLoading },
+  test: { tests , loading : testLoading },
   history,
   match
 }) => {
@@ -131,7 +131,7 @@ const Classroom = ({
     setEditForm(true);
     setAnchorEl(null);
   };
-  if (loading) return <Spinner />;
+  if (classLoading || authLoading || testLoading) return <Spinner />;
   if (!classroom) {
     return <NotFound />;
   }
