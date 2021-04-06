@@ -2,3 +2,4 @@
   "mongoURI": "mongodb+srv://manthan:ZeWehR7TyW0mJKDB@cluster0.9mzve.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken"
 }
+
