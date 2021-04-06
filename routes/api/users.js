@@ -81,25 +81,25 @@ router.post(
   }
 );
 router.post('/theme', auth, async (req, res) => {
-
   try {
-
-    const user = await User.findOneAndUpdate({ _id: req.user.id }, { theme: req.body.theme });
+    const user = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { theme: req.body.theme }
+    );
 
     if (!user) {
       res.status(400).json({
-        message: "error to update theme"
-      })
+        message: 'Error to update theme.'
+      });
     }
     res.status(201).json({
-      message: "theme updated successfully"
-    })
-
+      message: 'Theme updated successfully.'
+    });
   } catch (err) {
-
-    res.status(400), json({
-      message: "error to update theme"
-    })
+    res.status(400),
+      json({
+        message: 'Error to update theme.'
+      });
   }
-})
+});
 module.exports = router;

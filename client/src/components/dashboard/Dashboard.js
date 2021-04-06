@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Container } from '@material-ui/core';
 import FloatingButton from './ClassButton';
 import ClassCard from './ClassCard';
+import Spinner from '../layout/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +42,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Dashboard = ({ classroom: { classrooms } }) => {
+const Dashboard = ({ classroom: { classrooms, loading } }) => {
   const classes = useStyles();
+  if (loading) return <Spinner />;
   return (
     <Container className={classes.root}>
       {classrooms.length ? (
