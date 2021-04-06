@@ -112,7 +112,7 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
             className={classes.button}
             variant="contained"
             color="primary"
-            disabled={!admin}
+            disabled={admin}
             href={`/test/${id}`}
           >
             Start Test
