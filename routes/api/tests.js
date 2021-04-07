@@ -64,6 +64,13 @@ router.post('/', auth, async (req, res) => {
   // destructure the request
   const { id, test, rules, questions, classroom } = req.body;
 
+  var isAdmin = await Classroom.findOne({ code: classroom }).then((value) => {
+    return value.admin._id.toString() === req.user.id;
+  });
+
+  if (!isAdmin)
+    return res.status(400).json({ err: 'You don\'t have Admin access to this classroom' });
+
   /* Validate incoming Post request on backend as well
     1. Check if rules have marks > 0
     2. Calculate total marks based on rules and questions
@@ -146,14 +153,14 @@ router.get('/id/:id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Test does not exist.' });
     }
     if (test.scores.find((ele) => req.user.id == ele.user._id)) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({ msg: 'Test has been already attempted.' });
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
       users: req.user.id
     });
     if (!classroom) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({ msg: 'You have not been enrolled for this test.' });
     }
     const questions = await Question.find(
       { test: test.id },
@@ -178,28 +185,46 @@ router.post('/id/:id', auth, async (req, res) => {
     var marks = 0;
     const test = await Test.findById(req.params.id, {
       rules: 1,
-      id: 1
+      id: 1,
+      scores: 1,
+      classroom: 1,
     });
+
+    if (!test)
+      return res.status(400).json({ msg: 'Test does not exists.' });
+
+    if (!(await Classroom.findOne({ code: test.classroom, users: req.user.id }))) {
+      return res.status(400).json({ msg: 'You\'re not enrolled in this class.' });
+    }
+
+    if (test.scores.find((ele) => req.user.id == ele.user._id)) {
+      return res.status(400).json({ msg: 'Test has been already attempted.' });
+    }
+
     const answers = await Question.find(
       { test: test.id },
       { answer: 1, type: 1 }
     ).sort({
       type: 1
     });
+
     answers.forEach((ele) => {
       if (req.body[ele._id] === ele.answer) {
         if (isNaN(score[ele.type])) score[ele.type] = 0;
         score[ele.type] = score[ele.type] + 1;
       }
     });
+
     test.rules.forEach((rule) => {
       marks = marks + score[rule.type] * rule.marks;
     });
+
     const user = await User.findById(req.user.id, {
       name: 1,
       email: 1,
       _id: 1
     });
+
     await Test.findByIdAndUpdate(req.params.id, {
       $push: { scores: { user: user, marks: marks } }
     });
