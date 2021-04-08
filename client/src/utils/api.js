@@ -1,7 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { LOGOUT } from '../actions/types';
-
+axios.defaults.withCredentials = true;
 const api = axios.create({
   baseURL: '/api',
   headers: {

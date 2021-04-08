@@ -13,7 +13,9 @@ const User = require('../../models/User');
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
+
     const user = await User.findById(req.user.id).select('-password');
+
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -55,17 +57,19 @@ router.post(
 
       const payload = {
         user: {
-          id: user.id
+          id: user.id,
         }
       };
 
       jwt.sign(
         payload,
         config.get('jwtSecret'),
-        { expiresIn: '5 days' },
+        {
+          expiresIn: '5 days'
+        },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, theme: user.theme });
         }
       );
     } catch (err) {

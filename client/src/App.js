@@ -11,9 +11,10 @@ import CreateIcon from '@material-ui/icons/Create';
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
+import { status } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import ThemeDialog from './components/themes/Theme';
+
 const useStyles = makeStyles((theme) => ({
   back: {
     backgroundSize: 'cover',
@@ -54,7 +55,7 @@ const App = () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-    store.dispatch(loadUser());
+    store.dispatch(status());
 
     // log user out from all tabs if they log out in one tab
     window.addEventListener('storage', () => {
