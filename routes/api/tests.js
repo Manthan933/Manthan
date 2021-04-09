@@ -34,11 +34,16 @@ function GenerateTest(Questions, Rules) {
 }
 
 function DuplicateQuestion(ques) {
-  var read_vals = Object.create(null);
+  var read_vals =[];
+  for (var j = 0; j < ques.length; j++) {
+    read_vals[j] = ques[j];
+  }
   for (var i = 0; i < ques.length; i++) {
-      var value = ques[i];
-      if (value in read_vals) {
-        return res.json({ msg: 'This question already exists' });
+      for(var k=0;k< ques.length; k++)
+        {
+          if (ques[i] === read_vals[k]) {
+          return res.json({ msg: 'This question already exists' });
+        }
       }
     }
   }
