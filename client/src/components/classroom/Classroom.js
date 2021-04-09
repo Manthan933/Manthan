@@ -92,9 +92,9 @@ const Classroom = ({
   setAlert,
   getTests,
   LeaveClass,
-  classroom: { classroom, users,  loading:classLoading },
-  auth: { user , loading:authLoading },
-  test: { tests , loading : testLoading },
+  classroom: { classroom, users, loading: classLoading },
+  auth: { user, loading: authLoading },
+  test: { tests, loading: testLoading },
   history,
   match
 }) => {
@@ -136,7 +136,7 @@ const Classroom = ({
     return <NotFound />;
   }
 
-  const admin = user._id === classroom.admin._id;
+  const admin = user.id === classroom.admin._id;
   return (
     <Container>
       <Card className={classes.root}>

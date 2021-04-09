@@ -16,8 +16,8 @@ import Spinner from '../layout/Spinner';
 const id = uuid();
 const CreateTest = ({
   getClass,
-  classroom: { classroom, loading:classLoading ,error},
-  auth: { user , loading : authLoading },
+  classroom: { classroom, loading: classLoading, error },
+  auth: { user, loading: authLoading },
   createTest,
   history,
   match
@@ -100,8 +100,9 @@ const CreateTest = ({
         throw new Error('Unknown step');
     }
   };
-  if ((classLoading || authLoading || classroom===null) && error===null) return <Spinner />;
-  if (classroom && user && user._id === classroom.admin._id) {
+  if ((classLoading || authLoading || classroom === null) && error === null)
+    return <Spinner />;
+  if (classroom && user && user.id === classroom.admin._id) {
     return <Container>{getStepContent()}</Container>;
   }
   // if error occurs i.e no classroom exists
