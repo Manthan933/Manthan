@@ -9,6 +9,8 @@
     "@material-ui/pickers": "^3.3.10",
     "final-form": "^4.20.2",
     "final-form-material-ui": "^0.3.0",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-final-form": "^6.5.3",
