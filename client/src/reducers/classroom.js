@@ -15,7 +15,7 @@ const initialState = {
   classrooms: [],
   users: [],
   loading: true,
-  error: {}
+  error: null
 };
 
 function classroomReducer(state = initialState, action) {
