@@ -35,13 +35,20 @@ function GenerateTest(Questions, Rules) {
 
 function DuplicateQuestion(ques) {
   var read_vals =[];
-  for (var j = 0; j < ques.length; j++) {
+  var flag=0;
+  for (var j = 0; j < ques.length; j++) 
+  {
     read_vals[j] = ques[j];
   }
-  for (var i = 0; i < ques.length; i++) {
+  for (var i = 0; i < ques.length; i++) 
+  {
+    flag=0;
       for(var k=0;k< ques.length; k++)
         {
           if (ques[i] === read_vals[k]) {
+          flag=flag+1;
+        }
+        if(flag !== 1){
           return res.json({ msg: 'This question already exists' });
         }
       }
