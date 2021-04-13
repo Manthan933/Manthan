@@ -33,6 +33,28 @@ function GenerateTest(Questions, Rules) {
   return res;
 }
 
+function DuplicateQuestion(ques) {
+  var read_vals =[];
+  var flag=0;
+  for (var j = 0; j < ques.length; j++) 
+  {
+    read_vals[j] = ques[j];
+  }
+  for (var i = 0; i < ques.length; i++) 
+  {
+    flag=0;
+      for(var k=0;k< ques.length; k++)
+        {
+          if (ques[i] === read_vals[k]) {
+          flag=flag+1;
+        }
+        if(flag !== 1){
+          return res.json({ msg: 'This question already exists' });
+        }
+      }
+    }
+  }
+
 // @route    GET api/test/:code
 // @desc     Get current classroom test
 // @access   Private
@@ -129,7 +151,11 @@ router.post('/', auth, async (req, res) => {
       classroom,
       rules
     });
+
+    DuplicateQuestion(questions);
+
     await Question.insertMany(questions);
+    
     await newTest.save();
     return res.status(200).json({ msg: 'Test created sucessfully.' });
   } catch (err) {
