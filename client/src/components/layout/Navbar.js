@@ -70,7 +70,8 @@ const Navbar = ({
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
   const location = useLocation();
-  const getTheme = ['/dashboard', '/class/'].includes(location.pathname);
+  const pathname = location.pathname;
+  const getTheme = pathname.includes('/dashboard') || pathname.includes('/class/');
 
   const getColorStatus = () => (getTheme ? 'white' : 'black');
 
