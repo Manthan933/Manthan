@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
@@ -69,9 +69,9 @@ const Navbar = ({
   useEffect(() => {
     if (isAuthenticated) getClasses();
   }, [getClasses, isAuthenticated]);
-  const getTheme =
-    window.location.pathname === '/dashboard' ||
-    window.location.pathname.startsWith('/class/');
+  const location = useLocation();
+  const pathname = location.pathname;
+  const getTheme = pathname.includes('/dashboard') || pathname.includes('/class/');
 
   const getColorStatus = () => (getTheme ? 'white' : 'black');
 
