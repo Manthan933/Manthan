@@ -23,7 +23,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { getClasses } from '../../actions/classroom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1
   },
@@ -101,7 +101,7 @@ const Navbar = ({
     setState({ ...state, left: open });
   };
   const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + '...' : str;
+    return str.length > n ? str.substr(0, n - 1) + '...' : str;
   };
   const getNavbar = (
     <Toolbar>

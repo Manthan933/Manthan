@@ -83,7 +83,7 @@ const QuestionForm = ({
       (json) => {
         addNewQuestions(json);
       },
-      (err) => {
+      () => {
         // not json
       }
     );

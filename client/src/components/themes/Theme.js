@@ -11,7 +11,7 @@ import themes from "../../utils/themes";
 import { SET_THEME } from "../../actions/types";
 import { saveTheme } from "../../actions/ui";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     titleSection: {
         padding: "10px 20px",
         display: "flex"
@@ -97,7 +97,7 @@ const Dashboard = (props) => {
                     {
                         themes.map((theme) => {
                             return (
-                                <img onClick={() => props.setTheme(theme)} className={props.activeTheme === theme ? classes.setTheme : classes.theme} src={theme} alt="sd" />
+                                <img onClick={() => props.setTheme(theme)} key={theme} className={props.activeTheme === theme ? classes.setTheme : classes.theme} src={theme} alt="sd" />
                             )
                         })
                     }

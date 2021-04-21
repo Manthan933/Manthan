@@ -26,7 +26,7 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
   const [subjectCodeError, setSubjectCodeError] = React.useState('');
   const [imageError, setImageError] = React.useState('');
   const [image, setImage] = React.useState(null);
-  const handleClick = (editable) => {
+  const handleClick = () => {
     const name = document.getElementById('name').value;
     const subject = document.getElementById('subject').value;
     const subcode = document.getElementById('subcode').value;
@@ -111,7 +111,7 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
               color: 'white',
               cursor: 'pointer'
             }}
-            for="image"
+            htmlFor="image"
           >
             Upload class image
           </label>

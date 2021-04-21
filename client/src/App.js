@@ -15,7 +15,7 @@ import { status } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import ThemeDialog from './components/themes/Theme';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   back: {
     backgroundSize: 'cover',
     backgroundPosition: 'center',

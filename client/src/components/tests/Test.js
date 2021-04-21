@@ -42,7 +42,7 @@ const Test = ({
       </Typography>
       <Form
         onSubmit={onSubmit}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
+        render={({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>

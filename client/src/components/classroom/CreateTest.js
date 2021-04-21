@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   addicon: {
     margin: 0,
     top: 'auto',

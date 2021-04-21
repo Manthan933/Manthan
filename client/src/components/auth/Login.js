@@ -109,7 +109,7 @@ const Login = ({ login, isAuthenticated }) => {
           </Button>
           <Grid container>
             <Grid item>
-              Don't have an account?{' '}
+              Don#39;t have an account?{' '}
               <Link to="/register" variant="body2">
                 {'Sign Up'}
               </Link>

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -233,7 +234,7 @@ const Classroom = ({
         <Grid container alignItems="flex-start" spacing={2}>
           {tests.map((Test) => {
             return (
-              <Grid item md={6} xs={12}>
+              <Grid key="1" item md={6} xs={12}>
                 <TestCard
                   key={Test._id}
                   id={Test._id}

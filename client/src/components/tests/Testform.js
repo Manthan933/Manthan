@@ -82,7 +82,7 @@ const TestForm = ({ setTest, handleNext, test }) => {
           durationHrs: test.duration.getHours(),
           durationMins: test.duration.getMinutes()
         }}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
+        render={({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit} noValidate>
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>
