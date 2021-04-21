@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,12 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import NotFound from '../layout/NotFound';
 import EditClass from './EditClass';
 import TestCard from './TestCard';
-import {
-  getClass,
-  LeaveClass,
-  getUsers,
-  removeUser
-} from '../../actions/classroom';
+import { getClass, LeaveClass, getUsers, removeUser } from '../../actions/classroom';
 import { getTests } from '../../actions/test';
 import { setAlert } from '../../actions/alert';
 import { Button, Grid } from '@material-ui/core';
@@ -93,9 +87,9 @@ const Classroom = ({
   setAlert,
   getTests,
   LeaveClass,
-  classroom: { classroom, users,  loading:classLoading },
-  auth: { user , loading:authLoading },
-  test: { tests , loading : testLoading },
+  classroom: { classroom, users, loading: classLoading },
+  auth: { user, loading: authLoading },
+  test: { tests, loading: testLoading },
   history,
   match
 }) => {
@@ -115,9 +109,7 @@ const Classroom = ({
     getTests(match.params.code);
   }, [getTests, match.params.code]);
   const onLinkClick = () => {
-    navigator.clipboard.writeText(
-      `${window.location.origin}/join/${classroom.code}`
-    );
+    navigator.clipboard.writeText(`${window.location.origin}/join/${classroom.code}`);
     setAlert('Invite Link Copied.');
   };
   const handleClick = (event) => {
@@ -144,16 +136,10 @@ const Classroom = ({
         <CardContent className={classes.content}>
           <div className={classes.details}>
             <Typography variant="h3">{classroom.name}</Typography>
-            <Typography variant="subtitle1">
-              Subject : {classroom.subject}
-            </Typography>
-            <Typography variant="subtitle1">
-              Instructor : {classroom.admin.name}
-            </Typography>
+            <Typography variant="subtitle1">Subject : {classroom.subject}</Typography>
+            <Typography variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
             {admin === true ? (
-              <Typography variant="subtitle1">
-                Class code : {classroom.code}
-              </Typography>
+              <Typography variant="subtitle1">Class code : {classroom.code}</Typography>
             ) : null}
             <div style={{ display: 'flex' }}>
               <Button className={classes.copylink} onClick={onLinkClick}>
@@ -173,12 +159,7 @@ const Classroom = ({
                 >
                   <MoreVertIcon />
                 </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={open}
-                  onClose={handleClose}
-                >
+                <Menu anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
                   <MenuItem onClick={handleEditClass}>Edit</MenuItem>
                   <MenuItem
                     onClick={() => {
@@ -208,10 +189,7 @@ const Classroom = ({
             {classroom.users.length <= 1
               ? 'No Student enrolled in class or already removed!'
               : 'Delete Students from Class!'}
-            <CloseIcon
-              className={classes.close}
-              onClick={() => setDisplayUsers(false)}
-            />
+            <CloseIcon className={classes.close} onClick={() => setDisplayUsers(false)} />
           </Typography>
           <div className={classes.demo}>
             {users.map((user, index) => {
@@ -235,12 +213,7 @@ const Classroom = ({
           {tests.map((Test) => {
             return (
               <Grid key="1" item md={6} xs={12}>
-                <TestCard
-                  key={Test._id}
-                  id={Test._id}
-                  test={Test.test}
-                  admin={admin}
-                />
+                <TestCard key={Test._id} id={Test._id} test={Test.test} admin={admin} />
               </Grid>
             );
           })}

@@ -1,24 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  CssBaseline,
-  TextField
-} from '@material-ui/core';
+import { Typography, Paper, Grid, Button, CssBaseline, TextField } from '@material-ui/core';
 import { addCSVQues } from '../../actions/test';
 
-const QuestionForm = ({
-  questions,
-  setQuestion,
-  id,
-  handleNext,
-  addCSVQues,
-  handleBack
-}) => {
+const QuestionForm = ({ questions, setQuestion, id, handleNext, addCSVQues, handleBack }) => {
   const ques = {
     question: '',
     type: 1,
@@ -99,17 +85,8 @@ const QuestionForm = ({
         Questions Form
       </Typography>
       <Paper style={{ padding: 16 }}>
-        <form
-          onNext={handleSubmit}
-          style={{ marginTop: 20, marginBottom: 15, height: 35 }}
-        >
-          <input
-            type="file"
-            name="quesFile"
-            required
-            id="quesFile"
-            accept=".json,.csv"
-          />
+        <form onNext={handleSubmit} style={{ marginTop: 20, marginBottom: 15, height: 35 }}>
+          <input type="file" name="quesFile" required id="quesFile" accept=".json,.csv" />
           <button type="submit">Submit</button>
         </form>
         <Grid container alignItems="flex-start" spacing={2}>
@@ -209,12 +186,7 @@ const QuestionForm = ({
               })
             : null}
           <Grid item xs={12} style={{ marginTop: 16 }}>
-            <Button
-              type="button"
-              variant="contained"
-              color="sucess"
-              onClick={AddQuestion}
-            >
+            <Button type="button" variant="contained" color="sucess" onClick={AddQuestion}>
               Add new question
             </Button>
           </Grid>

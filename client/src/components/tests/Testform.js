@@ -14,8 +14,7 @@ function DatePickerWrTestFormer(props) {
     ...rest
   } = props;
   const showError =
-    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
+    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) && meta.touched;
 
   return (
     <DatePicker
@@ -139,12 +138,7 @@ const TestForm = ({ setTest, handleNext, test }) => {
                   </Grid>
                 </MuiPickersUtilsProvider>
                 <Grid item style={{ marginTop: 16 }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    disabled={submitting}
-                  >
+                  <Button variant="contained" color="primary" type="submit" disabled={submitting}>
                     Next
                   </Button>
                 </Grid>

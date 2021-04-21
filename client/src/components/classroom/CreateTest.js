@@ -20,12 +20,7 @@ const FloatingButton = ({ text, href }) => {
   return (
     <div>
       <Tooltip title={text} aria-label="add">
-        <Fab
-          className={classes.addicon}
-          color="secondary"
-          href={href}
-          aria-label="add"
-        >
+        <Fab className={classes.addicon} color="secondary" href={href} aria-label="add">
           <AddIcon />
         </Fab>
       </Tooltip>

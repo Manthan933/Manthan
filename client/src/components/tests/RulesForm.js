@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Typography,
-  Paper,
-  Grid,
-  Button,
-  CssBaseline,
-  TextField
-} from '@material-ui/core';
+import { Typography, Paper, Grid, Button, CssBaseline, TextField } from '@material-ui/core';
 
 const RuleForm = ({ Rules, setRule, handleSubmit, handleBack }) => {
   const rule = { type: 1, marks: 0, noofques: 0 };
@@ -93,12 +86,7 @@ const RuleForm = ({ Rules, setRule, handleSubmit, handleBack }) => {
               })
             : null}
           <Grid item xs={12} style={{ marginTop: 16 }}>
-            <Button
-              type="button"
-              variant="contained"
-              color="sucess"
-              onClick={AddRule}
-            >
+            <Button type="button" variant="contained" color="sucess" onClick={AddRule}>
               Add Rule
             </Button>
           </Grid>

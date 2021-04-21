@@ -18,13 +18,7 @@ import NotFound from '../layout/NotFound';
 import { startTest, submitTest } from '../../actions/test';
 import Spinner from '../layout/Spinner';
 
-const Test = ({
-  startTest,
-  submitTest,
-  match,
-  test: { test, loading },
-  history
-}) => {
+const Test = ({ startTest, submitTest, match, test: { test, loading }, history }) => {
   React.useEffect(() => {
     startTest(match.params.id);
   }, [startTest, match.params.id]);
@@ -108,12 +102,7 @@ const Test = ({
                   </ol>
                 </Grid>
                 <Grid item style={{ marginTop: 16 }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    disabled={submitting}
-                  >
+                  <Button variant="contained" color="primary" type="submit" disabled={submitting}>
                     Submit
                   </Button>
                 </Grid>
@@ -136,6 +125,4 @@ const mapStateToProps = (state) => ({
   test: state.test
 });
 
-export default connect(mapStateToProps, { startTest, submitTest })(
-  withRouter(Test)
-);
+export default connect(mapStateToProps, { startTest, submitTest })(withRouter(Test));

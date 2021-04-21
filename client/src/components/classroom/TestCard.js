@@ -65,9 +65,7 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
         <div className={classes.details}>
           <Typography variant="h4">{test.name}</Typography>
           <Typography variant="subtitle1">Marks : {test.marks}</Typography>
-          <Typography variant="subtitle1">
-            Due Date : {dueDate.toLocaleDateString()}
-          </Typography>
+          <Typography variant="subtitle1">Due Date : {dueDate.toLocaleDateString()}</Typography>
           <Typography variant="subtitle1">
             {`Duration : ${duration.getHours()} hrs ${duration.getMinutes()} min`}
           </Typography>
@@ -84,12 +82,7 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
               >
                 <MoreVertIcon />
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                keepMounted
-                open={open}
-                onClose={handleClose}
-              >
+              <Menu anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
                 <MenuItem
                   onClick={() => {
                     handleClose();

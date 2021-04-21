@@ -73,10 +73,7 @@ const ClassCard = ({ LeaveClass, Class }) => {
                 ? `url(` + image + `)`
                 : 'url(data:image/jpeg;base64,' +
                   btoa(
-                    Class.image.data.reduce(
-                      (data, byte) => data + String.fromCharCode(byte),
-                      ''
-                    )
+                    Class.image.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
                   ) +
                   ')'
             }}

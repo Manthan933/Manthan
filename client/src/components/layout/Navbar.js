@@ -92,10 +92,7 @@ const Navbar = ({
     </Link>
   );
   const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setState({ ...state, left: open });
@@ -173,19 +170,14 @@ const Navbar = ({
                     component="a"
                     style={{
                       backgroundColor:
-                        classroom && Class.code === classroom.code
-                          ? 'rgba(0, 0, 0, 0.25)'
-                          : 'white'
+                        classroom && Class.code === classroom.code ? 'rgba(0, 0, 0, 0.25)' : 'white'
                     }}
                     href={`/class/${Class.code}/`}
                   >
                     <ListItemIcon>
                       <ClassRoundedIcon />
                     </ListItemIcon>
-                    <ListItemText color="textPrimary">
-                      {' '}
-                      {truncate(Class.name, 12)}
-                    </ListItemText>
+                    <ListItemText color="textPrimary"> {truncate(Class.name, 12)}</ListItemText>
                   </ListItem>
                 );
               })
@@ -199,11 +191,7 @@ const Navbar = ({
             </ListItemIcon>
             <ListItemText>Setting</ListItemText>
           </ListItem>
-          <ListItem
-            button
-            component="a"
-            href="https://github.com/Manthan933/Manthan"
-          >
+          <ListItem button component="a" href="https://github.com/Manthan933/Manthan">
             <ListItemIcon>
               <GitHubIcon />
             </ListItemIcon>

@@ -47,11 +47,7 @@ const EditFrom = ({ open, setOpen, editClass, classroom: { classroom } }) => {
 
   return (
     <form autoComplete="off">
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit Class</DialogTitle>
         <DialogContent>
           <TextField

@@ -60,11 +60,7 @@ const CreateForm = ({ open, setOpen, CreateClass }) => {
 
   return (
     <form autoComplete="off">
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create Class</DialogTitle>
         <DialogContent>
           <TextField
