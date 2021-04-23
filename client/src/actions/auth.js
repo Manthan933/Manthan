@@ -8,12 +8,14 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
-  SET_THEME
+  SET_THEME,
+  REQUEST_AUTH
 } from './types';
 
 // Load User when we require user data
 export const loadUser = () => async (dispatch) => {
   try {
+    dispatch({type: REQUEST_AUTH})
     const res = await api.get('/auth');
     dispatch({ type: SET_THEME, payload: res.data.theme })
     dispatch({
@@ -60,6 +62,7 @@ export const status = () => (dispatch) => {
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
+    dispatch({type: REQUEST_AUTH})
     const res = await api.post('/users', formData);
 
     dispatch({
@@ -85,6 +88,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = { email, password };
 
   try {
+    dispatch({type: REQUEST_AUTH})
     const res = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
