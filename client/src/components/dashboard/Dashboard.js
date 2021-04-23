@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Container, Paper } from '@material-ui/core';
+import { Typography, Grid, Container } from '@material-ui/core';
 import FloatingButton from './ClassButton';
 import ClassCard from './ClassCard';
 import Spinner from '../layout/Spinner';
@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
   classContainer: {
     justifyContent: 'center',
-    margin: '0 auto',
-    width: '100%'
+    margin: '0 auto'
   },
 
   '@media screen and (min-width: 32em)': {
