@@ -11,7 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import JoinClass from './JoinClass';
 import CreateClass from './CreateClass';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   addicon: {
     margin: 0,
     top: 'auto',

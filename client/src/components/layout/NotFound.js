@@ -30,11 +30,7 @@ const NotFound = () => {
               />
             </pattern>
             <linearGradient paint="solid" id="linearGradient6096">
-              <stop
-                id="stop6094"
-                offset="0"
-                style={{ stopColor: '#000000', stopOpacity: 1 }}
-              />
+              <stop id="stop6094" offset="0" style={{ stopColor: '#000000', stopOpacity: 1 }} />
             </linearGradient>
           </defs>
           <g transform="translate(170.14515,0.038164)" id="layer1">

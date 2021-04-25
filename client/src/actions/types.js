@@ -21,4 +21,4 @@ export const CREATE_TEST = 'CREATE_TEST';
 export const TEST_ERROR = 'TEST_ERROR';
 export const DELETE_TEST = 'DELETE_TEST';
 export const SUBMIT_TEST = 'SUBMIT_TEST';
-export const SET_THEME = "SET_THEME"
+export const SET_THEME = 'SET_THEME';

@@ -47,9 +47,7 @@ export const CreateClass = (formData) => async (dispatch) => {
 };
 
 // Leave current class
-export const LeaveClass = (code, history, redirect = false) => async (
-  dispatch
-) => {
+export const LeaveClass = (code, history, redirect = false) => async (dispatch) => {
   try {
     await api.delete(`/classrooms/${code}`);
     dispatch(setAlert('Class sucessfully removed.', 'danger'));

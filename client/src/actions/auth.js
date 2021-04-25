@@ -1,7 +1,7 @@
 import api from '../utils/api';
 import { setAlert } from './alert';
-import Cookie from "js-cookie";
-import jwtDecode from "jwt-decode";
+import Cookie from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 import {
   REGISTER_SUCCESS,
   USER_LOADED,
@@ -17,7 +17,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({type: REQUEST_AUTH})
     const res = await api.get('/auth');
-    dispatch({ type: SET_THEME, payload: res.data.theme })
+    dispatch({ type: SET_THEME, payload: res.data.theme });
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -33,13 +33,13 @@ export const loadUser = () => async (dispatch) => {
 export const status = () => (dispatch) => {
   try {
     // decode the token
-    const tokenData = jwtDecode(Cookie.get('token'))
+    const tokenData = jwtDecode(Cookie.get('token'));
     const currentTime = Date.now();
-    const tokenExpireTime = new Date(0).setUTCSeconds(tokenData.exp)
+    const tokenExpireTime = new Date(0).setUTCSeconds(tokenData.exp);
 
     // store the current theme in localstorage
     localStorage.setItem('theme', localStorage.getItem('theme'));
-    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') })
+    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') });
 
     // check whethere token is expire or not
     if (currentTime > tokenExpireTime) {
@@ -58,7 +58,7 @@ export const status = () => (dispatch) => {
       type: AUTH_ERROR
     });
   }
-}
+};
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
@@ -96,12 +96,12 @@ export const login = (email, password) => async (dispatch) => {
     });
     // Add theme to localstorage
     localStorage.setItem('theme', res.data.theme);
-    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') })
+    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') });
 
     // set Cookie in browser
     Cookie.set('token', res.data.token);
 
-    window.location.href = "/dashboard"
+    window.location.href = '/dashboard';
   } catch (err) {
     const errors = err.response.data.errors;
 

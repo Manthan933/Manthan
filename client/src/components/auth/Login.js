@@ -47,17 +47,14 @@ const Login = ({ login, isAuthenticated,loading }) => {
 
   const { email, password } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 	
   const handleClickShowPassword = () => {
     setFormData({ ...formData, showPassword: !formData.showPassword });
   };
   
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
+  const handleMouseDownPassword = (event) => event.preventDefault();
+ 
   const onSubmit = (e) => {
     e.preventDefault();
     login(email, password);
@@ -132,7 +129,7 @@ const Login = ({ login, isAuthenticated,loading }) => {
           </Button>
           <Grid container>
             <Grid item>
-              Don't have an account?{' '}
+              Don#39;t have an account?{' '}
               <Link to="/register" variant="body2">
                 {'Sign Up'}
               </Link>

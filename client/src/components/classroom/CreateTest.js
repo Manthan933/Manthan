@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   addicon: {
     margin: 0,
     top: 'auto',
@@ -20,12 +20,7 @@ const FloatingButton = ({ text, href }) => {
   return (
     <div>
       <Tooltip title={text} aria-label="add">
-        <Fab
-          className={classes.addicon}
-          color="secondary"
-          href={href}
-          aria-label="add"
-        >
+        <Fab className={classes.addicon} color="secondary" href={href} aria-label="add">
           <AddIcon />
         </Fab>
       </Tooltip>

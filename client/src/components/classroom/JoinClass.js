@@ -21,11 +21,7 @@ const JoinForm = ({ JoinClass, match, history }) => {
 
   return (
     <div>
-      <Dialog
-        open={true}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={true} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Join class</DialogTitle>
         <DialogContent>
           <DialogContentText>

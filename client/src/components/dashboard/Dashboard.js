@@ -13,8 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4)
   },
   noClass: {
-    backgroundImage:
-      'url(https://www.gstatic.com/classroom/documents_floating_into_folder.png)',
+    backgroundImage: 'url(https://www.gstatic.com/classroom/documents_floating_into_folder.png)',
     position: 'relative',
     height: '450px',
     width: '370px',

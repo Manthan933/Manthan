@@ -15,7 +15,7 @@ import { status } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import ThemeDialog from './components/themes/Theme';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   back: {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -70,8 +70,7 @@ const App = () => {
   });
 
   const getTheme =
-    window.location.pathname === '/dashboard' ||
-    window.location.pathname.startsWith('/class/');
+    window.location.pathname === '/dashboard' || window.location.pathname.startsWith('/class/');
 
   return (
     <Provider store={store}>
@@ -80,8 +79,7 @@ const App = () => {
           <div
             className={classes.back}
             style={{
-              backgroundImage:
-                displayBackground && getTheme ? `url(${theme})` : null
+              backgroundImage: displayBackground && getTheme ? `url(${theme})` : null
             }}
           >
             <Navbar />
@@ -92,10 +90,7 @@ const App = () => {
               <Route component={NotFound} />
             </Switch>
             <Tooltip title="Change Theme">
-              <CreateIcon
-                onClick={handleClickOpen}
-                className={classes.editTheme}
-              />
+              <CreateIcon onClick={handleClickOpen} className={classes.editTheme} />
             </Tooltip>
             <ThemeDialog open={open} handleClose={handleClose} />
           </div>
