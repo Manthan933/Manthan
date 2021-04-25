@@ -128,7 +128,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
           </Button>
           <Grid container>
             <Grid item>
-              Don#39;t have an account?{' '}
+              Dont have an account?{' '}
               <Link to="/register" variant="body2">
                 {'Sign Up'}
               </Link>
