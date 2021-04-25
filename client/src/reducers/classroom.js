@@ -46,9 +46,7 @@ function classroomReducer(state = initialState, action) {
     case LEAVE_CLASSROOM:
       return {
         ...state,
-        classrooms: state.classrooms.filter(
-          (classroom) => classroom.code !== payload
-        ),
+        classrooms: state.classrooms.filter((classroom) => classroom.code !== payload),
         loading: false
       };
     case CLASSROOM_ERROR:

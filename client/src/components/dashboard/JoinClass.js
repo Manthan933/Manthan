@@ -22,23 +22,13 @@ const JoinForm = ({ open, setOpen, JoinClass }) => {
 
   return (
     <div>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Join class</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Ask your teacher for the class code, then enter it here.
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="code"
-            label="Class Code"
-            fullWidth
-          />
+          <TextField autoFocus margin="dense" id="code" label="Class Code" fullWidth />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

@@ -70,12 +70,7 @@ const CreateTest = ({
     switch (activeStep) {
       case 0:
         return (
-          <TestForm
-            test={test}
-            setTest={setTest}
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />
+          <TestForm test={test} setTest={setTest} handleBack={handleBack} handleNext={handleNext} />
         );
       case 1:
         return (
@@ -100,9 +95,8 @@ const CreateTest = ({
         throw new Error('Unknown step');
     }
   };
-  if ((classLoading || authLoading || classroom === null) && error === null)
-    return <Spinner />;
-  if (classroom && user && user.id === classroom.admin._id) {
+  if ((classLoading || authLoading || classroom === null) && error === null) return <Spinner />;
+  if (classroom && user && user._id === classroom.admin._id) {
     return <Container>{getStepContent()}</Container>;
   }
   // if error occurs i.e no classroom exists

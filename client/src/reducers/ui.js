@@ -1,24 +1,22 @@
-import {
-    SET_THEME
-} from '../actions/types';
+import { SET_THEME } from '../actions/types';
 
 const initialState = {
-    theme: null,
+  theme: null
 };
 
 function testReducer(state = initialState, action) {
-    const { type, payload } = action;
+  const { type, payload } = action;
 
-    switch (type) {
-        case SET_THEME:
-            return {
-                ...state,
-                theme: payload
-            };
+  switch (type) {
+    case SET_THEME:
+      return {
+        ...state,
+        theme: payload
+      };
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
 export default testReducer;

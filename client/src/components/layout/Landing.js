@@ -10,11 +10,7 @@ const Landing = () => {
       <div className={styles.sideDiv}></div>
       <Grid container className={styles.grid}>
         <Grid item md={6} xs={12} sm={12}>
-          <img
-            src={bookPenImg}
-            alt={bookPenImg}
-            className={styles.bookPenImg}
-          />
+          <img src={bookPenImg} alt={bookPenImg} className={styles.bookPenImg} />
         </Grid>
         <Grid item md={6} xs={12} sm={12}>
           <div className={styles.desc}>
@@ -22,12 +18,11 @@ const Landing = () => {
               A <strong>secure platform</strong> for online testing
             </h1>
             <p className={styles.descInfo}>
-              We provide an online testing platform that can be used to conduct
-              tests that are wrapped with all the necessary precautions to
-              reduce the chances of cheating. Here, the educator can create
-              classes and tests on a web portal and all the entered questions
-              will be randomly distributed among the students resulting in a
-              large number of sets.
+              We provide an online testing platform that can be used to conduct tests that are
+              wrapped with all the necessary precautions to reduce the chances of cheating. Here,
+              the educator can create classes and tests on a web portal and all the entered
+              questions will be randomly distributed among the students resulting in a large number
+              of sets.
             </p>
           </div>
         </Grid>

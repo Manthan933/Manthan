@@ -1,13 +1,6 @@
 import api from '../utils/api';
 import { setAlert } from './alert';
-import {
-  GET_TESTS,
-  GET_TEST,
-  CREATE_TEST,
-  SUBMIT_TEST,
-  DELETE_TEST,
-  TEST_ERROR
-} from './types';
+import { GET_TESTS, GET_TEST, CREATE_TEST, SUBMIT_TEST, DELETE_TEST, TEST_ERROR } from './types';
 
 // Get tests
 export const getTests = (code) => async (dispatch) => {

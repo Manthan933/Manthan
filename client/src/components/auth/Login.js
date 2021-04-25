@@ -14,7 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { login } from '../../actions/auth';
-
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,27 +37,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated,loading }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+	showPassword: false
   });
 
   const { email, password } = formData;
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+	
+  const handleClickShowPassword = () => {
+    setFormData({ ...formData, showPassword: !formData.showPassword });
+  };
+  
+  const handleMouseDownPassword = (event) => event.preventDefault();
+ 
   const onSubmit = (e) => {
     e.preventDefault();
     login(email, password);
   };
-
+  
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -84,16 +91,28 @@ const Login = ({ login, isAuthenticated }) => {
             variant="outlined"
             margin="normal"
             required
-            fullWidth
+			fullWidth
             name="password"
             label="Password"
-            type="password"
+            type={formData.showPassword ? "text" : "password"}
             id="password"
             autoComplete="current-password"
             value={password}
             onChange={onChange}
             minLength="6"
+			InputProps={{
+				endAdornment:
+			<IconButton
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+			  >
+			  {formData.showPassword ? <VisibilityOff />:<Visibility /> }
+          </IconButton>,
+		  classes:{
+		  adornedEnd:classes.adornedEnd}
+			}}
           />
+		  
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -104,12 +123,13 @@ const Login = ({ login, isAuthenticated }) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={loading}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item>
-              Don't have an account?{' '}
+              Don#39;t have an account?{' '}
               <Link to="/register" variant="body2">
                 {'Sign Up'}
               </Link>
@@ -123,11 +143,13 @@ const Login = ({ login, isAuthenticated }) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading
 });
 
 export default connect(mapStateToProps, { login })(Login);

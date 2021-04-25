@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 const ClassCard = ({ LeaveClass, Class }) => {
   const classes = useStyles();
   const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + '...' : str;
+    return str.length > n ? str.substr(0, n - 1) + '...' : str;
   };
 
   return (
@@ -73,10 +73,7 @@ const ClassCard = ({ LeaveClass, Class }) => {
                 ? `url(` + image + `)`
                 : 'url(data:image/jpeg;base64,' +
                   btoa(
-                    Class.image.data.reduce(
-                      (data, byte) => data + String.fromCharCode(byte),
-                      ''
-                    )
+                    Class.image.data.reduce((data, byte) => data + String.fromCharCode(byte), '')
                   ) +
                   ')'
             }}
