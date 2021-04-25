@@ -14,9 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { login } from '../../actions/auth';
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -37,29 +37,29 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = ({ login, isAuthenticated,loading }) => {
+const Login = ({ login, isAuthenticated, loading }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-	showPassword: false
+    showPassword: false
   });
 
   const { email, password } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-	
+
   const handleClickShowPassword = () => {
     setFormData({ ...formData, showPassword: !formData.showPassword });
   };
-  
+
   const handleMouseDownPassword = (event) => event.preventDefault();
- 
+
   const onSubmit = (e) => {
     e.preventDefault();
     login(email, password);
   };
-  
+
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
@@ -91,28 +91,27 @@ const Login = ({ login, isAuthenticated,loading }) => {
             variant="outlined"
             margin="normal"
             required
-			fullWidth
+            fullWidth
             name="password"
             label="Password"
-            type={formData.showPassword ? "text" : "password"}
+            type={formData.showPassword ? 'text' : 'password'}
             id="password"
             autoComplete="current-password"
             value={password}
             onChange={onChange}
             minLength="6"
-			InputProps={{
-				endAdornment:
-			<IconButton
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-			  >
-			  {formData.showPassword ? <VisibilityOff />:<Visibility /> }
-          </IconButton>,
-		  classes:{
-		  adornedEnd:classes.adornedEnd}
-			}}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                  {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              ),
+              classes: {
+                adornedEnd: classes.adornedEnd
+              }
+            }}
           />
-		  
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

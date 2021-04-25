@@ -89,9 +89,12 @@ const App = () => {
               <Route component={Routes} />
               <Route component={NotFound} />
             </Switch>
-            <Tooltip title="Change Theme">
-              <CreateIcon onClick={handleClickOpen} className={classes.editTheme} />
-            </Tooltip>
+            {getTheme ? (
+              <Tooltip title="Change Theme">
+                <CreateIcon onClick={handleClickOpen} className={classes.editTheme} />
+              </Tooltip>
+            ) : null}
+
             <ThemeDialog open={open} handleClose={handleClose} />
           </div>
         </Fragment>
