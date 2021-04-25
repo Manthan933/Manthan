@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
   classContainer: {
     justifyContent: 'center',
-    margin: '0 auto'
+    margin: '0 auto',
+    width: '100%'
   },
 
   '@media screen and (min-width: 32em)': {

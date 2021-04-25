@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated,loading }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     name: '',
@@ -134,6 +134,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={loading}
           >
             Sign Up
           </Button>
@@ -154,11 +155,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading
 });
 
 export default connect(mapStateToProps, { setAlert, register })(Register);

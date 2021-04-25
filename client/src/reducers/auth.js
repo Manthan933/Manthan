@@ -36,6 +36,11 @@ function authReducer(state = initialState, action) {
         loading: false,
         user: null
       };
+    case REQUEST_AUTH:
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }
