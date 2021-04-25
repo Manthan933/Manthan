@@ -3,7 +3,8 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  LOGOUT
+  LOGOUT,
+  REQUEST_AUTH
 } from '../actions/types';
 
 const initialState = {
@@ -41,6 +42,11 @@ function authReducer(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null
+      };
+    case REQUEST_AUTH:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;
