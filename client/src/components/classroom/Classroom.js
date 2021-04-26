@@ -137,6 +137,7 @@ const Classroom = ({
           <div className={classes.details}>
             <Typography variant="h3">{classroom.name}</Typography>
             <Typography variant="subtitle1">Subject : {classroom.subject}</Typography>
+            <Typography variant="subtitle1">Subject Code : {classroom.subcode}</Typography>
             <Typography variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
             {admin === true ? (
               <Typography variant="subtitle1">Class code : {classroom.code}</Typography>
