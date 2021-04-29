@@ -2,7 +2,7 @@ import React from 'react';
 import bookPenImg from '../../img/book-pen.png';
 import styles from './landing.module.css';
 import { Link } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 
 const Landing = () => {
   return (
@@ -25,25 +25,18 @@ const Landing = () => {
               of sets.
             </p>
           </div>
+          
         </Grid>
       </Grid>
-      <Typography
-        variant="body2"
-        color="textSecondary"
-        align="center"
-        style={{
-          position: 'absolute',
-          bottom: '2.5%',
-          width: '-moz-available'
-        }}
-      >
-        {'All rights reserved. Copyright © '}
-        <Link color="inherit" to="http://www.manthan-app.org/">
+      <div className={styles.footer}>
+        <p className={styles.footerp}>
+      All rights reserved. Copyright ©  <Link className={styles.link} to="http://www.manthan-app.org/">
           Manthan
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
-      </Typography>
+      </p>
+      </div>
     </div>
   );
 };

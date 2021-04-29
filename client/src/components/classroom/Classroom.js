@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -77,7 +78,32 @@ const useStyles = makeStyles({
     margin: '5px',
     cursor: 'pointer',
     float: 'right'
-  }
+  },
+  footer: {
+    position: 'fixed',
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '33px',
+    backgroundColor:'grey',
+    bottom: '0px',
+    left: '0',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+  footerp: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:'black',
+    fontSize: '14px',
+    opacity: '0.8',
+   
+  },
+  link: {
+    color: 'black',
+  },
+  
 });
 
 const Classroom = ({
@@ -223,6 +249,15 @@ const Classroom = ({
       {admin === true ? (
         <FloatingButton href={`/create/${classroom.code}`} text="Create Test" />
       ) : null}
+       <div className={classes.footer}>
+        <p className={classes.footerp}>
+      All rights reserved. Copyright ©  <Link className={classes.link} to="http://www.manthan-app.org/">
+          Manthan
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </p>
+      </div>
     </Container>
   );
 };
