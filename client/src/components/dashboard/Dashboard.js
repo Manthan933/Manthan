@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,6 +32,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     margin: '0 auto',
     width: '100%'
+  },
+  footer: {
+    position: 'fixed',
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '35px',
+    backgroundColor:'grey',
+    bottom: '0px',
+    left: '0',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+  footerp: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:'black',
+    fontSize: '14px',
+    opacity: '0.8',
+   
+  },
+  link: {
+    color: 'black',
   },
 
   '@media screen and (min-width: 32em)': {
@@ -69,6 +94,15 @@ const Dashboard = ({ classroom: { classrooms, loading } }) => {
       )}
 
       <FloatingButton text="Add Classroom" />
+      <div className={classes.footer}>
+        <p className={classes.footerp}>
+      All rights reserved. Copyright ©  <Link className={classes.link} to="http://www.manthan-app.org/">
+          Manthan
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </p>
+      </div>
     </Container>
   );
 };

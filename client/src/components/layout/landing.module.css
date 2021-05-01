@@ -100,21 +100,30 @@
 .descInfo {
   color: var(--secondary-color);
 }
-
-footer {
+.footer {
   position: absolute;
-  height: 50px;
-  bottom: 0;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 35px;
+  background-color:rgba(0, 0, 0, 0.952);
+  bottom: 0px;
   left: 0;
   width: 100%;
+  overflow: hidden;
 }
-
-footer p {
+.footerp {
   text-align: center;
-  color: #96ada9;
+  justify-content: center;
+  color:rgb(255, 255, 255);
   font-size: 13px;
   opacity: 0.8;
 }
+.link {
+  color: #fff;
+}
+
 
 @media screen and (max-width: 1000px) and (min-width: 961px) {
   .grid {
