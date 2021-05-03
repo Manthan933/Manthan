@@ -87,7 +87,7 @@ const Navbar = ({
   );
 
   const guestLinks = (
-    <Link component={Button} to="/login">
+    <Link component={Button} to="/login" startIcon={<i className="fas fa-sign-in-alt" />}>
       Login
     </Link>
   );
