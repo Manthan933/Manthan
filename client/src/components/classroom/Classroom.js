@@ -24,6 +24,7 @@ import { getTests } from '../../actions/test';
 import { setAlert } from '../../actions/alert';
 import { Button, Grid } from '@material-ui/core';
 import Spinner from '../layout/Spinner';
+import InsertLinkIcon from '@material-ui/icons/InsertLink';
 
 const useStyles = makeStyles({
   root: {
@@ -53,6 +54,7 @@ const useStyles = makeStyles({
   },
   copylink: {
     fontWeight: 'bold',
+    width: 'max-content',
     margin: 0
   },
   details: {
@@ -168,7 +170,7 @@ const Classroom = ({
               <Typography variant="subtitle1">Class code : {classroom.code}</Typography>
             ) : null}
             <div style={{ display: 'flex' }}>
-              <Button className={classes.copylink} onClick={onLinkClick}>
+              <Button className={classes.copylink} onClick={onLinkClick} variant="contained" color="primary" startIcon={<InsertLinkIcon />}>
                 Copy Invite Link
               </Button>
             </div>
