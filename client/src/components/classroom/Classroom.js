@@ -45,7 +45,7 @@ const useStyles = makeStyles({
 
   options: {
     width: 'max-content',
-    position: 'absolute',
+    position: 'relative',
     right: 0
   },
   generate: {
@@ -91,6 +91,9 @@ const useStyles = makeStyles({
     left: '0',
     width: '100%',
     overflowY: 'hidden',
+  },
+  sub1:{
+    width: 'max-content'
   },
   footerp: {
     textAlign: 'center',
@@ -162,11 +165,11 @@ const Classroom = ({
         <CardContent className={classes.content}>
           <div className={classes.details}>
             <Typography variant="h3">{classroom.name}</Typography>
-            <Typography variant="subtitle1">Subject : {classroom.subject}</Typography>
-            <Typography variant="subtitle1">Subject Code : {classroom.subcode}</Typography>
-            <Typography variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Subject : {classroom.subject}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Subject Code : {classroom.subcode}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
             {admin === true ? (
-              <Typography variant="subtitle1">Class code : {classroom.code}</Typography>
+              <Typography className={classes.sub1} variant="subtitle1">Class code : {classroom.code}</Typography>
             ) : null}
             <div style={{ display: 'flex' }}>
               <Button className={classes.copylink} onClick={onLinkClick}>
