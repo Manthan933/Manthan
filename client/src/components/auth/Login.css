@@ -1,0 +1,11 @@
+.box{
+    box-shadow: 0 13px 10px -3px gray;
+    height: 460px;
+}
+.margin{
+    margin-left: -170px;
+}
+.box2{
+    box-shadow: 0 13px 10px -3px gray;
+    height: 540px;
+}

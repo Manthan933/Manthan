@@ -17,6 +17,7 @@ import { login } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import './Login.css';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(5),
@@ -88,7 +89,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="box">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

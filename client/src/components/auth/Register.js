@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import './Login.css';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -86,7 +87,7 @@ const Register = ({ setAlert, register, isAuthenticated,loading }) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="box2">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -162,7 +163,7 @@ const Register = ({ setAlert, register, isAuthenticated,loading }) => {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justify="flex-end" className="margin">
             <Grid item>
               {'Already have an account? '}
               <Link to="/login" variant="body2">
