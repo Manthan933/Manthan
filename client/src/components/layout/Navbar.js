@@ -55,7 +55,13 @@ const useStyles = makeStyles(() => ({
   },
   classLink: {
     color: 'inherit'
+  },
+  logoutbutton:{
+    background: "none",
+    '&:hover': {
+       background: "#B10000",
   }
+}
 }));
 
 const Navbar = ({
@@ -79,6 +85,7 @@ const Navbar = ({
     <Button
       onClick={logout}
       href="/#!"
+      className={classes.logoutbutton}
       style={{ color: getColorStatus() }}
       startIcon={<i className="fas fa-sign-out-alt" />}
     >
