@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,7 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
+import './Forget.css';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = ({ login, isAuthenticated, loading }) => {
+const Login = ({ login,  loading }) => {
   const classes = useStyles();
   const [formData, setFormData] = useState({
     email: '',
@@ -84,21 +85,21 @@ const Login = ({ login, isAuthenticated, loading }) => {
     login(email, password);
   };
 
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
   return (
-    <Container component="main" maxWidth="xs">
+      <>
+      <br></br>
+    <Container component="main" maxWidth="xs" className="box">
       <CssBaseline />
       <div className={classes.paper}>
+          <br></br>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Forget Password
         </Typography>
         <form className={classes.form} onSubmit={onSubmit} noValidate>
-          <TextField
+        <TextField
             variant="outlined"
             margin="normal"
             required
@@ -135,11 +136,22 @@ const Login = ({ login, isAuthenticated, loading }) => {
               }
             }}
           />
-
+          <TextField 
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="confirm password"
+            label="Confirm Password"
+            type="password"
+            autoComplete="current-password"
+            minLength="6"
+          />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+
           <Button
             type="submit"
             fullWidth
@@ -148,22 +160,9 @@ const Login = ({ login, isAuthenticated, loading }) => {
             className={classes.submit}
             disabled={loading}
           >
-            Sign In
+            Submit
           </Button>
-          <Grid container>
-            <Grid item>
-              <Link to="/forget">Forget Password ?</Link>
-            </Grid>
-          </Grid>
           
-          <Grid container>
-            <Grid item>
-              Dont have an account?{' '}
-              <Link to="/register" variant="body2">
-                {'Sign Up'}
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
       <div className={classes.footer}>
@@ -176,6 +175,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
       </p>
       </div>
     </Container>
+    </>
   );
 };
 

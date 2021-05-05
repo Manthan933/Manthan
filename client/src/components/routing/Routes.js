@@ -10,12 +10,14 @@ import Test from '../tests/Test';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import JoinClass from '../classroom/JoinClass';
+import Forget from '../auth/ForgetPass';
 
 const Routes = () => {
   return (
     <section className="container">
       <Alert />
       <Switch>
+        <Route exact path="/forget" component={Forget} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
