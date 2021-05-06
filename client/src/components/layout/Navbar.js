@@ -59,7 +59,7 @@ const useStyles = makeStyles(() => ({
   logoutbutton:{
     background: "none",
     '&:hover': {
-       background: "#B10000",
+       background: "rgba(183, 183, 183, 0.47)",
   }
 }
 }));
