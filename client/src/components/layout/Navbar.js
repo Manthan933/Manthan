@@ -55,7 +55,13 @@ const useStyles = makeStyles(() => ({
   },
   classLink: {
     color: 'inherit'
+  },
+  logoutbutton:{
+    background: "none",
+    '&:hover': {
+       background: "rgba(183, 183, 183, 0.47)",
   }
+}
 }));
 
 const Navbar = ({
@@ -79,6 +85,7 @@ const Navbar = ({
     <Button
       onClick={logout}
       href="/#!"
+      className={classes.logoutbutton}
       style={{ color: getColorStatus() }}
       startIcon={<i className="fas fa-sign-out-alt" />}
     >
@@ -87,7 +94,7 @@ const Navbar = ({
   );
 
   const guestLinks = (
-    <Link component={Button} to="/login">
+    <Link component={Button} to="/login" startIcon={<i className="fas fa-sign-in-alt" />}>
       Login
     </Link>
   );
