@@ -96,7 +96,7 @@ const CreateTest = ({
     }
   };
   if ((classLoading || authLoading || classroom === null) && error === null) return <Spinner />;
-  if (classroom && user && user._id === classroom.admin._id) {
+  if (classroom && user && user.id === classroom.admin._id) {
     return <Container>{getStepContent()}</Container>;
   }
   // if error occurs i.e no classroom exists

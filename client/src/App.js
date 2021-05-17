@@ -7,6 +7,7 @@ import NotFound from './components/layout/NotFound';
 import { LOGOUT } from './actions/types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import { Link } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 // Redux
 import { Provider } from 'react-redux';
@@ -39,6 +40,30 @@ const useStyles = makeStyles(() => ({
       color: 'black',
       borderRadius: '50%'
     }
+  },
+  footer: {
+    position: 'absolute',
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '35px',
+    backgroundColor: 'rgba(0, 0, 0, 0.952)',
+    bottom: ' 0px',
+    left: 0,
+    width: '100%',
+    overflow: 'hidden'
+  },
+
+  footerp: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color: 'rgb(255, 255, 255)',
+    fontSize: '13px',
+    opacity: '0.8'
+  },
+  link: {
+    color: ' #fff'
   }
 }));
 const App = () => {
@@ -96,6 +121,16 @@ const App = () => {
             ) : null}
 
             <ThemeDialog open={open} handleClose={handleClose} />
+            <div className={classes.footer}>
+              <p className={classes.footerp}>
+                All rights reserved. Copyright ©{' '}
+                <Link className={classes.link} to="http://www.manthan-app.org/">
+                  Manthan
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+              </p>
+            </div>
           </div>
         </Fragment>
       </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 import bookPenImg from '../../img/book-pen.png';
 import styles from './landing.module.css';
 import { Link } from 'react-router-dom';
-import { Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 const Landing = () => {
   return (
@@ -25,17 +25,17 @@ const Landing = () => {
               of sets.
             </p>
           </div>
-          
         </Grid>
       </Grid>
       <div className={styles.footer}>
         <p className={styles.footerp}>
-      All rights reserved. Copyright ©  <Link className={styles.link} to="http://www.manthan-app.org/">
-          Manthan
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </p>
+          All rights reserved. Copyright ©{' '}
+          <Link className={styles.link} to="http://www.manthan-app.org/">
+            Manthan
+          </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+        </p>
       </div>
     </div>
   );
