@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,6 +24,7 @@ import { getTests } from '../../actions/test';
 import { setAlert } from '../../actions/alert';
 import { Button, Grid } from '@material-ui/core';
 import Spinner from '../layout/Spinner';
+import InsertLinkIcon from '@material-ui/icons/InsertLink';
 
 const useStyles = makeStyles({
   root: {
@@ -44,7 +46,7 @@ const useStyles = makeStyles({
 
   options: {
     width: 'max-content',
-    position: 'absolute',
+    position: 'relative',
     right: 0
   },
   generate: {
@@ -52,6 +54,7 @@ const useStyles = makeStyles({
   },
   copylink: {
     fontWeight: 'bold',
+    width: 'max-content',
     margin: 0
   },
   details: {
@@ -77,7 +80,35 @@ const useStyles = makeStyles({
     margin: '5px',
     cursor: 'pointer',
     float: 'right'
-  }
+  },
+  footer: {
+    position: 'fixed',
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '33px',
+    backgroundColor:'grey',
+    bottom: '0px',
+    left: '0',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+  sub1:{
+    width: 'max-content'
+  },
+  footerp: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:'black',
+    fontSize: '14px',
+    opacity: '0.8',
+   
+  },
+  link: {
+    color: 'black',
+  },
+  
 });
 
 const Classroom = ({
@@ -136,13 +167,14 @@ const Classroom = ({
         <CardContent className={classes.content}>
           <div className={classes.details}>
             <Typography variant="h3">{classroom.name}</Typography>
-            <Typography variant="subtitle1">Subject : {classroom.subject}</Typography>
-            <Typography variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Subject : {classroom.subject}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Subject Code : {classroom.subcode}</Typography>
+            <Typography className={classes.sub1} variant="subtitle1">Instructor : {classroom.admin.name}</Typography>
             {admin === true ? (
-              <Typography variant="subtitle1">Class code : {classroom.code}</Typography>
+              <Typography className={classes.sub1} variant="subtitle1">Class code : {classroom.code}</Typography>
             ) : null}
             <div style={{ display: 'flex' }}>
-              <Button className={classes.copylink} onClick={onLinkClick}>
+              <Button className={classes.copylink} onClick={onLinkClick} variant="contained" color="primary" startIcon={<InsertLinkIcon />}>
                 Copy Invite Link
               </Button>
             </div>
@@ -223,6 +255,15 @@ const Classroom = ({
       {admin === true ? (
         <FloatingButton href={`/create/${classroom.code}`} text="Create Test" />
       ) : null}
+       <div className={classes.footer}>
+        <p className={classes.footerp}>
+      All rights reserved. Copyright ©  <Link className={classes.link} to="http://www.manthan-app.org/">
+          Manthan
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </p>
+      </div>
     </Container>
   );
 };

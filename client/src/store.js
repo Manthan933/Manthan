@@ -8,10 +8,15 @@ const initialState = {};
 
 const middleware = [thunk];
 
+// adding trace for redux devtools
+const composeEnhancers = composeWithDevTools({ 
+  trace: true, 
+}); 
+
 const store = createStore(
   rootReducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
+  composeEnhancers(applyMiddleware(...middleware))
 );
 
 // set up a store subscription listener

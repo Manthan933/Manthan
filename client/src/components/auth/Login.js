@@ -17,9 +17,10 @@ import { login } from '../../actions/auth';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import './Login.css';
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(5),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -34,6 +35,30 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2)
+  },
+  footer: {
+    position: 'fixed',
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '35px',
+    backgroundColor:'rgba(0, 0, 0, 0.952)',
+    bottom: '0px',
+    left: '0',
+    width: '100%',
+    overflowY: 'hidden',
+  },
+  footerp: {
+    textAlign: 'center',
+    justifyContent: 'center',
+    color:'rgb(255, 255, 255)',
+    fontSize: '13px',
+    opacity: '0.8',
+   
+  },
+  link: {
+    color: 'white',
   }
 }));
 
@@ -64,7 +89,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="box">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -135,6 +160,15 @@ const Login = ({ login, isAuthenticated, loading }) => {
             </Grid>
           </Grid>
         </form>
+      </div>
+      <div className={classes.footer}>
+        <p className={classes.footerp}>
+      All rights reserved. Copyright ©  <Link className={classes.link} to="http://www.manthan-app.org/">
+          Manthan
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </p>
       </div>
     </Container>
   );
