@@ -84,8 +84,8 @@ export const register = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
-  const body = { email, password };
+export const login = (email, password , rememberMe) => async (dispatch) => {
+  const body = { email, password , rememberMe };
 
   try {
     dispatch({type: REQUEST_AUTH})
