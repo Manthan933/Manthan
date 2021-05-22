@@ -67,12 +67,15 @@ const Login = ({ login, isAuthenticated, loading }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    rememberMe:false
   });
 
-  const { email, password } = formData;
+  const { email, password , rememberMe } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>{ 
+    setFormData({ ...formData, [e.target.name]: e.target.name==='rememberMe' ? e.target.checked : e.target.value }); 
+  }
 
   const handleClickShowPassword = () => {
     setFormData({ ...formData, showPassword: !formData.showPassword });
@@ -82,7 +85,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    login(email, password,rememberMe);
   };
 
   if (isAuthenticated) {
@@ -138,7 +141,7 @@ const Login = ({ login, isAuthenticated, loading }) => {
           />
 
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox checked={rememberMe} color="primary" onChange={onChange} name="rememberMe" />}
             label="Remember me"
           />
           <Button

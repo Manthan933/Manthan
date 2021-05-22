@@ -139,7 +139,7 @@
    width: 100%;
  }
  .descHeading {
-   margin-top: 80px;
+   margin-top: 50px;
    font-size: 40px;
  }
  .footer {
@@ -175,6 +175,7 @@
  }
  .descHeading {
    font-size: 30px;
+   padding-top: 100px;
  }
  .footer {
    position: relative;
