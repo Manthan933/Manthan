@@ -124,7 +124,7 @@ const App = () => {
             <div className={classes.footer}>
               <p className={classes.footerp}>
                 All rights reserved. Copyright ©{' '}
-                <Link className={classes.link} to="http://www.manthan-app.org/">
+                <Link className={classes.link} to="/">
                   Manthan
                 </Link>{' '}
                 {new Date().getFullYear()}

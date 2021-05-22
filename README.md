@@ -109,26 +109,9 @@ These are the prerequisites required to run this application:
 ```sh
   cd client
   npm install
-  cd .. 
+  cd ..
   npm install
   npm run dev
-```
-
-<!-- USAGE EXAMPLES -->
-<!-- ## Screenshots -->
-<!-- Docker -->
-
-## Run Using Docker
-
-```sh
-  docker-compose build
-  docker-compose up
-```
-
-To Stop the containers
-
-```sh
-  docker-compose down
 ```
 
 <!-- CONTRIBUTING -->
