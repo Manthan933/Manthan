@@ -113,8 +113,15 @@ const Classroom = ({
     getTests(match.params.code);
   }, [getTests, match.params.code]);
   const onLinkClick = () => {
-    navigator.clipboard.writeText(`${window.location.origin}/join/${classroom.code}`);
-    setAlert('Invite Link Copied.');
+    // navigator.clipboard.writeText(`${window.location.origin}/join/${classroom.code}`);
+    // setAlert('Invite Link Copied.');
+    var inputc = document.body.appendChild(document.createElement("input"));
+    inputc.value = window.location.href;
+    inputc.focus();
+    inputc.select();
+    document.execCommand('copy');
+    inputc.parentNode.removeChild(inputc);
+    setAlert("URL Copied.");
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
