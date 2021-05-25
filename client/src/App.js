@@ -7,7 +7,6 @@ import NotFound from './components/layout/NotFound';
 import { LOGOUT } from './actions/types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Link } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 // Redux
 import { Provider } from 'react-redux';
@@ -121,16 +120,6 @@ const App = () => {
             ) : null}
 
             <ThemeDialog open={open} handleClose={handleClose} />
-            <div className={classes.footer}>
-              <p className={classes.footerp}>
-                All rights reserved. Copyright ©{' '}
-                <Link className={classes.link} to="/">
-                  Manthan
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-              </p>
-            </div>
           </div>
         </Fragment>
       </Router>
