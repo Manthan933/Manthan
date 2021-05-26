@@ -42,7 +42,7 @@
 
 ## About The Project
 
-<img src="project-img.png" width="50%">
+<img src="image-in-readme.png" width="50%">
 
 ### Description 👇
 
