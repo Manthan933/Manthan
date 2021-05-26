@@ -42,7 +42,7 @@
 
 ## About The Project
 
-<img src="https://media.giphy.com/media/QvXUg57xakpdZiOJof/giphy.gif" width="50%">
+<img src="project-img.png" width="50%">
 
 ### Description 👇
 
