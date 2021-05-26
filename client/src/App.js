@@ -20,7 +20,8 @@ const useStyles = makeStyles(() => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: 'auto',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    opacity: '0.8',
   },
   editTheme: {
     color: 'white',
