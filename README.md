@@ -42,7 +42,8 @@
 
 ## About The Project
 
-<img src="https://media.giphy.com/media/QvXUg57xakpdZiOJof/giphy.gif" width="50%">
+<!-- <img src="image-in-readme.png" width="50%"> -->
+![image-in-readme](https://user-images.githubusercontent.com/60110218/119633651-96f04080-be2f-11eb-9f84-38bd9d606912.png)
 
 ### Description 👇
 
