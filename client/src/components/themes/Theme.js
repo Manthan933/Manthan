@@ -23,9 +23,9 @@ const useStyles = makeStyles(() => ({
   title: {
     fontSize: '25px',
     paddingLeft: '10px',
-    fontFamily: 'Roboto',
+    fontFamily: 'monospace',
     fontWeight: 'bold',
-    letterSpacing: '2px'
+    // letterSpacing: '2px',
   },
 
   themesSection: {
@@ -54,13 +54,19 @@ const useStyles = makeStyles(() => ({
     border: 'none',
     fontSize: '15px',
     borderRadius: '5px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    
   },
   '@media screen and (max-width: 500px)': {
     theme: {
       width: '100%',
       height: '250px'
+    },
+    button: {
+      padding: '10px 10px',
+      textAlign: 'center',
     }
+
   }
 }));
 const Transition = React.forwardRef(function Transition(props, ref) {
