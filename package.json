@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Online testing platform",
   "main": "server.js",
-  "engines": {
-    "node": "10.19.0",
-    "npm": "7.6.3"
-  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
@@ -19,7 +15,6 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
-    "client": "file:client",
     "config": "^3.3.3",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
