@@ -1,6 +1,14 @@
 import api from '../utils/api';
 import { setAlert } from './alert';
-import { GET_TESTS, GET_TEST, CREATE_TEST, SUBMIT_TEST, DELETE_TEST, TEST_ERROR } from './types';
+import {
+  GET_TESTS,
+  GET_TEST,
+  CREATE_TEST,
+  SUBMIT_TEST,
+  DELETE_TEST,
+  TEST_ERROR,
+  GET_SCORES
+} from './types';
 
 // Get tests
 export const getTests = (code) => async (dispatch) => {
@@ -8,6 +16,22 @@ export const getTests = (code) => async (dispatch) => {
     const res = await api.get(`/tests/${code}`);
     dispatch({
       type: GET_TESTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: TEST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get tests
+export const getScores = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/tests/score/${id}`);
+    dispatch({
+      type: GET_SCORES,
       payload: res.data
     });
   } catch (err) {

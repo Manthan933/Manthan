@@ -4,7 +4,8 @@ import {
   CREATE_TEST,
   TEST_ERROR,
   SUBMIT_TEST,
-  DELETE_TEST
+  DELETE_TEST,
+  GET_SCORES
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +31,12 @@ function testReducer(state = initialState, action) {
         loading: false
       };
     case GET_TEST:
+      return {
+        ...state,
+        test: payload,
+        loading: false
+      };
+    case GET_SCORES:
       return {
         ...state,
         test: payload,

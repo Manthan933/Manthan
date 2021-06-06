@@ -8,8 +8,9 @@ import Classroom from '../classroom/Classroom';
 import CreateTest from '../tests/CreateTest';
 import Test from '../tests/Test';
 import NotFound from '../layout/NotFound';
-import PrivateRoute from '../routing/PrivateRoute';
+import PrivateRoute from './PrivateRoute';
 import JoinClass from '../classroom/JoinClass';
+import Scores from '../scores/Scores';
 
 const Routes = () => {
   return (
@@ -23,6 +24,7 @@ const Routes = () => {
         <PrivateRoute path="/create/:code" component={CreateTest} />
         <PrivateRoute path="/join/:code" component={JoinClass} />
         <PrivateRoute path="/test/:id" component={Test} />
+        <PrivateRoute path="/scores/:id" component={Scores} />
         <Route component={NotFound} />
       </Switch>
     </section>

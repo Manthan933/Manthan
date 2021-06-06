@@ -11,8 +11,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
 import { deleteTest } from '../../actions/test';
+import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   root: {
     borderRadius: '10px',
     border: '1px solid rgba(0, 0, 0, 0.12)',
@@ -44,14 +45,15 @@ const useStyles = makeStyles({
     position: 'absolute',
     right: 0
   }
-});
+}));
 
-const TestCard = ({ admin, test, id, deleteTest }) => {
+const TestCard = ({ admin, test, id, scores, deleteTest, auth: { user } }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const dueDate = new Date(test.dueDate);
   const duration = new Date(test.duration);
+  const attempted = scores.filter((e) => e.email === user.email);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -59,6 +61,7 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
@@ -83,11 +86,7 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
                 <MoreVertIcon />
               </IconButton>
               <Menu anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                  }}
-                >
+                <MenuItem component={Link} to={`/scores/${id}`}>
                   Check Scores
                 </MenuItem>
                 <MenuItem
@@ -101,15 +100,22 @@ const TestCard = ({ admin, test, id, deleteTest }) => {
               </Menu>
             </>
           ) : null}
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            disabled={admin}
-            href={`/test/${id}`}
-          >
-            Start Test
-          </Button>
+          {attempted.length > 0 ? (
+            <Button
+              variant="contained"
+              className={classes.button}
+            >{`Marks : ${attempted[0].marks}`}</Button>
+          ) : (
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="primary"
+              disabled={!admin}
+              href={`/test/${id}`}
+            >
+              Start Test
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -120,7 +126,12 @@ TestCard.propTypes = {
   test: PropTypes.object.isRequired,
   admin: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
-  deleteTest: PropTypes.func.isRequired
+  deleteTest: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { deleteTest })(TestCard);
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { deleteTest })(TestCard);

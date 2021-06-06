@@ -11,6 +11,10 @@ const Test = require('../../models/Test');
 const Question = require('../../models/Questions');
 
 // Utiliy Functions
+function createData(name, email, marks, total, percentage) {
+  return { name, email, marks, total, percentage };
+}
+
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
 }
@@ -34,26 +38,23 @@ function GenerateTest(Questions, Rules) {
 }
 
 function DuplicateQuestion(ques) {
-  var read_vals =[];
-  var flag=0;
-  for (var j = 0; j < ques.length; j++) 
-  {
+  var read_vals = [];
+  var flag = 0;
+  for (var j = 0; j < ques.length; j++) {
     read_vals[j] = ques[j];
   }
-  for (var i = 0; i < ques.length; i++) 
-  {
-    flag=0;
-      for(var k=0;k< ques.length; k++)
-        {
-          if (ques[i] === read_vals[k]) {
-          flag=flag+1;
-        }
-        if(flag !== 1){
-          return res.json({ msg: 'This question already exists' });
-        }
+  for (var i = 0; i < ques.length; i++) {
+    flag = 0;
+    for (var k = 0; k < ques.length; k++) {
+      if (ques[i] === read_vals[k]) {
+        flag = flag + 1;
+      }
+      if (flag !== 1) {
+        return res.json({ msg: 'This question already exists' });
       }
     }
   }
+}
 
 // @route    GET api/test/:code
 // @desc     Get current classroom test
@@ -62,7 +63,7 @@ router.get('/:code', auth, async (req, res) => {
   try {
     const tests = await Test.find(
       { classroom: req.params.code },
-      { test: 1, id: 1 }
+      { test: 1, id: 1, scores: 1 }
     );
     if (!tests) {
       return res.status(400).json({ msg: 'There is no test for this class' });
@@ -91,7 +92,9 @@ router.post('/', auth, async (req, res) => {
   });
 
   if (!isAdmin)
-    return res.status(400).json({ err: 'You don\'t have Admin access to this classroom' });
+    return res
+      .status(400)
+      .json({ err: "You don't have Admin access to this classroom" });
 
   /* Validate incoming Post request on backend as well
     1. Check if rules have marks > 0
@@ -112,10 +115,8 @@ router.post('/', auth, async (req, res) => {
     var type = rule.type;
     rule.noofques = 0;
 
-    if (marks < 0)
-      validationErrors.push(`Rule ${type} is not valid`);
-    else
-      validRules[type] = index;
+    if (marks < 0) validationErrors.push(`Rule ${type} is not valid`);
+    else validRules[type] = index;
   });
 
   questions.forEach((question, index) => {
@@ -134,11 +135,15 @@ router.post('/', auth, async (req, res) => {
   var dueDate = new Date(test.dueDate);
   var currDate = new Date();
 
-  if (dueDate.getDate() < currDate.getDate && dueDate.getMonth() < currDate.getMonth() && dueDate.getFullYear() < currDate.getFullYear())
+  if (
+    dueDate.getDate() < currDate.getDate &&
+    dueDate.getMonth() < currDate.getMonth() &&
+    dueDate.getFullYear() < currDate.getFullYear()
+  )
     validationErrors.push('Due Date cannot be in the past');
 
   // check if test name is unique
-  if (await Test.findOne({ "test.name": test.name, classroom: classroom }))
+  if (await Test.findOne({ 'test.name': test.name, classroom: classroom }))
     validationErrors.push(`${test.name} is already created`);
 
   if (validationErrors.length)
@@ -155,7 +160,7 @@ router.post('/', auth, async (req, res) => {
     DuplicateQuestion(questions);
 
     await Question.insertMany(questions);
-    
+
     await newTest.save();
     return res.status(200).json({ msg: 'Test created sucessfully.' });
   } catch (err) {
@@ -172,6 +177,7 @@ router.get('/id/:id', auth, async (req, res) => {
     const test = await Test.findById(req.params.id, {
       rules: 1,
       id: 1,
+      test: 1,
       classroom: 1,
       scores: 1
     });
@@ -186,7 +192,9 @@ router.get('/id/:id', auth, async (req, res) => {
       users: req.user.id
     });
     if (!classroom) {
-      return res.status(400).json({ msg: 'You have not been enrolled for this test.' });
+      return res
+        .status(400)
+        .json({ msg: 'You have not been enrolled for this test.' });
     }
     const questions = await Question.find(
       { test: test.id },
@@ -195,7 +203,7 @@ router.get('/id/:id', auth, async (req, res) => {
       type: 1
     });
     const data = GenerateTest(questions, test.rules);
-    res.json(data);
+    res.json({ test: test.test, data: data });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -213,14 +221,17 @@ router.post('/id/:id', auth, async (req, res) => {
       rules: 1,
       id: 1,
       scores: 1,
-      classroom: 1,
+      classroom: 1
     });
 
-    if (!test)
-      return res.status(400).json({ msg: 'Test does not exists.' });
+    if (!test) return res.status(400).json({ msg: 'Test does not exists.' });
 
-    if (!(await Classroom.findOne({ code: test.classroom, users: req.user.id }))) {
-      return res.status(400).json({ msg: 'You\'re not enrolled in this class.' });
+    if (
+      !(await Classroom.findOne({ code: test.classroom, users: req.user.id }))
+    ) {
+      return res
+        .status(400)
+        .json({ msg: "You're not enrolled in this class." });
     }
 
     if (test.scores.find((ele) => req.user.id == ele.user._id)) {
@@ -287,6 +298,54 @@ router.delete('/id/:id', auth, async (req, res) => {
   }
 });
 
+// @route    POST api/score/:id
+// @desc     GET Scores of current test
+// @access   Private
+router.get('/score/:id', auth, async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.id, {
+      test: 1,
+      classroom: 1,
+      scores: 1
+    });
+    if (!test) {
+      return res.status(400).json({ msg: 'Test does not exist.' });
+    }
+
+    var isAdmin = await Classroom.findOne({ code: test.classroom }).then(
+      (value) => {
+        return value.admin._id.toString() === req.user.id;
+      }
+    );
+
+    if (!isAdmin)
+      return res
+        .status(400)
+        .json({ err: "You don't have Admin access to this classroom" });
+
+    var rows = [];
+    test.scores.forEach((data) => {
+      rows.push(
+        createData(
+          data.user.name,
+          data.user.email,
+          data.marks,
+          test.test.marks,
+          (data.marks / test.test.marks) * 100
+        )
+      );
+    });
+
+    return res.status(200).json({ details: test.test, scores: rows });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server Error');
+  }
+});
+
+// @route    POST api/addQuestionFromCsv
+// @desc     Add Questions from CSV file
+// @access   Private
 router.post(
   '/addQuestionFromCsv',
   auth,
@@ -295,7 +354,7 @@ router.post(
     if (!req.files[0]) res.send({ message: 'No File Received' });
     else if (
       req.files[0].originalname.split('.')[
-      req.files[0].originalname.split('.').length - 1
+        req.files[0].originalname.split('.').length - 1
       ] !== 'csv'
     )
       res.send({ message: 'Invalid' });
@@ -322,8 +381,6 @@ router.post(
             var temp = {};
             var curr = csvData[i];
             var head = csvData[0];
-            // console.log(head);
-            // console.log(curr);
             for (var j = 0; j < head.length; j++) {
               temp[head[j]] = curr[j];
             }

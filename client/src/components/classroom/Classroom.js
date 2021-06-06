@@ -113,15 +113,13 @@ const Classroom = ({
     getTests(match.params.code);
   }, [getTests, match.params.code]);
   const onLinkClick = () => {
-    // navigator.clipboard.writeText(`${window.location.origin}/join/${classroom.code}`);
-    // setAlert('Invite Link Copied.');
-    var inputc = document.body.appendChild(document.createElement("input"));
-    inputc.value = window.location.href;
+    var inputc = document.body.appendChild(document.createElement('input'));
+    inputc.value = `${window.location.origin}/join/${classroom.code}`;
     inputc.focus();
     inputc.select();
     document.execCommand('copy');
     inputc.parentNode.removeChild(inputc);
-    setAlert("URL Copied.");
+    setAlert('Invite Link Copied.');
   };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -239,7 +237,13 @@ const Classroom = ({
           {tests.map((Test) => {
             return (
               <Grid key="1" item md={6} xs={12}>
-                <TestCard key={Test._id} id={Test._id} test={Test.test} admin={admin} />
+                <TestCard
+                  key={Test._id}
+                  id={Test._id}
+                  test={Test.test}
+                  scores={Test.scores}
+                  admin={admin}
+                />
               </Grid>
             );
           })}

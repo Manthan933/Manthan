@@ -56,12 +56,12 @@ const useStyles = makeStyles(() => ({
   classLink: {
     color: 'inherit'
   },
-  logoutbutton:{
-    background: "none",
+  logoutbutton: {
+    background: 'none',
     '&:hover': {
-       background: "rgba(183, 183, 183, 0.47)",
+      background: 'rgba(183, 183, 183, 0.47)'
+    }
   }
-}
 }));
 
 const Navbar = ({
@@ -79,14 +79,11 @@ const Navbar = ({
   const pathname = location.pathname;
   const getTheme = pathname.includes('/dashboard') || pathname.includes('/class/');
 
-  const getColorStatus = () => (getTheme ? 'white' : 'black');
-
   const authLinks = (
     <Button
       onClick={logout}
       href="/#!"
       className={classes.logoutbutton}
-      style={{ color: getColorStatus() }}
       startIcon={<i className="fas fa-sign-out-alt" />}
     >
       Logout
@@ -112,19 +109,12 @@ const Navbar = ({
       <IconButton
         edge="start"
         className={classes.menuButton}
-        style={{ color: getColorStatus() }}
         onClick={toggleDrawer(true)}
         aria-label="menu"
       >
         <MenuIcon />
       </IconButton>
-      <Typography
-        component="a"
-        href="/"
-        style={{ color: getColorStatus() }}
-        variant="h6"
-        className={classes.title}
-      >
+      <Typography component="a" href="/" variant="h6" className={classes.title}>
         Manthan
       </Typography>
       {isAuthenticated ? authLinks : guestLinks}

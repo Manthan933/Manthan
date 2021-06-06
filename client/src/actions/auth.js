@@ -8,16 +8,14 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGOUT,
-  SET_THEME,
   REQUEST_AUTH
 } from './types';
 
 // Load User when we require user data
 export const loadUser = () => async (dispatch) => {
   try {
-    dispatch({type: REQUEST_AUTH})
+    dispatch({ type: REQUEST_AUTH });
     const res = await api.get('/auth');
-    dispatch({ type: SET_THEME, payload: res.data.theme });
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -36,10 +34,6 @@ export const status = () => (dispatch) => {
     const tokenData = jwtDecode(Cookie.get('token'));
     const currentTime = Date.now();
     const tokenExpireTime = new Date(0).setUTCSeconds(tokenData.exp);
-
-    // store the current theme in localstorage
-    localStorage.setItem('theme', localStorage.getItem('theme'));
-    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') });
 
     // check whethere token is expire or not
     if (currentTime > tokenExpireTime) {
@@ -62,7 +56,7 @@ export const status = () => (dispatch) => {
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
-    dispatch({type: REQUEST_AUTH})
+    dispatch({ type: REQUEST_AUTH });
     const res = await api.post('/users', formData);
 
     dispatch({
@@ -84,11 +78,11 @@ export const register = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password , rememberMe) => async (dispatch) => {
-  const body = { email, password , rememberMe };
+export const login = (email, password, rememberMe) => async (dispatch) => {
+  const body = { email, password, rememberMe };
 
   try {
-    dispatch({type: REQUEST_AUTH})
+    dispatch({ type: REQUEST_AUTH });
     const res = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
@@ -96,7 +90,6 @@ export const login = (email, password , rememberMe) => async (dispatch) => {
     });
     // Add theme to localstorage
     localStorage.setItem('theme', res.data.theme);
-    dispatch({ type: SET_THEME, payload: localStorage.getItem('theme') });
 
     // set Cookie in browser
     Cookie.set('token', res.data.token);
