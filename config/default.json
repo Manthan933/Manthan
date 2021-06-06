@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongo-uri",
-  "jwtSecret": "SerectKey"
-}

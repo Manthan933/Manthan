@@ -17,15 +17,13 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     height: '450px',
     width: '370px',
-
     textAlign: 'center',
     backgroundRepeat: 'no-repeat',
-    marginTop: '0%'
+    margin: 'auto'
   },
   text: {
     position: 'absolute',
-    bottom: '0px',
-    
+    bottom: '0px'
   },
   textSet: {
     marginLeft: '45px'
@@ -56,13 +54,13 @@ const Dashboard = ({ classroom: { classrooms, loading } }) => {
           })}
         </Grid>
       ) : (
-        <Grid container justify="center" spacing={5}>
-          <div style={{ color: 'white' }} className={classes.noClass}>
+        <Grid container justify="center" spacing={5} style={{ minHeight: '85vh' }}>
+          <div className={classes.noClass}>
             <footer className={classes.text}>
-              <Typography variant="h4" color="white" className={classes.textSet}>
+              <Typography variant="h4" className={classes.textSet}>
                 No classes here!
               </Typography>
-              <Typography variant="subtitle1" color="white" className={classes.textSet}>
+              <Typography variant="subtitle1" className={classes.textSet}>
                 Create a new class or join class.
               </Typography>
             </footer>
