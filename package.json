@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/git/mandj/issues"
   },
-  "homepage": "https://github.com/git/mandj#readme",
+  "homepage": "https://github.com/git/#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
