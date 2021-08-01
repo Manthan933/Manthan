@@ -1,0 +1,10 @@
+
+// 1. Corrects text resizing oddly in IE6/7 when body `font-size` is set using
+//    `em` units.
+// 2. Prevents iOS text size adjust after orientation change, without disabling
+//    user zoom.
+
+html
+  font-size: 100% // 1
+  -webkit-text-size-adjust: 100% // 2
+  -ms-text-size-adjust: 100% // 2
