@@ -117,8 +117,7 @@ function AccountPopover({ logout }) {
 }
 
 AccountPopover.propTypes = {
-  login: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  logout: PropTypes.func.isRequired
 };
 
 export default connect(null, { logout })(AccountPopover);

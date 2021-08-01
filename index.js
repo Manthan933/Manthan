@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
 const connectDB = require('./config/db');
+const path = require('path');
 
 const app = express();
 
@@ -22,10 +23,8 @@ app.get('/api', (req, res) => {
 //// define routes
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
-//app.use('/api/chat', require('./routes/api/chat'));
-//app.use('/api/mail', require('./routes/api/mail'));
-//app.use('/api/file', require('./routes/api/files'));
-//app.use('/api/event', require('./routes/api/event'));
+
+console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

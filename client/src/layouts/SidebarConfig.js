@@ -2,7 +2,6 @@ import { Icon } from '@iconify/react';
 import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
 import shoppingBagFill from '@iconify/icons-eva/shopping-bag-fill';
 import githubFill from '@iconify/icons-eva/github-fill';
-import personFill from '@iconify/icons-eva/person-fill';
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 

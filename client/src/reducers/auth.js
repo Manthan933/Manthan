@@ -7,13 +7,14 @@ import {
   REGISTER_SUCCESS,
   USER_LOADED,
   LOGOUT,
-  GOOGLEAUTH
+  GOOGLEAUTH,
+  RESET
 } from '../actions/actionTypes';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
-  loading: null,
+  loading: false,
   user: null
 };
 
@@ -54,6 +55,12 @@ export default function AuthReducer(state = initialState, action) {
         isAuthenticated: true,
         user: action.payload,
         loading: false
+      };
+    }
+    case RESET: {
+      return {
+        ...state,
+        loading: true
       };
     }
     default: {

@@ -9,7 +9,8 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
-  LOGOUT
+  LOGOUT,
+  RESET
 } from './actionTypes';
 
 const settings = {
@@ -24,6 +25,9 @@ const settings = {
 
 // Load user
 export const loadUser = () => async (dispatch) => {
+  dispatch({
+    type: RESET
+  });
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -48,6 +52,9 @@ export const loadUser = () => async (dispatch) => {
 export const register =
   ({ name, email, password }) =>
   async (dispatch) => {
+    dispatch({
+      type: RESET
+    });
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -84,26 +91,29 @@ export const register =
   };
 
 // google auth
-export const googleAuth =
-  ({ name, email }) =>
-  async (dispatch) => {
-    try {
-      toast.success('Authenticated Successfully!', settings);
-
-      dispatch(loadUser());
-    } catch (err) {
-      dispatch({
-        type: REGISTER_FAIL
-      });
-
-      toast.error('Unable to Authenticate !', settings);
-    }
-  };
+// export const googleAuth =
+//   ({ name, email }) =>
+//   async (dispatch) => {
+//     try {
+//       toast.success('Authenticated Successfully!', settings);
+//
+//       dispatch(loadUser());
+//     } catch (err) {
+//       dispatch({
+//         type: REGISTER_FAIL
+//       });
+//
+//       toast.error('Unable to Authenticate !', settings);
+//     }
+//   };
 
 // Login User
 export const login =
   ({ email, password, remember }) =>
   async (dispatch) => {
+    dispatch({
+      type: RESET
+    });
     const config = {
       headers: {
         'Content-Type': 'application/json'
@@ -133,6 +143,9 @@ export const login =
   };
 
 export const logout = () => (dispatch) => {
+  dispatch({
+    type: RESET
+  });
   setAuthToken(null);
   dispatch({ type: LOGOUT });
   toast.success('Logged Out Successfully !', settings);
