@@ -35,7 +35,7 @@ const AccountStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
-function DashboardSidebar({ isOpenSidebar, onCloseSidebar, auth: { user } }) {
+function DashboardSidebar({ isOpenSidebar, onCloseSidebar, auth: { user, classes } }) {
   const { pathname } = useLocation();
   const { name, avatarURL } = user;
   useEffect(() => {
@@ -71,7 +71,7 @@ function DashboardSidebar({ isOpenSidebar, onCloseSidebar, auth: { user } }) {
         </Link>
       </Box>
 
-      <NavSection navConfig={sidebarConfig(classrooms)} />
+      <NavSection navConfig={sidebarConfig(classes)} />
 
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>

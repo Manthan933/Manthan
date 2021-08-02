@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const User = require('../../models/User');
+const Classroom = require('../../models/Classroom');
 
 // GET, api/auth // type of req, url
 // Public route
@@ -16,7 +17,8 @@ router.get(
   async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select('-password');
-      res.json(user); // return user data in json
+      const classrooms = await Classroom.find({ joinedUsers: req.user.id });
+      res.json({ user: user, classes: classrooms }); // return user data in json
     } catch (err) {
       res.status(500).send('Server errror');
     }
@@ -61,7 +63,7 @@ router.post(
       // data in token
       const payload = {
         user: {
-          id: user.id,
+          id: user._id,
           name: user.name,
           email: user.email
         }

@@ -11,6 +11,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { loadUser } from './actions/auth';
+import { getClasses } from './actions/classroom';
 
 // ----------------------------------------------------------------------
 

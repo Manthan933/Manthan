@@ -8,7 +8,7 @@ const ClassroomSchema = new Schema(
     title: { type: String, required: true },
     subject: { type: String },
     subCode: { type: String },
-    cover: { type: Buffer, required: true },
+    cover: { type: String },
     code: { type: String, required: true, unique: true },
     author: {
       _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

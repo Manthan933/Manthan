@@ -7,6 +7,7 @@ import leaveFill from '@iconify/icons-eva/trash-2-fill';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { IconButton, Link, Card, Grid, Avatar, Typography, CardContent } from '@material-ui/core';
 import SvgIconStyle from '../SvgIconStyle';
+import { mockImgCover } from '../../utils/mockImages';
 
 // ----------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ ClassCard.propTypes = {
   classroom: PropTypes.object.isRequired
 };
 
-export default function ClassCard({ classroom }) {
+export default function ClassCard({ classroom, index }) {
   const { cover, title, author, code, subject } = classroom;
 
   return (
@@ -72,7 +73,7 @@ export default function ClassCard({ classroom }) {
           />
           <AvatarStyle alt={author.name} src={author.avatarUrl} />
 
-          <CoverImgStyle alt={title} src={cover} />
+          <CoverImgStyle alt={title} src={cover != null ? cover : mockImgCover(index % 24)} />
         </CardMediaStyle>
         <CardContent>
           <Typography

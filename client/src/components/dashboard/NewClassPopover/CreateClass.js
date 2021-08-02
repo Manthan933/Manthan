@@ -17,7 +17,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import { createClass } from '../../../actions/classroom';
+import { createClass } from '../../../actions/user';
 
 function CreateClass({ createClass }) {
   const [open, setOpen] = React.useState(false);

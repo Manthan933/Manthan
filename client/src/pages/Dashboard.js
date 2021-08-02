@@ -1,12 +1,13 @@
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 // material
 import { Grid, Container, Stack, Typography } from '@material-ui/core';
 // components
 import Page from '../components/Page';
 import { ClassCard, NewClassPopover } from '../components/dashboard';
 //
-import classrooms from '../_mocks_/blog';
 
-export default function Dashboard() {
+function Dashboard({ auth: { classes } }) {
   return (
     <Page>
       <Container>
@@ -17,7 +18,7 @@ export default function Dashboard() {
           <NewClassPopover />
         </Stack>
         <Grid container spacing={3}>
-          {classrooms.map((classroom, index) => (
+          {classes.map((classroom, index) => (
             <ClassCard key={classroom.id} classroom={classroom} index={index} />
           ))}
         </Grid>
@@ -25,3 +26,13 @@ export default function Dashboard() {
     </Page>
   );
 }
+
+Dashboard.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Dashboard);

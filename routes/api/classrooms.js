@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
 const randomatic = require('randomatic');
-const multer = require('multer');
+const { check, validationResult } = require('express-validator');
 
 const auth = require('../../middleware/auth');
 const Classroom = require('../../models/Classroom');
 const User = require('../../models/User');
 
-const upload = multer();
 // @route    GET api/classroom/
 // @desc     Get currentjoinedUsers classroom
 // @access   Private
+
 router.get('/', auth, async (req, res) => {
   try {
     const classrooms = await Classroom.find({ joinedUsers: req.user.id });
@@ -20,7 +19,6 @@ router.get('/', auth, async (req, res) => {
     }
     res.json(classrooms);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -28,10 +26,10 @@ router.get('/', auth, async (req, res) => {
 // @route    POST api/classroom
 // @desc     Create user classroom
 // @access   Private
+
 router.post('/', auth, async (req, res) => {
   const { title, subject, subCode, cover } = req.body;
   try {
-    // Using upsert option (creates new doc if no match is found):
     const author = await User.findById(req.user.id).select('-password');
     const joinedUsers = [author._id];
     const code = randomatic('aA0', 6);
@@ -54,6 +52,7 @@ router.post('/', auth, async (req, res) => {
 // @route    GET api/classroom/:code
 // @desc     Get classroom by code
 // @access   Private
+
 router.get('/:code', auth, async (req, res) => {
   try {
     const classroom = await Classroom.findOne({
@@ -79,12 +78,17 @@ router.post('/:code', auth, async (req, res) => {
     if (!classroom) {
       return res.status(400).json({ msg: 'Class does not exist.' });
     }
-    if (classroom.users.find((user) => req.user.id == user)) {
+    if (classroom.joinedUsers.find((user) => req.user.id == user)) {
       return res.status(400).json({ msg: 'Class already exist.' });
     }
     const joined = await Classroom.findOneAndUpdate(
       { code: req.params.code },
       { $push: { joinedUsers: req.user.id } },
+      { new: true }
+    );
+    await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $push: { joinedClasses: req.params.code } },
       { new: true }
     );
     res.json(joined);
@@ -97,42 +101,36 @@ router.post('/:code', auth, async (req, res) => {
 // @route    Patch api/classroom/:code
 // @desc     Edit classroom by code
 // @access   Private
-router.patch(
-  '/:code',
-  auth,
-  check('title', 'title is required').notEmpty(),
-  check('subject', 'Subject is required').notEmpty(),
-  check('subcode', 'Subcode is required').notEmpty(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    // destructure the request
-    const { title, subject, subcode } = req.body;
-    try {
-      const classroom = await Classroom.findOne({
-        code: req.params.code,
-        joinedUsers: req.user.id
-      });
-      if (!classroom) {
-        return res.status(400).json({ msg: 'Class does not exist.' });
-      }
-      if (classroom.author._id != req.user.id) {
-        return res.status(400).json({ msg: 'User not authorized.' });
-      }
-      const editedClass = await Classroom.findOneAndUpdate(
-        { code: req.params.code },
-        { $set: { title: title, subcode: subcode, subject: subject } },
-        { new: true }
-      );
-      res.json(editedClass);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
-    }
+
+router.patch('/:code', auth, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
-);
+  // destructure the request
+  const { title, subject, subcode, cover } = req.body;
+  try {
+    const classroom = await Classroom.findOne({
+      code: req.params.code,
+      joinedUsers: req.user.id
+    });
+    if (!classroom) {
+      return res.status(400).json({ msg: 'Class does not exist.' });
+    }
+    if (classroom.author._id != req.user.id) {
+      return res.status(400).json({ msg: 'User not authorized.' });
+    }
+    const editedClass = await Classroom.findOneAndUpdate(
+      { code: req.params.code },
+      { $set: { title: title, subcode: subcode, subject: subject, cover: cover } },
+      { new: true }
+    );
+    res.json(editedClass);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // @route    DELETE api/classroom/:code
 // @desc     Delete classroom by code
@@ -153,6 +151,11 @@ router.delete('/:code', auth, async (req, res) => {
       await Classroom.findOneAndUpdate(
         { code: req.params.code },
         { $pull: { joinedUsers: { $in: req.user.id } } },
+        { new: true }
+      );
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $pull: { joinedClasses: { $in: req.params.code } } },
         { new: true }
       );
       res.json({ msg: 'Class leaved successfully.' });
@@ -179,9 +182,14 @@ router.delete('/:code/:user', auth, async (req, res) => {
     if (classroom.author._id != req.user.id) {
       return res.status(400).json({ msg: 'User not authorized.' });
     }
-    const updatedClass = await Classroom.findOneAndUpdate(
+    await Classroom.findOneAndUpdate(
       { code: req.params.code },
       { $pull: { joinedUsers: { $in: req.params.user } } },
+      { new: true }
+    );
+    await User.findOneAndUpdate(
+      { _id: req.params.user },
+      { $pull: { joinedClasses: { $in: req.params.code } } },
       { new: true }
     );
     return res.status(200).json({ msg: 'User Removed' });
@@ -195,16 +203,9 @@ router.delete('/:code/:user', auth, async (req, res) => {
 // @desc     Get joinedUsers from classroom
 // @access   Private
 
-router.get('/:code/users', auth, async (req, res) => {
+router.get('/users/:code', auth, async (req, res) => {
   try {
-    const classroom = await Classroom.findOne({
-      code: req.params.code,
-      joinedUsers: req.user.id
-    });
-    if (!classroom) {
-      return res.status(400).json({ msg: 'Class does not exist.' });
-    }
-    constjoinedUsers = await User.find({ _id: { $in: classroom.users } }).select('-password');
+    const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
     return res.json(users);
   } catch (error) {
     console.error(error);

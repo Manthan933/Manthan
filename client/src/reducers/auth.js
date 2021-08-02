@@ -8,13 +8,18 @@ import {
   USER_LOADED,
   LOGOUT,
   GOOGLEAUTH,
-  RESET
+  AUTH_RESET,
+  CREATE_CLASS,
+  JOIN_CLASS,
+  DELETE_CLASS,
+  LEAVE_CLASS
 } from '../actions/actionTypes';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: false,
+  classes: [],
   user: null
 };
 
@@ -53,11 +58,19 @@ export default function AuthReducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload,
+        user: action.payload.user,
+        classes: action.payload.classes,
         loading: false
       };
     }
-    case RESET: {
+    case CREATE_CLASS: {
+      return {
+        ...state,
+        classes: [...state.classes, action.payload],
+        loading: false
+      };
+    }
+    case AUTH_RESET: {
       return {
         ...state,
         loading: true
