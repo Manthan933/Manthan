@@ -11,8 +11,6 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 // components
 import MenuPopover from '../../components/MenuPopover';
 import { logout } from '../../actions/auth';
-//
-import account from '../../_mocks_/account';
 
 // ----------------------------------------------------------------------
 
@@ -31,10 +29,10 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-function AccountPopover({ logout }) {
+function AccountPopover({ logout, auth: { user } }) {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-
+  const { name, email, avatarURL } = user;
   const handleOpen = () => {
     setOpen(true);
   };
@@ -64,7 +62,7 @@ function AccountPopover({ logout }) {
           })
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={avatarURL} alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -75,10 +73,10 @@ function AccountPopover({ logout }) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {account.displayName}
+            {name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {email}
           </Typography>
         </Box>
 
@@ -117,7 +115,12 @@ function AccountPopover({ logout }) {
 }
 
 AccountPopover.propTypes = {
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { logout })(AccountPopover);
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(AccountPopover);

@@ -30,8 +30,11 @@
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.5",
+    "multer": "^1.4.2",
     "normalize": "^0.3.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "randomatic": "^3.1.1",
+    "react-file-base64": "^1.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

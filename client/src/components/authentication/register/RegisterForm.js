@@ -1,18 +1,19 @@
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useFormik, Form, FormikProvider } from 'formik';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
-import { useNavigate } from 'react-router-dom';
 // material
 import { Stack, TextField, IconButton, InputAdornment } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 
+import { register } from '../../../actions/auth';
 // ----------------------------------------------------------------------
 
-export default function RegisterForm() {
-  const navigate = useNavigate();
+function RegisterForm({ register }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
@@ -30,8 +31,8 @@ export default function RegisterForm() {
       password: ''
     },
     validationSchema: RegisterSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    onSubmit: (values) => {
+      register(values);
     }
   });
 
@@ -102,3 +103,9 @@ export default function RegisterForm() {
     </FormikProvider>
   );
 }
+
+RegisterForm.propTypes = {
+  login: PropTypes.func.isRequired
+};
+
+export default connect(null, { register })(RegisterForm);

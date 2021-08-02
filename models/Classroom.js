@@ -6,16 +6,15 @@ const Schema = mongoose.Schema;
 const ClassroomSchema = new Schema(
   {
     title: { type: String, required: true },
-    subject: { type: String, required: true },
-    subcode: { type: String, required: true },
-    image: {
-      type: Buffer
-    },
+    subject: { type: String },
+    subCode: { type: String },
+    cover: { type: Buffer, required: true },
     code: { type: String, required: true, unique: true },
     author: {
       _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      name: { type: String, required: true },
-      avatarURL: { type: String, required: true }
+      name: { type: String },
+      email: { type: String },
+      avatarURL: { type: String }
     },
     joinedUsers: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }]
   },

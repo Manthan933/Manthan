@@ -50,7 +50,7 @@ export const loadUser = () => async (dispatch) => {
 // add alert for each error later
 // Register User
 export const register =
-  ({ name, email, password }) =>
+  ({ Fname, Lname, email, password }) =>
   async (dispatch) => {
     dispatch({
       type: RESET
@@ -62,7 +62,8 @@ export const register =
     };
 
     const body = JSON.stringify({
-      name,
+      Fname,
+      Lname,
       email,
       password
     });
@@ -79,7 +80,6 @@ export const register =
       dispatch(loadUser());
     } catch (err) {
       if (err.response.status === 400) {
-        console.log('here');
         toast.error('User already exists !', settings);
       } else {
         toast.error('Unable to Register !', settings);
@@ -127,7 +127,6 @@ export const login =
 
       toast.success('Logged In Successfully !', settings);
 
-      console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data

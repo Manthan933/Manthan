@@ -2,14 +2,13 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
-  Link,
   Stack,
   Checkbox,
   TextField,
@@ -23,17 +22,13 @@ import { login } from '../../../actions/auth';
 
 // ----------------------------------------------------------------------
 
-function LoginForm({ login, auth: { isAuthenticated } }) {
-  const navigate = useNavigate();
+function LoginForm({ login }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required')
   });
-  if (isAuthenticated) {
-    navigate('/dashboard', { replace: true });
-  }
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -42,7 +37,6 @@ function LoginForm({ login, auth: { isAuthenticated } }) {
     },
     validationSchema: LoginSchema,
     onSubmit: (values) => {
-      console.log(values);
       login(values);
     }
   });
@@ -92,10 +86,6 @@ function LoginForm({ login, auth: { isAuthenticated } }) {
             control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
             label="Remember me"
           />
-
-          <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
-          </Link>
         </Stack>
 
         <LoadingButton
@@ -113,12 +103,7 @@ function LoginForm({ login, auth: { isAuthenticated } }) {
 }
 
 LoginForm.propTypes = {
-  login: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  login: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-});
-
-export default connect(mapStateToProps, { login })(LoginForm);
+export default connect(null, { login })(LoginForm);

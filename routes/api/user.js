@@ -17,8 +17,8 @@ router.post(
   [
     // middleware that checks if the data in req is valid
     // acc to our set terms or not
-    check('Fname', 'Name is required').not().isEmpty(),
-    check('Lname', 'Name is required').not().isEmpty(),
+    check('Fname', 'First Name is required').not().isEmpty(),
+    check('Lname', 'Last Name is required').not().isEmpty(),
     check('email', 'please include a valid email').isEmail()
   ],
   async (req, res) => {
@@ -40,13 +40,12 @@ router.post(
         // if user already exist return bad request with below mentioned msg
         return res.status(400).json({ msg: 'user already exists' });
       }
-      const avatarURL = normalize(
-        gravatar.url(email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm'
-        }),
-        { forceHttps: true }
+      const avatarURL = gravatar.url(
+        email,
+        {
+          s: '200'
+        },
+        true
       );
       const name = `${Fname} ${Lname}`;
       // user does not already exist , so create one

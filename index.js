@@ -8,9 +8,8 @@ const path = require('path');
 const app = express();
 
 // Init middleware
-app.use(express.json({ extended: false }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '30mb', extended: true }));
+app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
 // connect database
@@ -23,8 +22,7 @@ app.get('/api', (req, res) => {
 //// define routes
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
-
-console.log(process.env.NODE_ENV);
+app.use('/api/classrooms', require('./routes/api/classrooms'));
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

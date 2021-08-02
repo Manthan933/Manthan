@@ -27,25 +27,24 @@ export default function FormDialog() {
         Join Class
       </MenuItem>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Join Class</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            To join new class, please enter the unique class code.
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
             fullWidth
             variant="standard"
+            label="Class Code"
+            type="test"
+            id="code"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Join</Button>
         </DialogActions>
       </Dialog>
     </div>
