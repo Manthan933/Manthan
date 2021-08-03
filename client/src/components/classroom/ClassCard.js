@@ -16,7 +16,7 @@ import ClassCardPopover from './ClassCardPopover';
 
 const CardMediaStyle = styled('div')({
   position: 'relative',
-  paddingTop: 'calc(100% * 1 / 20)'
+  paddingTop: '60px'
 });
 
 const TitleStyle = styled(Typography)({
@@ -37,9 +37,8 @@ const AvatarStyle = styled(Avatar)(({ theme }) => ({
 }));
 
 const InfoStyle = styled('div')({
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignContent: ' end'
+  position: 'relative',
+  width: '118px'
 });
 
 const CoverImgStyle = styled('img')({
@@ -60,7 +59,7 @@ function ClassCard({ classroom }) {
   const { cover, title, author, code, subject, subCode } = classroom;
   console.log(cover);
   return (
-    <Grid item md={12}>
+    <Grid item md={12} xs={12}>
       <Card sx={{ position: 'relative' }}>
         <CardMediaStyle>
           <SvgIconStyle
@@ -105,7 +104,11 @@ function ClassCard({ classroom }) {
               </Button>
             </div>
             <InfoStyle>
-              <Button variant="contained" startIcon={<Icon icon={plusFill} />}>
+              <Button
+                style={{ position: 'absolute', bottom: 0 }}
+                variant="contained"
+                startIcon={<Icon icon={plusFill} />}
+              >
                 New Test
               </Button>
             </InfoStyle>
