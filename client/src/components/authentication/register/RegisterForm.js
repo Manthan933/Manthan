@@ -105,7 +105,7 @@ function RegisterForm({ register }) {
 }
 
 RegisterForm.propTypes = {
-  login: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired
 };
 
 export default connect(null, { register })(RegisterForm);

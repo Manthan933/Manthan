@@ -12,7 +12,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  DialogContentText,
   Stack,
   Typography
 } from '@material-ui/core';
@@ -31,9 +30,7 @@ function CreateClass({ createClass }) {
   const onDrop = (acceptedFiles) => {
     const reader = new FileReader();
     reader.readAsDataURL(acceptedFiles[0]);
-    reader.onload = function () {
-      setCover(reader.result);
-    };
+    reader.onload = () => setCover(reader.result);
   };
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     onDrop,

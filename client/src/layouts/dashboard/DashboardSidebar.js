@@ -13,8 +13,6 @@ import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
 
-import classrooms from '../../_mocks_/blog';
-
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;

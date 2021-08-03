@@ -11,7 +11,8 @@ const sidebarConfig = (classrooms) => {
   classrooms.forEach((classroom) => {
     Childrens.push({
       title: classroom.title,
-      path: `/classroom/${classroom.code}`
+      path: `/class/info?code=${classroom.code}`,
+      code: classroom.code
     });
   });
   return [

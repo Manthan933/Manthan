@@ -1,8 +1,6 @@
-import jwtDecode from 'jwt-decode';
 import {
   GET_CLASS,
   EDIT_CLASS,
-  CLASSES_LOADED,
   REMOVE_USER,
   CLASS_ERROR,
   CLASS_RESET
@@ -10,7 +8,7 @@ import {
 
 const initialState = {
   loading: false,
-  classroom: null,
+  currClass: null,
   users: []
 };
 
@@ -20,15 +18,15 @@ export default function ClassReducer(state = initialState, action) {
     case CLASS_ERROR: {
       return {
         ...state,
-        classroom: null,
+        currClass: null,
         users: [],
         loading: false
       };
     }
-    case CLASSES_LOADED: {
+    case GET_CLASS: {
       return {
         ...state,
-        classes: action.payload,
+        currClass: action.payload,
         loading: false
       };
     }

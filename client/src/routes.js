@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import User from './pages/User';
 import NotFound from './pages/Page404';
+import Classroom from './pages/Classroom';
 
 // ----------------------------------------------------------------------
 
@@ -19,9 +20,9 @@ const Github = () => {
   return null;
 };
 
-function Router({ auth: { isAuthenticated, loading } }) {
+function Router({ auth: { isAuthenticated, loading }, classroom }) {
   const Private = (children, navigate) => {
-    if (loading === false) {
+    if (loading === false && classroom.loading === false) {
       if (isAuthenticated) return children;
 
       return navigate;
@@ -39,9 +40,12 @@ function Router({ auth: { isAuthenticated, loading } }) {
       children: [{ path: '/', element: <Dashboard /> }]
     },
     {
-      path: '/classroom',
+      path: '/class',
       element: Private(<DashboardLayout />, <Navigate to="/login" />),
-      children: [{ path: '/:code', element: <User /> }]
+      children: [
+        { path: '/score/', element: <User /> },
+        { path: '/*', element: <Classroom /> }
+      ]
     },
     {
       path: '/',
@@ -68,7 +72,8 @@ Router.prototype = {
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  classroom: state.classroom
 });
 
 export default connect(mapStateToProps)(Router);

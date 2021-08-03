@@ -11,7 +11,6 @@ import {
   AUTH_RESET,
   CREATE_CLASS,
   JOIN_CLASS,
-  DELETE_CLASS,
   LEAVE_CLASS
 } from '../actions/actionTypes';
 
@@ -63,13 +62,22 @@ export default function AuthReducer(state = initialState, action) {
         loading: false
       };
     }
-    case CREATE_CLASS: {
+    case CREATE_CLASS:
+    case JOIN_CLASS: {
       return {
         ...state,
         classes: [...state.classes, action.payload],
         loading: false
       };
     }
+    case LEAVE_CLASS: {
+      return {
+        ...state,
+        classes: state.classes.filter((classroom) => classroom.code !== action.payload),
+        loading: false
+      };
+    }
+
     case AUTH_RESET: {
       return {
         ...state,

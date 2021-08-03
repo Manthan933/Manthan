@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -8,12 +9,14 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { IconButton, Link, Card, Grid, Avatar, Typography, CardContent } from '@material-ui/core';
 import SvgIconStyle from '../SvgIconStyle';
 import { mockImgCover } from '../../utils/mockImages';
+import { leaveClass } from '../../actions/user';
+import { getClass } from '../../actions/classroom';
 
 // ----------------------------------------------------------------------
 
 const CardMediaStyle = styled('div')({
   position: 'relative',
-  paddingTop: 'calc(100% * 1 / 3)'
+  paddingTop: 'calc(100% * 2 / 5)'
 });
 
 const TitleStyle = styled(Link)({
@@ -49,15 +52,11 @@ const CoverImgStyle = styled('img')({
 
 // ----------------------------------------------------------------------
 
-ClassCard.propTypes = {
-  classroom: PropTypes.object.isRequired
-};
-
-export default function ClassCard({ classroom, index }) {
+function ClassCard({ classroom, index, leaveClass, getClass }) {
   const { cover, title, author, code, subject } = classroom;
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item xs={12} sm={6} md={3}>
       <Card sx={{ position: 'relative' }}>
         <CardMediaStyle>
           <SvgIconStyle
@@ -71,9 +70,8 @@ export default function ClassCard({ classroom, index }) {
               position: 'absolute'
             }}
           />
-          <AvatarStyle alt={author.name} src={author.avatarUrl} />
-
-          <CoverImgStyle alt={title} src={cover != null ? cover : mockImgCover(index % 24)} />
+          <AvatarStyle alt={author.name} src={author.avatarURL} />
+          <CoverImgStyle alt={title} src={cover != null ? cover : mockImgCover((index + 1) % 24)} />
         </CardMediaStyle>
         <CardContent>
           <Typography
@@ -85,7 +83,8 @@ export default function ClassCard({ classroom, index }) {
           </Typography>
 
           <TitleStyle
-            to={`/classroom/${code}`}
+            onClick={() => getClass(code)}
+            to={`/class/info?code=${classroom.code}`}
             color="inherit"
             variant="subtitle2"
             underline="hover"
@@ -93,16 +92,32 @@ export default function ClassCard({ classroom, index }) {
           >
             {title}
           </TitleStyle>
-          <Typography color="inherit" variant="subtitle2" underline="hover">
-            {`Subject : ${subject}`}
-          </Typography>
-          <InfoStyle>
-            <IconButton onClick={() => {}} color="error">
-              <Icon icon={leaveFill} />
-            </IconButton>
-          </InfoStyle>
+          <div style={{ display: 'flex' }}>
+            <Typography
+              style={{ flex: 'auto' }}
+              color="inherit"
+              variant="subtitle2"
+              underline="hover"
+            >
+              {subject !== '' ? `Subject : ${subject}` : ' '}
+            </Typography>
+            <InfoStyle>
+              <IconButton onClick={() => leaveClass(code)} color="error">
+                <Icon icon={leaveFill} />
+              </IconButton>
+            </InfoStyle>
+          </div>
         </CardContent>
       </Card>
     </Grid>
   );
 }
+
+ClassCard.propTypes = {
+  classroom: PropTypes.object.isRequired,
+  leaveClass: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  getClass: PropTypes.func.isRequired
+};
+
+export default connect(null, { leaveClass, getClass })(ClassCard);

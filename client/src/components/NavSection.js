@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
@@ -7,6 +8,7 @@ import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
 // material
 import { alpha, useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
 import { Box, List, ListItem, Collapse, ListItemText, ListItemIcon } from '@material-ui/core';
+import { getClass } from '../actions/classroom';
 
 // ----------------------------------------------------------------------
 
@@ -46,10 +48,11 @@ const ListItemIconStyle = styled(ListItemIcon)({
 
 NavItem.propTypes = {
   item: PropTypes.object,
-  active: PropTypes.func
+  active: PropTypes.func,
+  getClass: PropTypes.func
 };
 
-function NavItem({ item, active }) {
+function NavItem({ item, active, getClass }) {
   const theme = useTheme();
   const isActiveRoot = active(item.path);
   const { title, path, icon, info, children } = item;
@@ -93,12 +96,13 @@ function NavItem({ item, active }) {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List disablePadding>
             {children.map((item) => {
-              const { title, path } = item;
+              const { title, path, code } = item;
               const isActiveSub = active(path);
 
               return (
                 <ListItemStyle
                   key={title}
+                  onClick={() => getClass(code)}
                   component={RouterLink}
                   to={path}
                   sx={{
@@ -150,10 +154,11 @@ function NavItem({ item, active }) {
 }
 
 NavSection.propTypes = {
-  navConfig: PropTypes.array
+  navConfig: PropTypes.array,
+  getClass: PropTypes.func.isRequired
 };
 
-export default function NavSection({ navConfig, ...other }) {
+function NavSection({ navConfig, getClass, ...other }) {
   const { pathname } = useLocation();
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
 
@@ -161,9 +166,11 @@ export default function NavSection({ navConfig, ...other }) {
     <Box {...other}>
       <List disablePadding>
         {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
+          <NavItem key={item.title} item={item} active={match} getClass={getClass} />
         ))}
       </List>
     </Box>
   );
 }
+
+export default connect(null, { getClass })(NavSection);

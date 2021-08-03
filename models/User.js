@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     avatarURL: { type: String },
-    joinedClasses: [{ type: mongoose.Schema.Types.ObjectID, ref: 'Classroom ' }]
+    joinedClasses: [{ type: String, ref: 'Classroom ' }]
   },
   {
     timestamps: true //so that we have createdAt and updatedAt fields
