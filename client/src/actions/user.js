@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 import {
   CREATE_CLASS,
   JOIN_CLASS,
@@ -10,6 +10,16 @@ import {
 } from './actionTypes';
 
 const config = { headers: { 'Content-Type': 'application/json' } };
+
+const settings = {
+  position: 'bottom-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined
+};
 
 // Get current user classes
 export const getClasses = () => async (dispatch) => {
@@ -30,8 +40,10 @@ export const createClass = (formData) => async (dispatch) => {
   dispatch({ type: AUTH_RESET });
   try {
     const res = await axios.post('/api/classrooms/', formData, config);
+    toast.success('Class Created !', settings);
     dispatch({ type: CREATE_CLASS, payload: res.data });
   } catch (err) {
+    toast.error(err.response.statusText, settings);
     dispatch({
       type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
@@ -47,11 +59,14 @@ export const leaveClass =
     const config = { headers: { 'Content-Type': 'application/json' } };
     try {
       await axios.delete(`/api/classrooms/${code}`, config);
+      toast.success('Class Removed !', settings);
+
       dispatch({ type: LEAVE_CLASS, payload: code });
       if (redirect) {
         history.push('/dashboard');
       }
     } catch (err) {
+      toast.error(err.response.statusText, settings);
       dispatch({
         type: AUTH_ERROR,
         payload: { msg: err.response.statusText, status: err.response.status }
@@ -64,11 +79,14 @@ export const joinClass = (code, history) => async (dispatch) => {
   dispatch({ type: AUTH_RESET });
   try {
     const res = await axios.post(`/api/classrooms/${code}`, config);
+    toast.success('Class Added !', settings);
+
     dispatch({ type: JOIN_CLASS, payload: res.data });
     if (history) {
       history.push('/dashboard');
     }
   } catch (err) {
+    toast.error(err.response.statusText, settings);
     dispatch({
       type: AUTH_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

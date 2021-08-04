@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Icon } from '@iconify/react';
-
+import { toast } from 'react-toastify';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import linkFill from '@iconify/icons-eva/link-fill';
 // material
@@ -50,14 +50,30 @@ const CoverImgStyle = styled('img')({
 });
 
 // ----------------------------------------------------------------------
-
+const settings = {
+  position: 'bottom-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined
+};
 ClassCard.propTypes = {
   classroom: PropTypes.object.isRequired
 };
 
 function ClassCard({ classroom }) {
   const { cover, title, author, code, subject, subCode } = classroom;
-  console.log(cover);
+  const onLinkClick = () => {
+    const inputc = document.body.appendChild(document.createElement('input'));
+    inputc.value = `${window.location.origin}/join/info?code=${code}`;
+    inputc.focus();
+    inputc.select();
+    document.execCommand('copy');
+    inputc.parentNode.removeChild(inputc);
+    toast.success('Invite Link Copied', settings);
+  };
   return (
     <Grid item md={12} xs={12}>
       <Card sx={{ position: 'relative' }}>
@@ -98,6 +114,7 @@ function ClassCard({ classroom }) {
               <Button
                 variant="contained"
                 style={{ width: 130 }}
+                onClick={onLinkClick}
                 startIcon={<Icon icon={linkFill} />}
               >
                 Invite Link
@@ -108,6 +125,7 @@ function ClassCard({ classroom }) {
                 style={{ position: 'absolute', bottom: 0 }}
                 variant="contained"
                 startIcon={<Icon icon={plusFill} />}
+                href={`${window.location.origin}/test/create/info?code=${code}`}
               >
                 New Test
               </Button>
