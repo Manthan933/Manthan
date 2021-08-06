@@ -16,4 +16,6 @@ export const LEAVE_CLASS = 'LEAVE_CLASS';
 export const EDIT_CLASS = 'EDIT_CLASS';
 export const CLASSES_LOADED = 'CLASSES_LOADED';
 export const REMOVE_USER = 'REMOVE_USER';
+export const GET_USER = 'GET_USER';
+export const SHOW_USER = 'SHOW_USER';
 export const CLASS_ERROR = 'CLASS_ERROR';

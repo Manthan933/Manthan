@@ -60,10 +60,11 @@ const settings = {
   progress: undefined
 };
 ClassCard.propTypes = {
-  classroom: PropTypes.object.isRequired
+  classroom: PropTypes.object.isRequired,
+  admin: PropTypes.bool.isRequired
 };
 
-function ClassCard({ classroom }) {
+function ClassCard({ classroom, admin }) {
   const { cover, title, author, code, subject, subCode } = classroom;
   const onLinkClick = () => {
     const inputc = document.body.appendChild(document.createElement('input'));
@@ -98,7 +99,7 @@ function ClassCard({ classroom }) {
             <TitleStyle style={{ flex: 'auto' }} color="inherit" variant="h4">
               {title}
             </TitleStyle>
-            <ClassCardPopover />
+            {admin ? <ClassCardPopover code={code} /> : null}
           </div>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 'auto' }}>
@@ -121,14 +122,16 @@ function ClassCard({ classroom }) {
               </Button>
             </div>
             <InfoStyle>
-              <Button
-                style={{ position: 'absolute', bottom: 0 }}
-                variant="contained"
-                startIcon={<Icon icon={plusFill} />}
-                href={`${window.location.origin}/test/create/info?code=${code}`}
-              >
-                New Test
-              </Button>
+              {admin ? (
+                <Button
+                  style={{ position: 'absolute', bottom: 0 }}
+                  variant="contained"
+                  startIcon={<Icon icon={plusFill} />}
+                  href={`${window.location.origin}/test/create/info?code=${code}`}
+                >
+                  New Test
+                </Button>
+              ) : null}
             </InfoStyle>
           </div>
         </CardContent>

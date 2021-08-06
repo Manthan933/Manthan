@@ -1,17 +1,11 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Icon } from '@iconify/react';
-import { Link as RouterLink } from 'react-router-dom';
-
-import leaveFill from '@iconify/icons-eva/trash-2-fill';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { IconButton, Link, Card, Grid, Button, Typography, CardContent } from '@material-ui/core';
-import { leaveClass } from '../../actions/user';
+import { Card, Grid, Button, Typography, CardContent } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 
-const TitleStyle = styled(Link)({
+const TitleStyle = styled(Typography)({
   height: 30,
   overflow: 'hidden',
   WebkitLineClamp: 2,
@@ -27,25 +21,19 @@ const InfoStyle = styled('div')({
 
 // ----------------------------------------------------------------------
 
-ClassCard.propTypes = {
+TestCard.propTypes = {
   classroom: PropTypes.object.isRequired,
-  leaveClass: PropTypes.func.isRequired
+  admin: PropTypes.bool.isRequired
 };
 
-function ClassCard({ classroom, leaveClass }) {
-  const { title, code, subject } = classroom;
+function TestCard({ classroom, admin }) {
+  const { title, subject } = classroom;
 
   return (
     <Grid item xs={12} sm={6} md={6}>
       <Card sx={{ position: 'relative' }}>
         <CardContent>
-          <TitleStyle
-            to={`/classroom/${code}`}
-            color="inherit"
-            variant="h5"
-            underline="hover"
-            component={RouterLink}
-          >
+          <TitleStyle color="inherit" variant="h5" underline="hover">
             {title}
           </TitleStyle>
           <div style={{ display: 'flex' }}>
@@ -58,14 +46,14 @@ function ClassCard({ classroom, leaveClass }) {
               {subject !== '' ? `Subject : ${subject}` : ' '}
             </Typography>
             <InfoStyle>
-              {true ? (
-                <Button disableElevation variant="contained">
-                  Start Test
+              {admin ? (
+                <Button href="/scores/info?test=test" disableElevation variant="contained">
+                  Check Scores
                 </Button>
               ) : (
-                <IconButton onClick={() => leaveClass(code)} color="error">
-                  <Icon icon={leaveFill} />
-                </IconButton>
+                <Button href="/test/info?test=test" disableElevation variant="contained">
+                  Start Test
+                </Button>
               )}
             </InfoStyle>
           </div>
@@ -75,4 +63,4 @@ function ClassCard({ classroom, leaveClass }) {
   );
 }
 
-export default connect(null, { leaveClass })(ClassCard);
+export default TestCard;

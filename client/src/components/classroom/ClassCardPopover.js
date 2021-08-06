@@ -1,41 +1,26 @@
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
-import personFill from '@iconify/icons-eva/person-fill';
-import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 import trash2Fill from '@iconify/icons-eva/trash-2-fill';
 
 import moreVerticalFill from '@iconify/icons-eva/more-vertical-fill';
-import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // material
 import { alpha } from '@material-ui/core/styles';
 import { Box, MenuItem, IconButton } from '@material-ui/core';
 // components
 import MenuPopover from '../MenuPopover';
+import { leaveClass } from '../../actions/user';
+import EditClass from './EditClass';
 
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
-  {
-    label: 'Remove Students',
-    icon: personFill,
-    linkTo: '/users'
-  },
-  {
-    label: 'Edit Details',
-    icon: settings2Fill,
-    linkTo: '#'
-  },
-  {
-    label: 'Delete Classroom',
-    icon: trash2Fill,
-    linkTo: '#'
-  }
-];
-
 // ----------------------------------------------------------------------
 
-function ClassCardPopover() {
+function ClassCardPopover({ leaveClass, code }) {
   const anchorRef = useRef(null);
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -43,7 +28,10 @@ function ClassCardPopover() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const leave = () => {
+    leaveClass(code);
+    navigate('/dashboard');
+  };
   return (
     <>
       <IconButton
@@ -75,29 +63,27 @@ function ClassCardPopover() {
         anchorEl={anchorRef.current}
         sx={{ width: 220 }}
       >
-        {MENU_OPTIONS.map((option) => (
-          <MenuItem
-            key={option.label}
-            to={option.linkTo}
-            component={RouterLink}
-            onClick={handleClose}
-            sx={{ typography: 'body2', py: 1, px: 2.5 }}
-          >
-            <Box
-              component={Icon}
-              icon={option.icon}
-              sx={{
-                mr: 2,
-                width: 24,
-                height: 24
-              }}
-            />
-            {option.label}
-          </MenuItem>
-        ))}
+        <EditClass code={code} />
+        <MenuItem onClick={leave} sx={{ typography: 'body2', py: 1, px: 2.5 }}>
+          <Box
+            component={Icon}
+            icon={trash2Fill}
+            sx={{
+              mr: 2,
+              width: 24,
+              height: 24
+            }}
+          />
+          Delete Classroom
+        </MenuItem>
       </MenuPopover>
     </>
   );
 }
 
-export default ClassCardPopover;
+ClassCardPopover.propTypes = {
+  leaveClass: PropTypes.func.isRequired,
+  code: PropTypes.string.isRequired
+};
+
+export default connect(null, { leaveClass })(ClassCardPopover);

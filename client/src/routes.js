@@ -14,6 +14,7 @@ import NotFound from './pages/Page404';
 import Classroom from './pages/Classroom';
 import JoinClass from './pages/JoinClass';
 import CreateTest from './pages/CreateTest';
+import Test from './pages/Test';
 // ----------------------------------------------------------------------
 
 const Github = () => {
@@ -53,7 +54,7 @@ function Router({ auth: { isAuthenticated, loading }, classroom }) {
       element: Private(<DashboardLayout />, <Navigate to="/login" />),
       children: [
         { path: '/create/*', element: <CreateTest /> },
-        { path: '/*', element: <Classroom /> }
+        { path: '/*', element: <Test /> }
       ]
     },
     {

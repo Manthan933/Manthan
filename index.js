@@ -23,6 +23,7 @@ app.get('/api', (req, res) => {
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/classrooms', require('./routes/api/classrooms'));
+app.use('/api/tests', require('./routes/api/tests'));
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

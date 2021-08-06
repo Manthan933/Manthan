@@ -7,7 +7,7 @@ import { Stack, TextField, IconButton, Button } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 
-function QuestionForm({ handleBack, handleNext, questions, setQuestion }) {
+function QuestionForm({ handleBack, handleNext, questions, setQuestion, testId }) {
   const ques = {
     question: '',
     type: 1,
@@ -15,7 +15,8 @@ function QuestionForm({ handleBack, handleNext, questions, setQuestion }) {
     option2: '',
     option3: '',
     option4: '',
-    answer: ''
+    answer: '',
+    testId
   };
 
   const AddQuestion = () => {
@@ -148,7 +149,8 @@ QuestionForm.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   setQuestion: PropTypes.func.isRequired,
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.array.isRequired,
+  testId: PropTypes.string.isRequired
 };
 
 export default QuestionForm;

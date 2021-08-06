@@ -34,19 +34,18 @@ function Review({ handleBack, handleSubmit, details, questions, rules }) {
             <li key={index}>
               <Stack spacing={1}>
                 <Typography variant="subtitle1">{curr.question}</Typography>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                  <Typography variant="subtitle1">a. {curr.option1}</Typography>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={15}>
+                  <Typography variant="subtitle1">(a) {curr.option1}</Typography>
 
-                  <Typography variant="subtitle1">b. {curr.option2}</Typography>
+                  <Typography variant="subtitle1">(b) {curr.option2}</Typography>
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                  <Typography variant="subtitle1">c. {curr.option3}</Typography>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={15}>
+                  <Typography variant="subtitle1">(c) {curr.option3}</Typography>
 
-                  <Typography variant="subtitle1">d. {curr.option4}</Typography>
+                  <Typography variant="subtitle1">(d) {curr.option4}</Typography>
                 </Stack>
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={15}>
                   <Typography variant="subtitle1">Ans : {curr.answer}</Typography>
-
                   <Typography variant="subtitle1">Type : {curr.type}</Typography>
                 </Stack>
               </Stack>

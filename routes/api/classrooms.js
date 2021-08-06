@@ -108,7 +108,7 @@ router.patch('/:code', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   // destructure the request
-  const { title, subject, subcode, cover } = req.body;
+  const { title, subject, subCode, cover } = req.body;
   try {
     const classroom = await Classroom.findOne({
       code: req.params.code,
@@ -122,7 +122,7 @@ router.patch('/:code', auth, async (req, res) => {
     }
     const editedClass = await Classroom.findOneAndUpdate(
       { code: req.params.code },
-      { $set: { title: title, subcode: subcode, subject: subject, cover: cover } },
+      { $set: { title: title, subCode: subCode, subject: subject, cover: cover } },
       { new: true }
     );
     res.json(editedClass);
@@ -206,7 +206,7 @@ router.delete('/:code/:user', auth, async (req, res) => {
 router.get('/users/:code', auth, async (req, res) => {
   try {
     const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
-    return res.json(users);
+    return res.json(joinedUsers);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ msg: 'Server error' });

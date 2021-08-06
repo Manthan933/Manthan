@@ -52,27 +52,21 @@ export const createClass = (formData) => async (dispatch) => {
 };
 
 // Leave current class
-export const leaveClass =
-  (code, history, redirect = false) =>
-  async (dispatch) => {
-    dispatch({ type: AUTH_RESET });
-    const config = { headers: { 'Content-Type': 'application/json' } };
-    try {
-      await axios.delete(`/api/classrooms/${code}`, config);
-      toast.success('Class Removed !', settings);
-
-      dispatch({ type: LEAVE_CLASS, payload: code });
-      if (redirect) {
-        history.push('/dashboard');
-      }
-    } catch (err) {
-      toast.error(err.response.statusText, settings);
-      dispatch({
-        type: AUTH_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
-    }
-  };
+export const leaveClass = (code) => async (dispatch) => {
+  dispatch({ type: AUTH_RESET });
+  const config = { headers: { 'Content-Type': 'application/json' } };
+  try {
+    await axios.delete(`/api/classrooms/${code}`, config);
+    toast.success('Class Removed !', settings);
+    dispatch({ type: LEAVE_CLASS, payload: code });
+  } catch (err) {
+    toast.error(err.response.statusText, settings);
+    dispatch({
+      type: AUTH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
 // Join new class
 export const joinClass = (code, history) => async (dispatch) => {

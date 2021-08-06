@@ -1,7 +1,18 @@
 import axios from 'axios';
-import { GET_CLASS, EDIT_CLASS, REMOVE_USER, CLASS_ERROR, CLASS_RESET } from './actionTypes';
+import { toast } from 'react-toastify';
+import { GET_CLASS, EDIT_CLASS, CLASS_ERROR, CLASS_RESET } from './actionTypes';
 
 const config = { headers: { 'Content-Type': 'application/json' } };
+
+const settings = {
+  position: 'bottom-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined
+};
 // Get current class
 export const getClass = (code) => async (dispatch) => {
   console.log('here');
@@ -19,51 +30,17 @@ export const getClass = (code) => async (dispatch) => {
   }
 };
 
-// // Edit current class
-// export const editClass = (code, config) => async (dispatch) => {
-//   dispatch({ type: CLASS_RESET });
-//   try {
-//     const res = await axios.patch(`/classrooms/${code}`, config);
-//     dispatch(setAlert('Class details updated.', 'danger'));
-//     dispatch({ type: EDIT_CLASS, payload: res.data });
-//   } catch (err) {
-//     dispatch({
-//       type: CLASS_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
-//
-
-//
-
-// Get current class users
-// export const getUsers = (code) => async (dispatch) => {
-//   try {
-//     const res = await axios.get(`/classrooms/${code}/users`);
-//     dispatch({
-//       type: GET_USERS,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: CLASS_ERROR,
-//       payload: { msg: err.response.statusText, status: err.response.status }
-//     });
-//   }
-// };
-
-// Delete current class users
-// export const removeUser = (code, user) => async (dispatch) => {
-//   try {
-//     await axios.delete(`/classrooms/${code}/${user._id}`);
-//     const res = await axios.get(`/classrooms/${code}/users`);
-//     dispatch(setAlert(`${user.email} sucessfully removed.`, 'danger'));
-//     dispatch({
-//       type: REMOVE_USERS,
-//       payload: res.data
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+// Edit current class
+export const editClass = (code, data) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
+  try {
+    const res = await axios.patch(`/api/classrooms/${code}`, data, config);
+    toast.success('Class Details Updated !', settings);
+    dispatch({ type: EDIT_CLASS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: CLASS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};

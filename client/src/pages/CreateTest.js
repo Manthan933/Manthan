@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 // material
 import { Stepper, Step, StepLabel, Stack, Container, Typography } from '@material-ui/core';
+import uuid from 'uuid/dist/v5';
 // components
 import Page from '../components/Page';
-import TestForm from '../components/createTest/TestForm';
+import DetailsForm from '../components/createTest/DetailsForm';
 import QuestionForm from '../components/createTest/QuestionForm';
 import RulesForm from '../components/createTest/RulesFrom';
 import Review from '../components/createTest/Review';
-
+import { parseURLParams } from '../utils/parseUrlParams';
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -35,11 +36,21 @@ function getStepContent(
   questions,
   setQuestion,
   rules,
-  setRules
+  setRules,
+  code,
+  testId
 ) {
   switch (stepIndex) {
     case 0:
-      return <TestForm handleBack={handleBack} handleNext={handleNext} setDetails={setDetails} />;
+      return (
+        <DetailsForm
+          handleBack={handleBack}
+          handleNext={handleNext}
+          setDetails={setDetails}
+          code={code}
+          testId={testId}
+        />
+      );
     case 1:
       return (
         <QuestionForm
@@ -47,6 +58,7 @@ function getStepContent(
           handleNext={handleNext}
           questions={questions}
           setQuestion={setQuestion}
+          testId={testId}
         />
       );
     case 2:
@@ -73,6 +85,8 @@ function getStepContent(
   }
 }
 export default function CreateTest() {
+  const code = parseURLParams(String(window.location));
+  const testId = uuid();
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const [details, setDetails] = useState(null);
@@ -119,7 +133,9 @@ export default function CreateTest() {
               questions,
               setQuestion,
               rules,
-              setRules
+              setRules,
+              code,
+              testId
             )}
           </Typography>
         </ContentStyle>

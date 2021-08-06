@@ -1,15 +1,9 @@
-import {
-  GET_CLASS,
-  EDIT_CLASS,
-  REMOVE_USER,
-  CLASS_ERROR,
-  CLASS_RESET
-} from '../actions/actionTypes';
+import { GET_CLASS, EDIT_CLASS, CLASS_ERROR, CLASS_RESET } from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
   currClass: null,
-  users: []
+  tests: []
 };
 
 // switch case block and then returning data acc to the action type
@@ -19,11 +13,13 @@ export default function ClassReducer(state = initialState, action) {
       return {
         ...state,
         currClass: null,
-        users: [],
+
         loading: false
       };
     }
-    case GET_CLASS: {
+
+    case GET_CLASS:
+    case EDIT_CLASS: {
       return {
         ...state,
         currClass: action.payload,
