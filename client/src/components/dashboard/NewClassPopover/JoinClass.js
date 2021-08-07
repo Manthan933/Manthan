@@ -65,9 +65,7 @@ function JoinClass({ joinClass }) {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" onClick={handleClose}>
-                Join
-              </Button>
+              <Button type="submit">Join</Button>
             </DialogActions>
           </Form>
         </FormikProvider>

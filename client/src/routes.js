@@ -9,7 +9,7 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
-import User from './pages/User';
+import Scores from './pages/User';
 import NotFound from './pages/Page404';
 import Classroom from './pages/Classroom';
 import JoinClass from './pages/JoinClass';
@@ -45,7 +45,7 @@ function Router({ auth: { isAuthenticated, loading }, classroom }) {
       path: '/class',
       element: Private(<DashboardLayout />, <Navigate to="/login" />),
       children: [
-        { path: '/score/', element: <User /> },
+        { path: '/score/*', element: <Scores /> },
         { path: '/*', element: <Classroom /> }
       ]
     },

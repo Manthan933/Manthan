@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 import {
   Radio,
@@ -10,37 +11,51 @@ import {
   Typography
 } from '@material-ui/core';
 
-function App() {
-  const name = 'selectedOption';
+TestForm.propTypes = {
+  count: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+};
 
+function TestForm({ count, data, handleSubmit }) {
+  if (count === 2) {
+    document.getElementById('submit').click();
+  }
+  const defaultValues = {};
+  data.forEach((ques) => {
+    defaultValues[ques._id] = '';
+  });
   return (
     <Formik
-      initialValues={{
-        selectedOption: ''
+      initialValues={defaultValues}
+      onSubmit={(values) => {
+        console.log(values);
+        handleSubmit(values);
       }}
-      onSubmit={() => {}}
     >
       {({ setFieldValue }) => (
         <Form>
-          <FormControl component="fieldset" style={{ width: '100%' }}>
-            <Typography variant="h6">1 . Selected Option</Typography>
-            <RadioGroup
-              name={name}
-              onChange={(event) => {
-                setFieldValue(name, event.currentTarget.value);
-              }}
-              style={{ width: '70%' }}
-            >
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-                <FormControlLabel value="Option1" control={<Radio />} label="Option 1" />
-                <FormControlLabel value="Option2" control={<Radio />} label="Option 2" />
-              </Stack>
-              <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
-                <FormControlLabel value="Option3" control={<Radio />} label="Option 3" />
-                <FormControlLabel value="Option4" control={<Radio />} label="Option 4" />
-              </Stack>
-            </RadioGroup>
-          </FormControl>
+          {data.map((ques, index) => (
+            <FormControl key={index} component="fieldset" style={{ width: '100%' }}>
+              <Typography variant="h6">{`${index + 1} . ${ques.question}`}</Typography>
+              <RadioGroup
+                name={ques._id}
+                onChange={(event) => {
+                  setFieldValue(ques._id, event.currentTarget.value);
+                }}
+                style={{ width: '70%' }}
+              >
+                <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
+                  <FormControlLabel value={ques.option1} control={<Radio />} label={ques.option1} />
+                  <FormControlLabel value={ques.option2} control={<Radio />} label={ques.option2} />
+                </Stack>
+                <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between">
+                  <FormControlLabel value={ques.option3} control={<Radio />} label={ques.option3} />
+                  <FormControlLabel value={ques.option4} control={<Radio />} label={ques.option4} />
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+          ))}
           <div style={{ display: 'flex', justifyContent: 'end' }}>
             <Button
               disableElevation
@@ -48,6 +63,7 @@ function App() {
               variant="contained"
               color="primary"
               type="submit"
+              id="submit"
             >
               Submit
             </Button>
@@ -58,4 +74,4 @@ function App() {
   );
 }
 
-export default App;
+export default TestForm;

@@ -1,32 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Stack, Typography } from '@material-ui/core';
 
-export default function Timer() {
-  const [seconds, setSeconds] = React.useState(10);
-  const [minutes, setMinutes] = React.useState(1);
-  const [hours, setHours] = React.useState(0);
+Timer.propTypes = {
+  timer: PropTypes.array.isRequired,
+  setTimer: PropTypes.func.isRequired
+};
 
+export default function Timer({ timer, setTimer }) {
   React.useEffect(() => {
-    if (hours === 0 && minutes === 0 && seconds === 0) {
-      window.alert('Time UP !!!!');
-    }
-    if (seconds === 0 && minutes === 0) {
+    if (timer[0] === 0 && timer[1] === 0 && timer[2] === 0) {
+      setTimer([0, 0, 0]);
+    } else if (timer[2] === 0 && timer[1] === 0) {
       setTimeout(() => {
-        setSeconds(59);
-        setMinutes(59);
-        if (hours > 0) setHours(hours - 1);
+        setTimer([timer[0] - 1, 59, 59]);
       }, 1000);
-    }
-    if (seconds === 0) {
+    } else if (timer[2] === 0) {
       setTimeout(() => {
-        setSeconds(59);
-        if (minutes > 0) {
-          setMinutes(minutes - 1);
-        }
+        setTimer([timer[0], timer[1] - 1, 59]);
       }, 1000);
-    }
-    if (seconds > 0) {
-      setTimeout(() => setSeconds(seconds - 1), 1000);
+    } else if (timer[2] > 0) {
+      setTimeout(() => setTimer([timer[0], timer[1], timer[2] - 1]), 1000);
     }
   });
 
@@ -38,7 +32,7 @@ export default function Timer() {
       <Typography
         variant="h5"
         style={{ marginLeft: '10px', padding: '10px', border: '1px solid', borderRadius: 50 }}
-      >{`${hours} hrs : ${minutes} min : ${seconds} sec`}</Typography>
+      >{`${timer[0]} hrs : ${timer[1]} min : ${timer[2]} sec`}</Typography>
     </Stack>
   );
 }

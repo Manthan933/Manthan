@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router';
 // material
 import { Stepper, Step, StepLabel, Stack, Container, Typography } from '@material-ui/core';
-import uuid from 'uuid/dist/v5';
+import uuid from 'uuid/dist/v4';
 // components
 import Page from '../components/Page';
 import DetailsForm from '../components/createTest/DetailsForm';
@@ -10,6 +13,7 @@ import QuestionForm from '../components/createTest/QuestionForm';
 import RulesForm from '../components/createTest/RulesFrom';
 import Review from '../components/createTest/Review';
 import { parseURLParams } from '../utils/parseUrlParams';
+import { createTest } from '../actions/classroom';
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -84,8 +88,9 @@ function getStepContent(
       return 'Unknown stepIndex';
   }
 }
-export default function CreateTest() {
-  const code = parseURLParams(String(window.location));
+function CreateTest({ createTest }) {
+  const navigate = useNavigate();
+  const { code } = parseURLParams(String(window.location));
   const testId = uuid();
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
@@ -104,6 +109,8 @@ export default function CreateTest() {
   const handleSubmit = () => {
     const newTest = { details, questions, rules };
     console.log(newTest);
+    createTest(newTest);
+    navigate(`/class/info?code=${code}`);
   };
 
   return (
@@ -143,3 +150,9 @@ export default function CreateTest() {
     </Page>
   );
 }
+
+CreateTest.propTypes = {
+  createTest: PropTypes.func.isRequired
+};
+
+export default connect(null, { createTest })(CreateTest);

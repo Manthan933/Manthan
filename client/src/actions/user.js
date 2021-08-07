@@ -5,7 +5,7 @@ import {
   JOIN_CLASS,
   LEAVE_CLASS,
   CLASSES_LOADED,
-  AUTH_ERROR,
+  USER_ERROR,
   AUTH_RESET
 } from './actionTypes';
 
@@ -29,7 +29,7 @@ export const getClasses = () => async (dispatch) => {
     dispatch({ type: CLASSES_LOADED, payload: res.data });
   } catch (err) {
     dispatch({
-      type: AUTH_ERROR,
+      type: USER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -45,7 +45,7 @@ export const createClass = (formData) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.statusText, settings);
     dispatch({
-      type: AUTH_ERROR,
+      type: USER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -62,7 +62,7 @@ export const leaveClass = (code) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.statusText, settings);
     dispatch({
-      type: AUTH_ERROR,
+      type: USER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -82,7 +82,7 @@ export const joinClass = (code, history) => async (dispatch) => {
   } catch (err) {
     toast.error(err.response.statusText, settings);
     dispatch({
-      type: AUTH_ERROR,
+      type: USER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }

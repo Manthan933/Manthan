@@ -119,9 +119,7 @@ function CreateClass({ createClass }) {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" onClick={handleClose}>
-                Create
-              </Button>
+              <Button type="submit">Create</Button>
             </DialogActions>
           </Form>
         </FormikProvider>

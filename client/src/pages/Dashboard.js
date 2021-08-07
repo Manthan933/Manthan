@@ -19,7 +19,7 @@ function Dashboard({ auth: { classes } }) {
         </Stack>
         <Grid container spacing={3}>
           {classes.map((classroom, index) => (
-            <ClassCard key={classroom.id} classroom={classroom} index={index} />
+            <ClassCard key={classroom._id} classroom={classroom} index={index} />
           ))}
         </Grid>
       </Container>

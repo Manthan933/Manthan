@@ -170,47 +170,47 @@ router.delete('/:code', auth, async (req, res) => {
 // @desc     Delete user from classroom
 // @access   Private
 
-router.delete('/:code/:user', auth, async (req, res) => {
-  try {
-    const classroom = await Classroom.findOne({
-      code: req.params.code,
-      joinedUsers: req.user.id
-    });
-    if (!classroom) {
-      return res.status(400).json({ msg: 'Class does not exist.' });
-    }
-    if (classroom.author._id != req.user.id) {
-      return res.status(400).json({ msg: 'User not authorized.' });
-    }
-    await Classroom.findOneAndUpdate(
-      { code: req.params.code },
-      { $pull: { joinedUsers: { $in: req.params.user } } },
-      { new: true }
-    );
-    await User.findOneAndUpdate(
-      { _id: req.params.user },
-      { $pull: { joinedClasses: { $in: req.params.code } } },
-      { new: true }
-    );
-    return res.status(200).json({ msg: 'User Removed' });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: 'Server error' });
-  }
-});
-
+// router.delete('/:code/:user', auth, async (req, res) => {
+//   try {
+//     const classroom = await Classroom.findOne({
+//       code: req.params.code,
+//       joinedUsers: req.user.id
+//     });
+//     if (!classroom) {
+//       return res.status(400).json({ msg: 'Class does not exist.' });
+//     }
+//     if (classroom.author._id != req.user.id) {
+//       return res.status(400).json({ msg: 'User not authorized.' });
+//     }
+//     await Classroom.findOneAndUpdate(
+//       { code: req.params.code },
+//       { $pull: { joinedUsers: { $in: req.params.user } } },
+//       { new: true }
+//     );
+//     await User.findOneAndUpdate(
+//       { _id: req.params.user },
+//       { $pull: { joinedClasses: { $in: req.params.code } } },
+//       { new: true }
+//     );
+//     return res.status(200).json({ msg: 'User Removed' });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ msg: 'Server error' });
+//   }
+// });
+// 
 // @route    GET api/classroom/:code/:user
 // @desc     Get joinedUsers from classroom
 // @access   Private
-
-router.get('/users/:code', auth, async (req, res) => {
-  try {
-    const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
-    return res.json(joinedUsers);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: 'Server error' });
-  }
-});
+//
+//router.get('/users/:code', auth, async (req, res) => {
+//  try {
+//    const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
+//    return res.json(joinedUsers);
+//  } catch (error) {
+//    console.error(error);
+//    return res.status(500).json({ msg: 'Server error' });
+//  }
+//});
 
 module.exports = router;

@@ -11,7 +11,8 @@ import {
   AUTH_RESET,
   CREATE_CLASS,
   JOIN_CLASS,
-  LEAVE_CLASS
+  LEAVE_CLASS,
+  USER_ERROR
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -40,6 +41,11 @@ export default function AuthReducer(state = initialState, action) {
     case GOOGLEAUTH: {
       return state;
     }
+    case USER_ERROR:
+      return {
+        ...state,
+        loading: false
+      };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:

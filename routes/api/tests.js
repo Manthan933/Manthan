@@ -132,7 +132,7 @@ router.post('/', auth, async (req, res) => {
     await Question.insertMany(questions);
 
     await newTest.save();
-    return res.status(200).json({ msg: 'Test created sucessfully.' });
+    return res.status(200).json(newTest);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send('Server Error');
@@ -142,18 +142,18 @@ router.post('/', auth, async (req, res) => {
 // @route    GET api/test/:id
 // @desc     Generate test by id
 // @access   Private
-router.get('/id/:id', auth, async (req, res) => {
+router.get('/start/:id', auth, async (req, res) => {
   try {
     const test = await Test.findById(req.params.id);
     if (!test) {
       return res.status(400).json({ msg: 'Test does not exist.' });
     }
-    if (test.scores.find((ele) => req.user.id == ele.user._id)) {
+    if (test.scores.find((ele) => req.user.id == ele._id)) {
       return res.status(400).json({ msg: 'Test has been already attempted.' });
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
-      users: req.user.id
+      joinedUsers: req.user.id
     });
     if (!classroom) {
       return res.status(400).json({ msg: 'You have not been enrolled for this test.' });
@@ -163,8 +163,9 @@ router.get('/id/:id', auth, async (req, res) => {
     });
     const data = GenerateTest(questions, test.rules);
     res.json({
-      ...test,
-      data: data
+      data: data,
+      name: test.name,
+      duration: test.duration
     });
   } catch (err) {
     console.error(err.message);
@@ -179,44 +180,39 @@ router.post('/id/:id', auth, async (req, res) => {
   try {
     var score = {};
     var marks = 0;
-    const test = await Test.findById(req.params.id, {
-      rules: 1,
-      testId: 1,
-      scores: 1,
-      classroom: 1
-    });
+    const test = await Test.findById(req.params.id);
 
     if (!test) return res.status(400).json({ msg: 'Test does not exists.' });
 
-    if (!(await Classroom.findOne({ code: test.classroom, users: req.user.id }))) {
+    if (!(await Classroom.findOne({ code: test.classroom, joinedUsers: req.user.id }))) {
       return res.status(400).json({ msg: "You're not enrolled in this class." });
     }
 
-    if (test.scores.find((ele) => req.user.id == ele.user._id)) {
+    if (test.scores.find((ele) => req.user.id == ele._id)) {
       return res.status(400).json({ msg: 'Test has been already attempted.' });
     }
 
-    const answers = await Question.find({ test: test.id }, { answer: 1, type: 1 }).sort({
+    const ques = await Question.find({ testId: test.testId }, { answer: 1, type: 1 }).sort({
       type: 1
     });
-
-    answers.forEach((ele) => {
+    ques.forEach((ele) => {
+      if (isNaN(score[ele.type])) score[ele.type] = 0;
       if (req.body[ele._id] === ele.answer) {
-        if (isNaN(score[ele.type])) score[ele.type] = 0;
         score[ele.type] = score[ele.type] + 1;
       }
     });
-
     test.rules.forEach((rule) => {
       marks = marks + score[rule.type] * rule.marks;
     });
-
-    const user = await User.findById(req.user.id, {
+    const { name, _id, email, avatarURL } = await User.findById(req.user.id, {
       password: 0
     });
 
+    console.log({ name, _id, email, avatarURL, marks });
     await Test.findByIdAndUpdate(req.params.id, {
-      $push: { scores: { ...user, marks: marks } }
+      $push: {
+        scores: { name, _id, email, avatarURL, marks, maxMarks: parseFloat(test.marks, 10) }
+      }
     });
 
     res.status(200).send('Submitted');
@@ -237,12 +233,12 @@ router.delete('/id/:id', auth, async (req, res) => {
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
-      users: req.user.id
+      joinedUsers: req.user.id
     });
-    if (!classroom || classroom.admin._id != req.user.id) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+    if (!classroom || classroom.author._id != req.user.id) {
+      return res.status(400).json({ msg: 'Test does not existyha .' });
     }
-    await Question.deleteMany({ test: test.testId });
+    await Question.deleteMany({ testId: test.testId });
     await Test.findByIdAndDelete(req.params.id);
     res.status(200).send('Deleted');
   } catch (err) {
@@ -254,44 +250,28 @@ router.delete('/id/:id', auth, async (req, res) => {
 // @route    POST api/score/:id
 // @desc     GET Scores of current test
 // @access   Private
-// router.get('/score/:id', auth, async (req, res) => {
-//   try {
-//     const test = await Test.findById(req.params.id, {
-//       test: 1,
-//       classroom: 1,
-//       scores: 1
-//     });
-//     if (!test) {
-//       return res.status(400).json({ msg: 'Test does not exist.' });
-//     }
-//
-//     var isAdmin = await Classroom.findOne({ code: test.classroom }).then((value) => {
-//       return value.admin._id.toString() === req.user.id;
-//     });
-//
-//     if (!isAdmin)
-//       return res.status(400).json({ err: "You don't have Admin access to this classroom" });
-//
-//     var rows = [];
-//     test.scores.forEach((data) => {
-//       rows.push(
-//         createData(
-//           data.user.name,
-//           data.user.email,
-//           data.marks,
-//           test.test.marks,
-//           (data.marks / test.test.marks) * 100
-//         )
-//       );
-//     });
-//
-//     return res.status(200).json({ details: test.test, scores: rows });
-//   } catch (err) {
-//     console.error(err.message);
-//     return res.status(500).send('Server Error');
-//   }
-// });
+router.get('/id/:id', auth, async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.id, {
+      rules: 0
+    });
+    if (!test) {
+      return res.status(400).json({ msg: 'Test does not exist.' });
+    }
 
+    var isAdmin = await Classroom.findOne({ code: test.classroom }).then((value) => {
+      return value.author._id.toString() === req.user.id;
+    });
+
+    if (!isAdmin)
+      return res.status(400).json({ err: "You don't have Admin access to this classroom" });
+
+    return res.status(200).json(test);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send('Server Error');
+  }
+});
 // @route    POST api/addQuestionFromCsv
 // @desc     Add Questions from CSV file
 // @access   Private
