@@ -8,19 +8,21 @@
     "npm": "7.19.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/git/mandj.git"
+    "url": "git+https://github.com/Manthan933/Manthan.git"
   },
   "author": "Aavishkar Mishra",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/git/mandj/issues"
+    "url": "https://github.com/Manthan933/Manthan/issues"
   },
-  "homepage": "https://github.com/git/#readme",
+  "homepage": "https://github.com/Manthan933/Manthan/#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -37,6 +39,7 @@
     "react-file-base64": "^1.0.3"
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
     "nodemon": "^2.0.12"
   }
 }
