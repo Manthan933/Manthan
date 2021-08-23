@@ -1,171 +1,97 @@
-import api from '../utils/api';
-import { setAlert } from './alert';
-
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import {
-  GET_CLASSROOM,
-  GET_CLASSROOMS,
-  UPDATE_CLASSROOM,
-  CLASSROOM_ERROR,
-  GET_USERS,
-  REMOVE_USERS,
-  CREATE_CLASSROOM,
-  JOIN_CLASSROOM,
-  LEAVE_CLASSROOM
-} from './types';
+  GET_CLASS,
+  EDIT_CLASS,
+  CLASS_ERROR,
+  CLASS_RESET,
+  GET_TESTS,
+  CREATE_TEST,
+  DELETE_TEST
+} from './actionTypes';
 
-// Get current user classes
-export const getClasses = () => async (dispatch) => {
-  try {
-    const res = await api.get('/classrooms/');
-    dispatch({
-      type: GET_CLASSROOMS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: CLASSROOM_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
+const config = { headers: { 'Content-Type': 'application/json' } };
+
+const settings = {
+  position: 'bottom-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined
 };
-
-// Create new class
-export const CreateClass = (formData) => async (dispatch) => {
+// Get current class
+export const getClass = (code) => async (dispatch) => {
+  console.log('here');
+  dispatch({ type: CLASS_RESET });
   try {
-    const res = await api.post('/classrooms/', formData);
-    dispatch(setAlert('Class created sucessfully.', 'danger'));
-    dispatch({
-      type: CREATE_CLASSROOM,
-      payload: res.data
-    });
+    const res = await axios.get(`/api/classrooms/${code}`, config);
+    dispatch({ type: GET_CLASS, payload: res.data });
+    const test = await axios.get(`/api/tests/${code}`, config);
+    dispatch({ type: GET_TESTS, payload: test.data });
   } catch (err) {
-    dispatch({
-      type: CLASSROOM_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Leave current class
-export const LeaveClass = (code, history, redirect = false) => async (
-  dispatch
-) => {
-  try {
-    await api.delete(`/classrooms/${code}`);
-    dispatch(setAlert('Class sucessfully removed.', 'danger'));
-    dispatch({
-      type: LEAVE_CLASSROOM,
-      payload: code
-    });
-    if (redirect) {
-      history.push('/dashboard');
+    if (err.response) {
+      dispatch({
+        type: CLASS_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
     }
-  } catch (err) {
-    const errors = err.response.data;
-    console.log(err.response);
-    if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
-    }
-    dispatch({
-      type: CLASSROOM_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
   }
 };
 
 // Edit current class
-export const editClass = (code, config) => async (dispatch) => {
+export const editClass = (code, data) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
   try {
-    const res = await api.patch(`/classrooms/${code}`, config);
-    dispatch(setAlert('Class details updated.', 'danger'));
+    const res = await axios.patch(`/api/classrooms/${code}`, data, config);
+    toast.success('Class Details Updated !', settings);
+    dispatch({ type: EDIT_CLASS, payload: res.data });
+  } catch (err) {
     dispatch({
-      type: UPDATE_CLASSROOM,
+      type: CLASS_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+export const createTest = (test) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
+  try {
+    const res = await axios.post(`/api/tests`, test, config);
+    toast.success('Test created sucessfully.', settings);
+    dispatch({
+      type: CREATE_TEST,
       payload: res.data
     });
   } catch (err) {
     const errors = err.response.data;
     console.log(err.response);
     if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
+      toast.error(errors.msg, settings);
     }
     dispatch({
-      type: CLASSROOM_ERROR,
+      type: CLASS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
-// Join new class
-export const JoinClass = (code, history) => async (dispatch) => {
+// Delete current test
+export const deleteTest = (id) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
   try {
-    const res = await api.post(`/classrooms/${code}`);
-    dispatch(setAlert('Class sucessfully joined.', 'danger'));
-    dispatch({
-      type: JOIN_CLASSROOM,
-      payload: res.data
-    });
-    if (history) {
-      history.push('/dashboard');
-    }
+    await axios.delete(`/api/tests/id/${id}`, config);
+    toast.success('Test Deleted', settings);
+    dispatch({ type: DELETE_TEST, payload: id });
   } catch (err) {
     const errors = err.response.data;
-    console.log(err.response);
     if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
+      toast.error(errors.msg, settings);
     }
     dispatch({
-      type: CLASSROOM_ERROR,
+      type: CLASS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
-    if (history) {
-      history.push('/dashboard');
-    }
-  }
-};
-
-// Get current class
-export const getClass = (code) => async (dispatch) => {
-  try {
-    const res = await api.get(`/classrooms/${code}`);
-    dispatch({
-      type: GET_CLASSROOM,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: CLASSROOM_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Get current class users
-export const getUsers = (code) => async (dispatch) => {
-  try {
-    const res = await api.get(`/classrooms/${code}/users`);
-    dispatch({
-      type: GET_USERS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: CLASSROOM_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Delete current class users
-export const removeUser = (code, user) => async (dispatch) => {
-  try {
-    await api.delete(`/classrooms/${code}/${user._id}`);
-    const res = await api.get(`/classrooms/${code}/users`);
-    dispatch(setAlert(`${user.email} sucessfully removed.`, 'danger'));
-    dispatch({
-      type: REMOVE_USERS,
-      payload: res.data
-    });
-  } catch (err) {
-    console.log(err);
   }
 };

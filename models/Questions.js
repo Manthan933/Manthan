@@ -8,7 +8,7 @@ const QuestionSchema = new mongoose.Schema({
   option4: { type: String, required: true },
   answer: { type: String, required: true },
   type: { type: String, required: true },
-  test: { type: String, required: true }
+  testId: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Question', QuestionSchema);

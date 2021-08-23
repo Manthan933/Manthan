@@ -1,73 +1,88 @@
 import {
-  GET_CLASSROOMS,
-  GET_CLASSROOM,
-  GET_USERS,
-  REMOVE_USERS,
-  JOIN_CLASSROOM,
-  CREATE_CLASSROOM,
-  UPDATE_CLASSROOM,
-  LEAVE_CLASSROOM,
-  CLASSROOM_ERROR
-} from '../actions/types';
+  GET_CLASS,
+  EDIT_CLASS,
+  CLASS_ERROR,
+  CLASS_RESET,
+  GET_TESTS,
+  CREATE_TEST,
+  DELETE_TEST,
+  GET_TEST,
+  SUBMIT_TEST,
+  GET_USER
+} from '../actions/actionTypes';
 
 const initialState = {
-  classroom: null,
-  classrooms: [],
-  users: [],
-  loading: true,
-  error: {}
+  loading: false,
+  currClass: null,
+  currTest: null,
+  tests: [],
+  users: []
 };
 
-function classroomReducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_CLASSROOM:
-    case UPDATE_CLASSROOM:
+// switch case block and then returning data acc to the action type
+export default function ClassReducer(state = initialState, action) {
+  switch (action.type) {
+    case CLASS_ERROR: {
       return {
         ...state,
-        classroom: payload,
+        currClass: null,
         loading: false
       };
-    case GET_CLASSROOMS:
+    }
+    case GET_USER:
       return {
         ...state,
-        classrooms: payload,
+        users: action.payload,
         loading: false
       };
-    case JOIN_CLASSROOM:
-    case CREATE_CLASSROOM:
+    case GET_TESTS:
       return {
         ...state,
-        classrooms: [...state.classrooms, payload],
+        tests: action.payload,
         loading: false
       };
-
-    case LEAVE_CLASSROOM:
+    case GET_TEST:
       return {
         ...state,
-        classrooms: state.classrooms.filter(
-          (classroom) => classroom.code !== payload
-        ),
+        currTest: action.payload,
         loading: false
       };
-    case CLASSROOM_ERROR:
+    case SUBMIT_TEST:
       return {
         ...state,
-        error: payload,
-        loading: false,
-        classroom: null
-      };
-    case GET_USERS:
-    case REMOVE_USERS:
-      return {
-        ...state,
-        users: payload,
+        test: null,
         loading: false
       };
-    default:
+    case CREATE_TEST: {
+      return {
+        ...state,
+        tests: [...state.tests, action.payload],
+        loading: false
+      };
+    }
+    case DELETE_TEST: {
+      return {
+        ...state,
+        tests: state.tests.filter((test) => test._id !== action.payload),
+        loading: false
+      };
+    }
+    case GET_CLASS:
+    case EDIT_CLASS: {
+      return {
+        ...state,
+        currClass: action.payload,
+        loading: false
+      };
+    }
+    case CLASS_RESET: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
-
-export default classroomReducer;

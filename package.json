@@ -1,37 +1,45 @@
 {
   "name": "manthan",
-  "version": "1.0.0",
-  "description": "Online testing platform",
-  "main": "server.js",
+  "version": "2.1.0",
+  "description": "Online Testing Platform",
+  "main": "index.js",
   "engines": {
-    "node": "10.19.0",
-    "npm": "7.6.3"
+    "node": "14.17.3",
+    "npm": "7.19.1"
   },
   "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix client && npm run build --prefix client"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Brad Traversy",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manthan933/Manthan.git"
+  },
+  "author": "Aavishkar Mishra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manthan933/Manthan/issues"
+  },
+  "homepage": "https://github.com/Manthan933/Manthan/#readme",
   "dependencies": {
-    "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
-    "client": "file:client",
-    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-validator": "^6.8.1",
+    "express-validator": "^6.12.1",
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.8",
-    "normalize-url": "^5.3.0",
-    "randomatic": "^3.1.1"
+    "mongoose": "^5.13.5",
+    "multer": "^1.4.2",
+    "normalize": "^0.3.1",
+    "path": "^0.12.7",
+    "randomatic": "^3.1.1",
+    "react-file-base64": "^1.0.3"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.6"
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.12"
   }
 }

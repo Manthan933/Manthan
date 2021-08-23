@@ -1,50 +1,97 @@
+import jwtDecode from 'jwt-decode';
 import {
+  AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGOUT
-} from '../actions/types';
+  LOGOUT,
+  GOOGLEAUTH,
+  AUTH_RESET,
+  CREATE_CLASS,
+  JOIN_CLASS,
+  LEAVE_CLASS,
+  USER_ERROR
+} from '../actions/actionTypes';
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
-  loading: true,
+  loading: false,
+  classes: [],
   user: null
 };
 
-function authReducer(state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: payload
-      };
+// switch case block and then returning data acc to the action type
+export default function AuthReducer(state = initialState, action) {
+  switch (action.type) {
     case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
+    case LOGIN_SUCCESS: {
+      const decoded = jwtDecode(action.payload.token);
+      localStorage.setItem('userDet', JSON.stringify(decoded));
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
-        ...payload,
+        ...action.payload,
         isAuthenticated: true,
+        loading: true
+      };
+    }
+    case GOOGLEAUTH: {
+      return state;
+    }
+    case USER_ERROR:
+      return {
+        ...state,
         loading: false
       };
-
+    case REGISTER_FAIL:
     case AUTH_ERROR:
-    case LOGOUT:
+    case LOGIN_FAIL:
+    case LOGOUT: {
+      localStorage.removeItem('userDet');
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
-        user: null
+        loading: false
       };
-    default:
+    }
+    case USER_LOADED: {
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload.user,
+        classes: action.payload.classes,
+        loading: false
+      };
+    }
+    case CREATE_CLASS:
+    case JOIN_CLASS: {
+      return {
+        ...state,
+        classes: [...state.classes, action.payload],
+        loading: false
+      };
+    }
+    case LEAVE_CLASS: {
+      return {
+        ...state,
+        classes: state.classes.filter((classroom) => classroom.code !== action.payload),
+        loading: false
+      };
+    }
+
+    case AUTH_RESET: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    default: {
       return state;
+    }
   }
 }
-
-export default authReducer;

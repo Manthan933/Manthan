@@ -1,133 +1,109 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Icon } from '@iconify/react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Button } from '@material-ui/core';
-import { deleteTest } from '../../actions/test';
+import leaveFill from '@iconify/icons-eva/close-fill';
+import { useNavigate } from 'react-router';
+// material
+import { experimentalStyled as styled } from '@material-ui/core/styles';
+import { Card, Grid, Button, IconButton, Typography, CardContent } from '@material-ui/core';
+import { deleteTest } from '../../actions/classroom';
+import { getTest } from '../../actions/test';
 
-const useStyles = makeStyles({
-  root: {
-    borderRadius: '10px',
-    border: '1px solid rgba(0, 0, 0, 0.12)',
-    marginTop: 20
-  },
+// ----------------------------------------------------------------------
 
-  content: {
-    display: 'inline-flex',
-    width: '-moz-available'
-  },
-  details: {
-    flexGrow: ' 1',
-    marginInlineStart: '1.5%'
-  },
-  action: {
-    flexGrow: ' 1',
-    marginInlineStart: '1.5%',
-    position: 'relative'
-  },
-
-  button: {
-    width: 'max-content',
-    position: 'absolute',
-    right: 0,
-    bottom: 0
-  },
-  options: {
-    width: 'max-content',
-    position: 'absolute',
-    right: 0
-  }
+const TitleStyle = styled(Typography)({
+  height: 30,
+  overflow: 'hidden',
+  WebkitLineClamp: 2,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical'
 });
 
-const TestCard = ({ admin, test, id, deleteTest }) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const dueDate = new Date(test.dueDate);
-  const duration = new Date(test.duration);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+const InfoStyle = styled('div')({
+  display: 'block',
+  position: 'relative'
+});
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  return (
-    <Card className={classes.root}>
-      <CardContent className={classes.content}>
-        <div className={classes.details}>
-          <Typography variant="h4">{test.name}</Typography>
-          <Typography variant="subtitle1">Marks : {test.marks}</Typography>
-          <Typography variant="subtitle1">
-            Due Date : {dueDate.toLocaleDateString()}
-          </Typography>
-          <Typography variant="subtitle1">
-            {`Duration : ${duration.getHours()} hrs ${duration.getMinutes()} min`}
-          </Typography>
-        </div>
-        <div className={classes.action}>
-          {admin === true ? (
-            <>
-              <IconButton
-                className={classes.options}
-                aria-label="more"
-                aria-controls="long-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                keepMounted
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                  }}
-                >
-                  Check Scores
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    deleteTest(id);
-                    handleClose();
-                  }}
-                >
-                  Delete
-                </MenuItem>
-              </Menu>
-            </>
-          ) : null}
-          <Button
-            className={classes.button}
-            variant="contained"
-            color="primary"
-            disabled={!admin}
-            href={`/test/${id}`}
-          >
-            Start Test
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+// ----------------------------------------------------------------------
 
 TestCard.propTypes = {
   test: PropTypes.object.isRequired,
   admin: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
-  deleteTest: PropTypes.func.isRequired
+  email: PropTypes.string.isRequired,
+  deleteTest: PropTypes.func.isRequired,
+  getTest: PropTypes.func.isRequired
 };
 
-export default connect(null, { deleteTest })(TestCard);
+function TestCard({ test, admin, email, deleteTest, getTest }) {
+  const navigate = useNavigate();
+  const { name, marks, duration, scores, _id } = test;
+  const dueDate = new Date(test.dueDate);
+  const attempted = scores.filter((e) => e.email === email);
+  console.log(attempted);
+
+  const getUserButton = () => {
+    if (attempted.length > 0)
+      return <Button variant="contained">{`Marks : ${attempted[0].marks}`}</Button>;
+
+    return (
+      <Button href={`/test/info?test=${_id}`} disableElevation variant="contained">
+        Start Test
+      </Button>
+    );
+  };
+
+  const handleClick = () => {
+    getTest(_id);
+    navigate(`/class/score/info?test=${_id}`);
+  };
+
+  return (
+    <Grid item xs={12} sm={6} md={6}>
+      <Card sx={{ position: 'relative' }}>
+        <CardContent>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: 'auto' }}>
+              <TitleStyle color="inherit" variant="h5" underline="hover">
+                {name}
+              </TitleStyle>
+              <Typography color="inherit" variant="subtitle2" underline="hover">
+                {`Marks : ${marks}`}
+              </Typography>
+              <Typography color="inherit" variant="subtitle2" underline="hover">
+                {`Duration : ${duration.hrs} hrs ${duration.min} min`}
+              </Typography>
+              <Typography color="inherit" variant="subtitle2" underline="hover">
+                {`Due Date : ${dueDate.toLocaleDateString()}`}
+              </Typography>
+            </div>
+            <InfoStyle>
+              {admin ? (
+                <>
+                  <IconButton
+                    style={{ position: 'absolute', top: 0, right: 0 }}
+                    color="error"
+                    onClick={() => deleteTest(_id)}
+                  >
+                    <Icon icon={leaveFill} />
+                  </IconButton>
+                  <Button
+                    style={{ position: 'absolute', bottom: 0, right: 0, width: 'max-content' }}
+                    onClick={handleClick}
+                    disableElevation
+                    variant="contained"
+                  >
+                    Check Scores
+                  </Button>
+                </>
+              ) : (
+                getUserButton()
+              )}
+            </InfoStyle>
+          </div>
+        </CardContent>
+      </Card>
+    </Grid>
+  );
+}
+
+export default connect(null, { deleteTest, getTest })(TestCard);

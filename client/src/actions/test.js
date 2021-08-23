@@ -1,47 +1,32 @@
-import api from '../utils/api';
-import { setAlert } from './alert';
-import {
-  GET_TESTS,
-  GET_TEST,
-  CREATE_TEST,
-  SUBMIT_TEST,
-  DELETE_TEST,
-  TEST_ERROR
-} from './types';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { GET_TEST, SUBMIT_TEST, CLASS_ERROR, CLASS_RESET } from './actionTypes';
 
-// Get tests
-export const getTests = (code) => async (dispatch) => {
-  try {
-    const res = await api.get(`/tests/${code}`);
-    dispatch({
-      type: GET_TESTS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: TEST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
+const config = { headers: { 'Content-Type': 'application/json' } };
+
+const settings = {
+  position: 'bottom-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined
 };
 
-// Create test
-export const createTest = (code, history, test) => async (dispatch) => {
+// Start Current Test
+export const getTest = (id) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
   try {
-    await api.post(`/tests`, test);
-    dispatch(setAlert('Test created sucessfully.', 'danger'));
-    dispatch({
-      type: CREATE_TEST
-    });
-    history.push(`/class/${code}`);
+    const res = await axios.get(`/api/tests/id/${id}`, config);
+    dispatch({ type: GET_TEST, payload: res.data });
   } catch (err) {
     const errors = err.response.data;
-    console.log(err.response);
     if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
+      toast.error(errors.msg, settings);
     }
     dispatch({
-      type: TEST_ERROR,
+      type: CLASS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
@@ -49,8 +34,9 @@ export const createTest = (code, history, test) => async (dispatch) => {
 
 // Start Current Test
 export const startTest = (id) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
   try {
-    const res = await api.get(`/tests/id/${id}`);
+    const res = await axios.get(`/api/tests/start/${id}`);
     dispatch({
       type: GET_TEST,
       payload: res.data
@@ -59,21 +45,21 @@ export const startTest = (id) => async (dispatch) => {
     const errors = err.response.data;
     console.log(err.response);
     if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
+      toast.error(errors.msg, settings);
     }
     dispatch({
-      type: TEST_ERROR,
+      type: CLASS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
 // Submit current test
-export const submitTest = (id, history, response) => async (dispatch) => {
+export const submitTest = (id, response) => async (dispatch) => {
+  dispatch({ type: CLASS_RESET });
   try {
-    await api.post(`/tests/id/${id}`, response);
-    dispatch(setAlert('Test submitted sucessfully.', 'danger'));
-    history.push('/dashboard');
+    await axios.post(`/api/tests/id/${id}`, response, config);
+    toast.success('Test submitted sucessfully.', settings);
     dispatch({
       type: SUBMIT_TEST
     });
@@ -81,51 +67,10 @@ export const submitTest = (id, history, response) => async (dispatch) => {
     const errors = err.response.data;
     console.log(err.response);
     if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
+      toast.error(errors.msg, settings);
     }
     dispatch({
-      type: TEST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Delete current test
-export const deleteTest = (id) => async (dispatch) => {
-  try {
-    await api.delete(`/tests/id/${id}`);
-    dispatch(setAlert('Test Deleted.', 'danger'));
-    dispatch({
-      type: DELETE_TEST,
-      payload: id
-    });
-  } catch (err) {
-    const errors = err.response.data;
-    console.log(err.response);
-    if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
-    }
-    dispatch({
-      type: TEST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Add Questions from CSV
-export const addCSVQues = (data, addNewQuestions) => async (dispatch) => {
-  try {
-    const res = await api.post('/tests/addQuestionFromCsv', data);
-    addNewQuestions(res.data);
-    dispatch(setAlert('Questions Added', 'danger'));
-  } catch (err) {
-    const errors = err.response.data;
-    console.log(err.response);
-    if (errors) {
-      dispatch(setAlert(errors.msg, 'danger'));
-    }
-    dispatch({
-      type: TEST_ERROR,
+      type: CLASS_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
