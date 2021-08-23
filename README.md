@@ -107,16 +107,7 @@ These are the prerequisites required to run this application:
   cd Manthan
 ```
 
-2. Create .env file of format same as .env.example and add your mongo-uri there.
-
-```sh
-  MONGO_URI = //mongodb
-  PORT = 5050
-  JWT_SECRET = mysecret
-
-```
-
-3. To run the application in development server
+2. To run the application in development server
 
 ```sh
   cd client
@@ -174,3 +165,9 @@ Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)*
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/aavishkarmishra
 [product-screenshot]: images/screenshot.png
+
+## Our Contributors ✨:
+
+<a href="https://github.com/Manthan933/Manthan/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Manthan933/Manthan" />
+</a>
