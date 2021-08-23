@@ -33,7 +33,13 @@ function Review({ handleBack, handleSubmit, details, questions, rules }) {
           {questions.map((curr, index) => (
             <li key={index}>
               <Stack spacing={1}>
-                <Typography variant="subtitle1">{curr.question}</Typography>
+                <Typography variant="subtitle1">
+                  {curr.question.includes('data:image/') ? (
+                    <img src={curr.question} alt="question" />
+                  ) : (
+                    curr.question
+                  )}
+                </Typography>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={15}>
                   <Typography variant="subtitle1">(a) {curr.option1}</Typography>
 

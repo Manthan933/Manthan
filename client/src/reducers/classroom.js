@@ -7,14 +7,16 @@ import {
   CREATE_TEST,
   DELETE_TEST,
   GET_TEST,
-  SUBMIT_TEST
+  SUBMIT_TEST,
+  GET_USER
 } from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
   currClass: null,
   currTest: null,
-  tests: []
+  tests: [],
+  users: []
 };
 
 // switch case block and then returning data acc to the action type
@@ -27,6 +29,12 @@ export default function ClassReducer(state = initialState, action) {
         loading: false
       };
     }
+    case GET_USER:
+      return {
+        ...state,
+        users: action.payload,
+        loading: false
+      };
     case GET_TESTS:
       return {
         ...state,

@@ -198,19 +198,19 @@ router.delete('/:code', auth, async (req, res) => {
 //     return res.status(500).json({ msg: 'Server error' });
 //   }
 // });
-// 
+//
 // @route    GET api/classroom/:code/:user
 // @desc     Get joinedUsers from classroom
 // @access   Private
 //
-//router.get('/users/:code', auth, async (req, res) => {
-//  try {
-//    const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
-//    return res.json(joinedUsers);
-//  } catch (error) {
-//    console.error(error);
-//    return res.status(500).json({ msg: 'Server error' });
-//  }
-//});
+router.get('/users/:code', auth, async (req, res) => {
+  try {
+    const joinedUsers = await User.find({ joinedClasses: req.params.code }).select('-password');
+    return res.json(joinedUsers);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Server error' });
+  }
+});
 
 module.exports = router;

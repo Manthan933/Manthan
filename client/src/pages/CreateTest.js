@@ -5,7 +5,6 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router';
 // material
 import { Stepper, Step, StepLabel, Stack, Container, Typography } from '@material-ui/core';
-import uuid from 'uuid/dist/v4';
 // components
 import Page from '../components/Page';
 import DetailsForm from '../components/createTest/DetailsForm';
@@ -42,7 +41,8 @@ function getStepContent(
   rules,
   setRules,
   code,
-  testId
+  testId,
+  setTestId
 ) {
   switch (stepIndex) {
     case 0:
@@ -52,7 +52,7 @@ function getStepContent(
           handleNext={handleNext}
           setDetails={setDetails}
           code={code}
-          testId={testId}
+          setTestId={setTestId}
         />
       );
     case 1:
@@ -91,7 +91,7 @@ function getStepContent(
 function CreateTest({ createTest }) {
   const navigate = useNavigate();
   const { code } = parseURLParams(String(window.location));
-  const testId = uuid();
+  const [testId, setTestId] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
   const [details, setDetails] = useState(null);
@@ -142,7 +142,8 @@ function CreateTest({ createTest }) {
               rules,
               setRules,
               code,
-              testId
+              testId,
+              setTestId
             )}
           </Typography>
         </ContentStyle>

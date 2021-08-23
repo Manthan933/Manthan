@@ -20,9 +20,7 @@ const TitleStyle = styled(Typography)({
 });
 
 const InfoStyle = styled('div')({
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignContent: 'end',
+  display: 'block',
   position: 'relative'
 });
 
@@ -88,7 +86,12 @@ function TestCard({ test, admin, email, deleteTest, getTest }) {
                   >
                     <Icon icon={leaveFill} />
                   </IconButton>
-                  <Button onClick={handleClick} disableElevation variant="contained">
+                  <Button
+                    style={{ position: 'absolute', bottom: 0, right: 0, width: 'max-content' }}
+                    onClick={handleClick}
+                    disableElevation
+                    variant="contained"
+                  >
                     Check Scores
                   </Button>
                 </>

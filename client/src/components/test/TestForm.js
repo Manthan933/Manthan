@@ -37,7 +37,12 @@ function TestForm({ count, data, handleSubmit }) {
         <Form>
           {data.map((ques, index) => (
             <FormControl key={index} component="fieldset" style={{ width: '100%' }}>
-              <Typography variant="h6">{`${index + 1} . ${ques.question}`}</Typography>
+              <Typography variant="h6">{`${index + 1} . `} </Typography>
+              {ques.question.includes('data:image/') ? (
+                <img height="400px" width="auto" src={ques.question} alt="question" />
+              ) : (
+                <Typography variant="h6">{ques.question}</Typography>
+              )}
               <RadioGroup
                 name={ques._id}
                 onChange={(event) => {

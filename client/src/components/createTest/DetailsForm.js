@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useFormik, Form, FormikProvider } from 'formik';
+import uuid from 'uuid/dist/v4';
 // material
 import { Stack, TextField, Button } from '@material-ui/core';
 
@@ -10,7 +11,8 @@ import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import MobileDatePicker from '@material-ui/lab/MobileDatePicker';
 // ----------------------------------------------------------------------
 
-function TestForm({ handleBack, handleNext, setDetails, code, testId }) {
+function TestForm({ handleBack, handleNext, setDetails, code, setTestId }) {
+  const testId = uuid();
   const [dueDate, setDueDate] = useState(new Date());
   const RegisterSchema = Yup.object().shape({
     name: Yup.string()
@@ -33,6 +35,7 @@ function TestForm({ handleBack, handleNext, setDetails, code, testId }) {
     onSubmit: (values) => {
       console.log({ ...values, dueDate });
       setDetails({ ...values, dueDate, code, testId });
+      setTestId(testId);
       handleNext();
     }
   });
@@ -118,7 +121,7 @@ TestForm.propTypes = {
   handleNext: PropTypes.func.isRequired,
   setDetails: PropTypes.func.isRequired,
   code: PropTypes.string.isRequired,
-  testId: PropTypes.string.isRequired
+  setTestId: PropTypes.func.isRequired
 };
 
 export default TestForm;

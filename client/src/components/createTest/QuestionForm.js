@@ -1,11 +1,30 @@
 import { Icon } from '@iconify/react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import trashFill from '@iconify/icons-eva/trash-2-fill';
+import { useDropzone } from 'react-dropzone';
 // material
-import { Stack, TextField, IconButton, Button } from '@material-ui/core';
+import { Stack, TextField, IconButton, Button, Typography } from '@material-ui/core';
+import Resizer from 'react-image-file-resizer';
 
 // ----------------------------------------------------------------------
+
+const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      'JPEG',
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      'base64'
+    );
+  });
 
 function QuestionForm({ handleBack, handleNext, questions, setQuestion, testId }) {
   const ques = {
@@ -33,19 +52,62 @@ function QuestionForm({ handleBack, handleNext, questions, setQuestion, testId }
     setQuestion(list);
   };
 
+  const onDrop = async (acceptedFiles) => {
+    try {
+      const image = await resizeFile(acceptedFiles[0]);
+      const list = [...questions];
+      list[list.length - 1].question = image;
+      setQuestion(list);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'image/jpeg, image/png'
+  });
+
   return (
     <Stack spacing={3}>
       {questions.map((curr, index) => (
         <Stack key={index} spacing={2}>
-          <TextField
-            required
-            id="question"
-            name="question"
-            value={curr.question}
-            label={`Question ${index + 1}`}
-            fullWidth
-            onChange={(e) => handleChange(e, index)}
-          />
+          {curr.question.includes('data:image/') ? (
+            <img src={curr.question} alt="question" />
+          ) : (
+            <>
+              <TextField
+                required
+                id="question"
+                name="question"
+                value={curr.question}
+                label={`Question ${index + 1}`}
+                fullWidth
+                onChange={(e) => handleChange(e, index)}
+              />
+              <Typography>OR</Typography>
+            </>
+          )}
+          <section className="container">
+            <div
+              {...getRootProps({ className: 'dropzone' })}
+              style={{ padding: 15, borderRadius: 15, border: '2px dashed ' }}
+            >
+              <input {...getInputProps()} />
+              <Typography gutterBottom color="inherit" variant="title2" underline="hover">
+                Class cover
+              </Typography>
+              <Typography
+                sx={{ color: 'text.disabled', display: 'block' }}
+                variant="subtitle2"
+                underline="hover"
+              >
+                Drag and drop or click to select image
+              </Typography>
+              <Typography sx={{ color: 'text.disabled', display: 'block' }} variant="subtitle2">
+                ( Only *.jpeg and *.png format will be accepted )
+              </Typography>
+            </div>
+          </section>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <TextField
               required

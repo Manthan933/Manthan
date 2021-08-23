@@ -8,7 +8,6 @@ import {
   Table,
   Stack,
   Avatar,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -22,7 +21,7 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
+import { UserListHead, UserListToolbar } from '../components/_dashboard/user';
 import { getTest } from '../actions/test';
 import { parseURLParams } from '../utils/parseUrlParams';
 
@@ -31,8 +30,8 @@ import { parseURLParams } from '../utils/parseUrlParams';
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
-  { id: 'marks', label: 'Total Marks', alignRight: false },
   { id: 'achived', label: 'Marks', alignRight: false },
+  { id: 'marks', label: 'Total Marks', alignRight: false },
   { id: 'percent', label: 'Percentage (%)', alignRight: false }
 ];
 
@@ -99,24 +98,6 @@ function Scores({ classroom: { currTest }, getTest }) {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -130,8 +111,7 @@ function Scores({ classroom: { currTest }, getTest }) {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - scores.length) : 0;
-
+  const emptyRows = Math.max(0, (1 + page) * rowsPerPage - scores.length);
   const filteredUsers = applySortFilter(scores, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
@@ -180,12 +160,7 @@ function Scores({ classroom: { currTest }, getTest }) {
                           selected={isItemSelected}
                           aria-checked={isItemSelected}
                         >
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              checked={isItemSelected}
-                              onChange={(event) => handleClick(event, name)}
-                            />
-                          </TableCell>
+                          <TableCell padding="checkbox" />
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               <Avatar alt={name} src={avatarURL} />
@@ -204,10 +179,6 @@ function Scores({ classroom: { currTest }, getTest }) {
                             >
                               {`${(marks / maxMarks) * 100}%`}
                             </Label>
-                          </TableCell>
-
-                          <TableCell align="right">
-                            <UserMoreMenu />
                           </TableCell>
                         </TableRow>
                       );

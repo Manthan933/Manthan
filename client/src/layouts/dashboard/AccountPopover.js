@@ -15,16 +15,16 @@ import { logout } from '../../actions/auth';
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
-  {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: '#'
-  },
-  {
-    label: 'Settings',
-    icon: settings2Fill,
-    linkTo: '#'
-  }
+  // {
+  //    label: 'Profile',
+  //    icon: personFill,
+  //    linkTo: '#'
+  //  },
+  //  {
+  //    label: 'Settings',
+  //    icon: settings2Fill,
+  //    linkTo: '#'
+  // }
 ];
 
 // ----------------------------------------------------------------------
