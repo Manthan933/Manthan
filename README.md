@@ -100,7 +100,7 @@ These are the prerequisites required to run this application:
 
 <img src="https://media.giphy.com/media/kdiLau77NE9Z8vxGSO/giphy.gif" width="40%"><br>
 
-1. Clone the Manthan repository form github
+1. Clone the Manthan repository form GitHub
 
 ```sh
   git clone https://github.com/Manthan933/Manthan.git
@@ -121,11 +121,11 @@ These are the prerequisites required to run this application:
 
 ## Contributing 🖋
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what makes the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
@@ -133,8 +133,8 @@ Contributions are what make the open source community such an amazing place to b
 
 ## Contact Us 📞
 
-Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-lxf54p40-1yafKYq35Zj76ah_MRhnDQ)** for discussions and latest news.  
-Follow our **linkedin page [here](https://www.linkedin.com/company/manthan933/)**.
+Join our **slack channel [here](https://join.slack.com/t/manthanorg/shared_invite/zt-lxf54p40-1yafKYq35Zj76ah_MRhnDQ)** for discussions and the latest news.  
+Follow our **LinkedIn page [here](https://www.linkedin.com/company/manthan933/)**.
 
 ## Programs We have been associated with 🤍
 
