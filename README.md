@@ -54,7 +54,7 @@ We provide an online testing platform that can be used to conduct tests that are
 - Interactive and easy to use.
 - Grades can be accessed/ changed even after the completion of the test.
 - The teacher can decide if a particular question is compulsory or not in all the tests.
-- The application is in the locked mode, so there is no transition between other applications (as Whatsapp, call, etc.).
+- The application is in the locked mode, so there is no transition between other applications (such as Whatsapp, call, etc.).
 - Basic facilities like calculators are provided in the application for basic math operations.
 - A list of the marks will be sent to the educator just after the completion of the test.
 - Use Gmail or Student mail IDs to save the students' marks.
@@ -123,11 +123,11 @@ These are the prerequisites required to run this application:
 
 Contributions are what makes the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the Branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
 
 <!-- LICENSE -->
 
