@@ -52,12 +52,12 @@ We provide an online testing platform that can be used to conduct tests that are
 
 - A secure platform for online testing.
 - Interactive and easy to use.
-- Grades can be accessed/ changed even after the completion of the test.
+- Grades can be accessed or changed even after the completion of the test.
 - The teacher can decide if a particular question is compulsory or not in all the tests.
 - The application is in the locked mode, so there is no transition between other applications (such as Whatsapp, call, etc.).
 - Basic facilities like calculators are provided in the application for basic math operations.
 - A list of the marks will be sent to the educator just after the completion of the test.
-- Use Gmail or Student mail IDs to save the students' marks.
+- Use Gmail or Student mail IDs to save the student's marks.
 - The test will be automatically submitted after the prescribed time frame.
 - We will try to block incoming calls/ messages/ screen capture or any other malpractice during the test.
 
