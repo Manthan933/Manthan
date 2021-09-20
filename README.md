@@ -106,8 +106,14 @@ These are the prerequisites required to run this application:
   git clone https://github.com/Manthan933/Manthan.git
   cd Manthan
 ```
+2. Create .env file in Manthan using format from [.env.example](./.env.example)
+```sh
+  MONGO_URI = //mongo-uri
+  PORT = 5050
+  JWT_SECRET = mysecret
+```
 
-2. To run the application in development server
+3. To run the application in development server
 
 ```sh
   cd client
