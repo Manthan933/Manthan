@@ -1,5 +1,3 @@
-
-
 ## 💥 How to start?!
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -12,8 +10,8 @@
 - Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
 - Add Screenshots to help us know what this Script is all about.
 
-
 ## ⭐ Contribution:
+
 **1.** Fork [this](https://github.com/Manthan933/Manthan) repository.
 Click on the <a href="https://github.com/Manthan933/Manthan/issues"><img src="https://img.icons8.com/ios/24/000000/code-fork.png"></a> symbol at the top right corner.
 
@@ -32,7 +30,7 @@ cd Manthan
 **4.** Add a reference(remote) to the original repository.
 
 ```
-git remote add upstream https://github.com/Manthan933/Manthan 
+git remote add upstream https://github.com/Manthan933/Manthan
 ```
 
 **5.** Check the remotes for this repository.
@@ -58,7 +56,7 @@ git checkout -b <your_branch_name>
 **9.** Track your changes:heavy_check_mark: .
 
 ```bash
-git add . 
+git add .
 ```
 
 **10.** Commit your changes .
@@ -79,6 +77,7 @@ git push -u origin <your_branch_name>
 <br>
 
 ## ⭐ Issues:
+
 For major changes, you are welcomed to open an issue and discuss what you would like to contribute. Enhancements will be appreciated.
 
 <p align = "center">
@@ -86,5 +85,3 @@ For major changes, you are welcomed to open an issue and discuss what you would 
 [![built with love](https://forthebadge.com/images/badges/built-with-love.svg)]()
 
 </p>
-
-

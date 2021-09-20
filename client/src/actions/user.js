@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import {
+  toast
+} from 'react-toastify';
 import {
   CREATE_CLASS,
   JOIN_CLASS,
@@ -9,7 +11,11 @@ import {
   AUTH_RESET
 } from './actionTypes';
 
-const config = { headers: { 'Content-Type': 'application/json' } };
+const config = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
 
 const settings = {
   position: 'bottom-right',
@@ -23,59 +29,92 @@ const settings = {
 
 // Get current user classes
 export const getClasses = () => async (dispatch) => {
-  dispatch({ type: AUTH_RESET });
+  dispatch({
+    type: AUTH_RESET
+  });
   try {
     const res = await axios.get('/classrooms/', config);
-    dispatch({ type: CLASSES_LOADED, payload: res.data });
+    dispatch({
+      type: CLASSES_LOADED,
+      payload: res.data
+    });
   } catch (err) {
     dispatch({
       type: USER_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
     });
   }
 };
 
 // Create new class
 export const createClass = (formData) => async (dispatch) => {
-  dispatch({ type: AUTH_RESET });
+  dispatch({
+    type: AUTH_RESET
+  });
   try {
     const res = await axios.post('/api/classrooms/', formData, config);
     toast.success('Class Created !', settings);
-    dispatch({ type: CREATE_CLASS, payload: res.data });
+    dispatch({
+      type: CREATE_CLASS,
+      payload: res.data
+    });
   } catch (err) {
     toast.error(err.response.statusText, settings);
     dispatch({
       type: USER_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
     });
   }
 };
 
 // Leave current class
 export const leaveClass = (code) => async (dispatch) => {
-  dispatch({ type: AUTH_RESET });
-  const config = { headers: { 'Content-Type': 'application/json' } };
+  dispatch({
+    type: AUTH_RESET
+  });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
   try {
     await axios.delete(`/api/classrooms/${code}`, config);
     toast.success('Class Removed !', settings);
-    dispatch({ type: LEAVE_CLASS, payload: code });
+    dispatch({
+      type: LEAVE_CLASS,
+      payload: code
+    });
   } catch (err) {
     toast.error(err.response.statusText, settings);
     dispatch({
       type: USER_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
     });
   }
 };
 
 // Join new class
 export const joinClass = (code, history) => async (dispatch) => {
-  dispatch({ type: AUTH_RESET });
+  dispatch({
+    type: AUTH_RESET
+  });
   try {
     const res = await axios.post(`/api/classrooms/${code}`, config);
     toast.success('Class Added !', settings);
 
-    dispatch({ type: JOIN_CLASS, payload: res.data });
+    dispatch({
+      type: JOIN_CLASS,
+      payload: res.data
+    });
     if (history) {
       history.push('/dashboard');
     }
@@ -83,7 +122,10 @@ export const joinClass = (code, history) => async (dispatch) => {
     toast.error(err.response.statusText, settings);
     dispatch({
       type: USER_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
     });
   }
 };

@@ -8,20 +8,16 @@ import { varWrapEnter } from './variants';
 // ----------------------------------------------------------------------
 
 MotionContainer.propTypes = {
-  open: PropTypes.bool.isRequired,
-  children: PropTypes.node
+    open: PropTypes.bool.isRequired,
+    children: PropTypes.node
 };
 
 export default function MotionContainer({ open, children, ...other }) {
-  return (
-    <Box
-      component={motion.div}
-      initial={false}
-      animate={open ? 'animate' : 'exit'}
-      variants={varWrapEnter}
-      {...other}
-    >
-      {children}
-    </Box>
-  );
+    return ( < Box >
+        Box component = { motion.div }
+        initial = { false }
+        animate = { open ? 'animate' : 'exit' }
+        variants = { varWrapEnter } {...other } > { children } <
+        /Box>
+    );
 }

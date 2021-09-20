@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
+const {
+  check,
+  validationResult
+} = require('express-validator');
 var multer = require('multer');
 var upload = multer();
 
@@ -12,12 +15,19 @@ const Question = require('../../models/Questions');
 
 // Utiliy Functions
 function createData(name, email, marks, total, percentage) {
-  return { name, email, marks, total, percentage };
+  return {
+    name,
+    email,
+    marks,
+    total,
+    percentage
+  };
 }
 
 function shuffle(array) {
   array.sort(() => Math.random() - 0.5);
 }
+
 function GenerateTest(Questions, Rules) {
   let i = 0,
     j = 0,
@@ -61,9 +71,15 @@ function GenerateTest(Questions, Rules) {
 // @access   Private
 router.get('/:code', auth, async (req, res) => {
   try {
-    const tests = await Test.find({ classroom: req.params.code }, { rules: 0 });
+    const tests = await Test.find({
+      classroom: req.params.code
+    }, {
+      rules: 0
+    });
     if (!tests) {
-      return res.status(400).json({ msg: 'There is no test for this class' });
+      return res.status(400).json({
+        msg: 'There is no test for this class'
+      });
     }
     res.json(tests);
   } catch (err) {
@@ -78,18 +94,35 @@ router.get('/:code', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({
+      errors: errors.array()
+    });
   }
 
   // destructure the request
-  const { details, rules, questions } = req.body;
-  const { name, testId, durationHrs, durationMin, code, marks } = details;
-  var isAdmin = await Classroom.findOne({ code: code }).then((value) => {
+  const {
+    details,
+    rules,
+    questions
+  } = req.body;
+  const {
+    name,
+    testId,
+    durationHrs,
+    durationMin,
+    code,
+    marks
+  } = details;
+  var isAdmin = await Classroom.findOne({
+    code: code
+  }).then((value) => {
     return value.author._id.toString() === req.user.id;
   });
 
   if (!isAdmin)
-    return res.status(400).json({ err: "You don't have Admin access to this classroom" });
+    return res.status(400).json({
+      err: "You don't have Admin access to this classroom"
+    });
 
   /* Validate incoming Post request on backend as well
     1. Check if rules have marks > 0
@@ -113,10 +146,15 @@ router.post('/', auth, async (req, res) => {
     validationErrors.push('Due Date cannot be in the past');
 
   // check if test name is unique
-  if (await Test.findOne({ name: name, classroom: code }))
+  if (await Test.findOne({
+      name: name,
+      classroom: code
+    }))
     validationErrors.push(`${name} is already created`);
 
-  if (validationErrors.length) return res.status(400).json({ err: validationErrors });
+  if (validationErrors.length) return res.status(400).json({
+    err: validationErrors
+  });
 
   try {
     const newTest = new Test({
@@ -124,7 +162,10 @@ router.post('/', auth, async (req, res) => {
       name,
       marks,
       dueDate,
-      duration: { hrs: durationHrs, min: durationMin },
+      duration: {
+        hrs: durationHrs,
+        min: durationMin
+      },
       classroom: code,
       rules
     });
@@ -146,19 +187,29 @@ router.get('/start/:id', auth, async (req, res) => {
   try {
     const test = await Test.findById(req.params.id);
     if (!test) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({
+        msg: 'Test does not exist.'
+      });
     }
     if (test.scores.find((ele) => req.user.id == ele._id)) {
-      return res.status(400).json({ msg: 'Test has been already attempted.' });
+      return res.status(400).json({
+        msg: 'Test has been already attempted.'
+      });
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
       joinedUsers: req.user.id
     });
     if (!classroom) {
-      return res.status(400).json({ msg: 'You have not been enrolled for this test.' });
+      return res.status(400).json({
+        msg: 'You have not been enrolled for this test.'
+      });
     }
-    const questions = await Question.find({ testId: test.testId }, { answer: 0 }).sort({
+    const questions = await Question.find({
+      testId: test.testId
+    }, {
+      answer: 0
+    }).sort({
       type: 1
     });
     const data = GenerateTest(questions, test.rules);
@@ -182,17 +233,31 @@ router.post('/id/:id', auth, async (req, res) => {
     var marks = 0;
     const test = await Test.findById(req.params.id);
 
-    if (!test) return res.status(400).json({ msg: 'Test does not exists.' });
+    if (!test) return res.status(400).json({
+      msg: 'Test does not exists.'
+    });
 
-    if (!(await Classroom.findOne({ code: test.classroom, joinedUsers: req.user.id }))) {
-      return res.status(400).json({ msg: "You're not enrolled in this class." });
+    if (!(await Classroom.findOne({
+        code: test.classroom,
+        joinedUsers: req.user.id
+      }))) {
+      return res.status(400).json({
+        msg: "You're not enrolled in this class."
+      });
     }
 
     if (test.scores.find((ele) => req.user.id == ele._id)) {
-      return res.status(400).json({ msg: 'Test has been already attempted.' });
+      return res.status(400).json({
+        msg: 'Test has been already attempted.'
+      });
     }
 
-    const ques = await Question.find({ testId: test.testId }, { answer: 1, type: 1 }).sort({
+    const ques = await Question.find({
+      testId: test.testId
+    }, {
+      answer: 1,
+      type: 1
+    }).sort({
       type: 1
     });
     ques.forEach((ele) => {
@@ -204,14 +269,32 @@ router.post('/id/:id', auth, async (req, res) => {
     test.rules.forEach((rule) => {
       marks = marks + score[rule.type] * rule.marks;
     });
-    const { name, _id, email, avatarURL } = await User.findById(req.user.id, {
+    const {
+      name,
+      _id,
+      email,
+      avatarURL
+    } = await User.findById(req.user.id, {
       password: 0
     });
 
-    console.log({ name, _id, email, avatarURL, marks });
+    console.log({
+      name,
+      _id,
+      email,
+      avatarURL,
+      marks
+    });
     await Test.findByIdAndUpdate(req.params.id, {
       $push: {
-        scores: { name, _id, email, avatarURL, marks, maxMarks: parseFloat(test.marks, 10) }
+        scores: {
+          name,
+          _id,
+          email,
+          avatarURL,
+          marks,
+          maxMarks: parseFloat(test.marks, 10)
+        }
       }
     });
 
@@ -229,16 +312,22 @@ router.delete('/id/:id', auth, async (req, res) => {
   try {
     const test = await Test.findById(req.params.id);
     if (!test) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({
+        msg: 'Test does not exist.'
+      });
     }
     const classroom = await Classroom.findOne({
       code: test.classroom,
       joinedUsers: req.user.id
     });
     if (!classroom || classroom.author._id != req.user.id) {
-      return res.status(400).json({ msg: 'Test does not existyha .' });
+      return res.status(400).json({
+        msg: 'Test does not existyha .'
+      });
     }
-    await Question.deleteMany({ testId: test.testId });
+    await Question.deleteMany({
+      testId: test.testId
+    });
     await Test.findByIdAndDelete(req.params.id);
     res.status(200).send('Deleted');
   } catch (err) {
@@ -256,15 +345,21 @@ router.get('/id/:id', auth, async (req, res) => {
       rules: 0
     });
     if (!test) {
-      return res.status(400).json({ msg: 'Test does not exist.' });
+      return res.status(400).json({
+        msg: 'Test does not exist.'
+      });
     }
 
-    var isAdmin = await Classroom.findOne({ code: test.classroom }).then((value) => {
+    var isAdmin = await Classroom.findOne({
+      code: test.classroom
+    }).then((value) => {
       return value.author._id.toString() === req.user.id;
     });
 
     if (!isAdmin)
-      return res.status(400).json({ err: "You don't have Admin access to this classroom" });
+      return res.status(400).json({
+        err: "You don't have Admin access to this classroom"
+      });
 
     return res.status(200).json(test);
   } catch (err) {
