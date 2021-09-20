@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import {
-  toast
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 import setAuthToken from '../utils/setAuthToken';
 import {
   AUTH_ERROR,
@@ -50,12 +48,7 @@ export const loadUser = () => async (dispatch) => {
 // add alert for each error later
 // Register User
 export const register =
-  ({
-    Fname,
-    Lname,
-    email,
-    password
-  }) =>
+  ({ Fname, Lname, email, password }) =>
   async (dispatch) => {
     dispatch({
       type: AUTH_RESET
@@ -110,11 +103,7 @@ export const register =
 
 // Login User
 export const login =
-  ({
-    email,
-    password,
-    remember
-  }) =>
+  ({ email, password, remember }) =>
   async (dispatch) => {
     dispatch({
       type: AUTH_RESET

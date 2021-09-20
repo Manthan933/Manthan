@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  toast
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 import {
   GET_CLASS,
   EDIT_CLASS,

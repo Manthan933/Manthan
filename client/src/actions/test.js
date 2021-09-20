@@ -1,13 +1,6 @@
-import {
-  toast
-} from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
-import {
-  GET_TEST,
-  SUBMIT_TEST,
-  CLASS_ERROR,
-  CLASS_RESET
-} from './actionTypes';
+import { GET_TEST, SUBMIT_TEST, CLASS_ERROR, CLASS_RESET } from './actionTypes';
 
 const config = {
   headers: {
