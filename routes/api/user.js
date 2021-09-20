@@ -1,6 +1,9 @@
 const express = require('express');
 // to validate data sent in post request below
-const { check, validationResult } = require('express-validator');
+const {
+  check,
+  validationResult
+} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
@@ -26,23 +29,33 @@ router.post(
 
     if (!errors.isEmpty()) {
       // bad request and return json response containing errors array
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({
+        errors: errors.array()
+      });
     }
 
     // destructure request body
-    const { email, Fname, Lname, password } = req.body;
+    const {
+      email,
+      Fname,
+      Lname,
+      password
+    } = req.body;
 
     try {
       // find user in user model
-      let user = await User.findOne({ email });
+      let user = await User.findOne({
+        email
+      });
 
       if (user) {
         // if user already exist return bad request with below mentioned msg
-        return res.status(400).json({ msg: 'user already exists' });
+        return res.status(400).json({
+          msg: 'user already exists'
+        });
       }
       const avatarURL = gravatar.url(
-        email,
-        {
+        email, {
           s: '200'
         },
         true
@@ -81,12 +94,16 @@ router.post(
         // get our jwtSecret from default.json
         `${process.env.JWT_SECRET}`,
         // token expiration time in ms
-        { expiresIn: '5 days' },
+        {
+          expiresIn: '5 days'
+        },
         (err, token) => {
           // callback
           if (err) throw err;
           // return json web token
-          res.json({ token });
+          res.json({
+            token
+          });
         }
       );
     } catch (err) {

@@ -32,9 +32,14 @@ export const varBounceInUp = {
     y: [720, -24, 12, -4, 0],
     scaleY: [4, 0.9, 0.95, 0.985, 1],
     opacity: [0, 1, 1, 1, 1],
-    transition: { ...TRANSITION_ENTER }
+    transition: {
+      ...TRANSITION_ENTER
+    }
   },
-  exit: { ...varBounceOutDown.animate, transition: TRANSITION_EXIT }
+  exit: {
+    ...varBounceOutDown.animate,
+    transition: TRANSITION_EXIT
+  }
 };
 
 export const varBounceInDown = {
@@ -44,7 +49,10 @@ export const varBounceInDown = {
     opacity: [0, 1, 1, 1, 1],
     transition: TRANSITION_ENTER
   },
-  exit: { ...varBounceOutUp.animate, transition: TRANSITION_EXIT }
+  exit: {
+    ...varBounceOutUp.animate,
+    transition: TRANSITION_EXIT
+  }
 };
 
 export const varBounceInLeft = {
@@ -54,7 +62,10 @@ export const varBounceInLeft = {
     opacity: [0, 1, 1, 1, 1],
     transition: TRANSITION_ENTER
   },
-  exit: { ...varBounceOutLeft.animate, transition: TRANSITION_EXIT }
+  exit: {
+    ...varBounceOutLeft.animate,
+    transition: TRANSITION_EXIT
+  }
 };
 
 export const varBounceInRight = {
@@ -64,5 +75,8 @@ export const varBounceInRight = {
     opacity: [0, 1, 1, 1, 1],
     transition: TRANSITION_ENTER
   },
-  exit: { ...varBounceOutRight.animate, transition: TRANSITION_EXIT }
+  exit: {
+    ...varBounceOutRight.animate,
+    transition: TRANSITION_EXIT
+  }
 };
