@@ -47,7 +47,7 @@
     "@material-ui/styles": "^5.0.0-alpha.36",
     "@material-ui/utils": "^5.0.0-alpha.36",
     "@testing-library/jest-dom": "^5.14.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "change-case": "^4.1.2",
     "date-fns": "^2.23.0",
     "formik": "^2.2.9",
