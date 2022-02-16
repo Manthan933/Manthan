@@ -147,7 +147,9 @@ Follow our **LinkedIn page [here](https://www.linkedin.com/company/manthan933/)*
 <a href="https://gssoc.girlscript.tech/" target="_blank"><img src="https://raw.githubusercontent.com/aavishkarmishra/portfolio/master/Method%20Draw%20Image(1).png" width="180px" height="180px"></a>
 <a href="https://swoc.tech/index.html" target="_blank"><img src="https://raw.githubusercontent.com/HITK-TECH-Community/Community-Website/main/assets/SWoC.png" width="180px" height="180px"></a>
 
-## Author 👨‍💻
+## Authors 👨‍💻
+
+### [Vidisha Kayal](https://github.com/Vidisha-kayal)
 
 ### [Aavishkar Mishra](https://github.com/aavishkarmishra)
 
