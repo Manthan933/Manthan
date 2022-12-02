@@ -29,6 +29,15 @@ export default function NewClassPopover() {
         New Class
       </Button>
 
+      <Button
+        variant="contained"
+        ref={anchorRef}
+        onClick={handleOpen}
+        startIcon={<Icon icon={plusFill} />}
+      >
+        Upload File
+      </Button>
+
       <MenuPopover
         open={open}
         onClose={handleClose}

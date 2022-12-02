@@ -54,7 +54,10 @@ router.post('/', auth, async (req, res) => {
       code,
       joinedUsers
     });
+    const uploadFile = new uploadFile({
+    });
     newClassroom.save();
+    uploadFile.save();
     res.json(newClassroom);
   } catch (err) {
     return res.status(500).send('Server Error');
@@ -63,7 +66,6 @@ router.post('/', auth, async (req, res) => {
 
 // @route    GET api/classroom/:code
 // @desc     Get classroom by code
-// @access   Private
 
 router.get('/:code', auth, async (req, res) => {
   try {
