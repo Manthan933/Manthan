@@ -71,6 +71,30 @@ export const createClass = (formData) => async (dispatch) => {
   }
 };
 
+// upload files new
+export const upload = (formData) => async (dispatch) => {
+  dispatch({
+    type: AUTH_RESET
+  });
+  try {
+    const res = await axios.post('/api/upload/', formData, config);
+    toast.success('Uploaded Successfully !', settings);
+    dispatch({
+      type: UPLOAD_FILE,
+      payload: res.data
+    });
+  } catch (err) {
+    toast.error(err.response.statusText, settings);
+    dispatch({
+      type: USER_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
+    });
+  }
+};
+
 // Leave current class
 export const leaveClass = (code) => async (dispatch) => {
   dispatch({
