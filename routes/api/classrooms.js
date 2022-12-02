@@ -66,7 +66,6 @@ router.post('/', auth, async (req, res) => {
 
 // @route    GET api/classroom/:code
 // @desc     Get classroom by code
-// @access   Private
 
 router.get('/:code', auth, async (req, res) => {
   try {
