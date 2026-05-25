@@ -8,6 +8,7 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Scores from './pages/User';
 import NotFound from './pages/Page404';
@@ -68,7 +69,7 @@ function Router({ auth: { isAuthenticated, loading }, classroom }) {
         { path: 'github', element: <Github /> },
         {
           path: '/',
-          element: <Navigate to="/login" />
+          element: <Landing />
         },
         { path: '*', element: <Navigate to="/404" /> }
       ]
